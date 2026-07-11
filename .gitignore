@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+*.pkl
+*.pt
+*.joblib
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data — never commit datasets or generated tables
+data/raw/**
+data/clean/**
+data/**/*.zip
+data/**/*.db
+data/**/*.json
+!data/**/.gitkeep
+
+# Internal / local-only (not for public repo)
+report/
+docs/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Flutter (when added)
+app/.dart_tool/
+app/build/
+app/.flutter-plugins-dependencies
+
+# Env secrets
+.env
+.env.local
+
+# Logs
+*.log
+api/logs/
+
+# Local caches
+.cache/
