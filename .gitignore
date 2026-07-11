@@ -25,6 +25,7 @@ data/**/*.json
 # Internal / local-only (not for public repo)
 report/
 docs/
+TEAM.md
 
 # IDE / OS
 .idea/
