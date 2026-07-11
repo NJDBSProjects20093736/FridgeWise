@@ -39,17 +39,23 @@ class CollaborativeRecommender:
             data.interactions[["user_id", "recipe_id", "rating"]],
             reader,
         )
-        trainset, testset = train_test_split(
-            surprise_data, test_size=test_size, random_state=random_state
-        )
         self.model = SVD(
             n_factors=self.n_factors,
             n_epochs=self.n_epochs,
             random_state=random_state,
         )
-        self.model.fit(trainset)
-        self.trainset = trainset
-        self.rmse = float(accuracy.rmse(self.model.test(testset), verbose=False))
+        if test_size and test_size > 0:
+            trainset, testset = train_test_split(
+                surprise_data, test_size=test_size, random_state=random_state
+            )
+            self.model.fit(trainset)
+            self.trainset = trainset
+            self.rmse = float(accuracy.rmse(self.model.test(testset), verbose=False))
+        else:
+            trainset = surprise_data.build_full_trainset()
+            self.model.fit(trainset)
+            self.trainset = trainset
+            self.rmse = None
 
         self.recipe_names = data.recipe_names
         self.all_recipe_ids = sorted(data.recipes["recipe_id"].astype(int).unique().tolist())

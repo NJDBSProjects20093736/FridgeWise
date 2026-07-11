@@ -50,6 +50,18 @@ class FridgeWiseData:
     def user_rated_recipes(self, user_id: int) -> set[int]:
         return set(self.interactions.loc[self.interactions["user_id"] == user_id, "recipe_id"])
 
+    def with_interactions(self, interactions: pd.DataFrame) -> "FridgeWiseData":
+        """Return a copy with a different interaction set (for train/eval splits)."""
+        return FridgeWiseData(
+            recipes=self.recipes,
+            interactions=interactions.reset_index(drop=True),
+            fridge=self.fridge,
+            profiles=self.profiles,
+            context_lifts=self.context_lifts,
+            recipe_ingredient_features=self.recipe_ingredient_features,
+            nutrition_by_recipe=self.nutrition_by_recipe,
+        )
+
 
 def load_fridgewise_data(root: Path | None = None) -> FridgeWiseData:
     root = root or Path(__file__).resolve().parents[1]

@@ -174,11 +174,14 @@ Fridge-Wise/
 | Component | Status |
 |-----------|--------|
 | Data ingestion and integration | Complete |
-| Recommendation models | In progress |
-| Offline evaluation | Planned |
-| Cold-start handling | Planned |
-| REST API | Planned |
-| Mobile application | Planned |
+| Recommendation models | Complete |
+| Offline evaluation | Complete |
+| Cold-start handling | Complete |
+| REST API + Supabase | Complete |
+| Flutter mobile app | Code complete — run `setup_flutter_app.ps1` |
+| GenAI analysis (report §12) | Complete |
+
+**Verify everything:** `python scripts/verify_all_phases.py`
 
 Detailed implementation plan: [docs/BUILD_STEPS.md](docs/BUILD_STEPS.md)
 

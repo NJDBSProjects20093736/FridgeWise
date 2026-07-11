@@ -57,10 +57,23 @@ class HybridRecommender:
         )
         return self
 
-    def _is_cold_start(self, user_id: int) -> bool:
+    def _user_history_for(self, user_id: int, history_override: set[int] | None) -> set[int]:
+        if history_override is not None:
+            return history_override
+        return self._user_history.get(user_id, set())
+
+    def _is_cold_start(self, user_id: int, history: set[int] | None = None) -> bool:
+        if history is not None:
+            return len(history) == 0
         return user_id not in self._user_history or len(self._user_history[user_id]) == 0
 
-    def _score_recipe(self, user_id: int, recipe_id: int) -> float | None:
+    def _score_recipe(
+        self,
+        user_id: int,
+        recipe_id: int,
+        *,
+        history: set[int] | None = None,
+    ) -> float | None:
         assert self.data is not None and self.cf is not None
 
         recipe = self.recipe_lookup.get(recipe_id)
@@ -87,7 +100,8 @@ class HybridRecommender:
             expiry = 0.2
 
         nutrition = float(self.data.nutrition_by_recipe.get(recipe_id, 0.5))
-        cold = self._is_cold_start(user_id)
+        hist = self._user_history_for(user_id, history)
+        cold = self._is_cold_start(user_id, hist)
         pred_norm = 0.0 if cold else self.cf.predict_rating_norm(user_id, recipe_id)
 
         score = hybrid_score(match, pred_norm, expiry, nutrition, cold_start=cold)
@@ -102,21 +116,33 @@ class HybridRecommender:
         k: int = 10,
         *,
         exclude_seen: bool = True,
+        history_override: set[int] | None = None,
     ) -> list[Recommendation]:
         if self.content is None:
             raise RuntimeError("Call fit() before recommend()")
 
-        seen = self._user_history.get(user_id, set()) if exclude_seen else set()
+        seen = self._user_history_for(user_id, history_override)
+        if not exclude_seen:
+            seen = set()
         content_recs = self.content.recommend(
             user_id, k=self.candidate_pool, exclude_seen=exclude_seen
         )
-        candidate_ids = [r.recipe_id for r in content_recs]
+        cf_recs = self.cf.recommend(
+            user_id, k=min(200, self.candidate_pool), exclude_seen=exclude_seen
+        ) if self.cf else []
+
+        candidate_ids: list[int] = []
+        seen_cand: set[int] = set()
+        for rec in list(content_recs) + list(cf_recs):
+            if rec.recipe_id not in seen_cand:
+                seen_cand.add(rec.recipe_id)
+                candidate_ids.append(rec.recipe_id)
 
         scored: list[tuple[int, float]] = []
         for rid in candidate_ids:
             if rid in seen:
                 continue
-            s = self._score_recipe(user_id, rid)
+            s = self._score_recipe(user_id, rid, history=history_override)
             if s is not None:
                 scored.append((rid, s))
         scored.sort(key=lambda x: x[1], reverse=True)
