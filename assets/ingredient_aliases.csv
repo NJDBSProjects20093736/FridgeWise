@@ -1,0 +1,1515 @@
+raw_name,canonical_name,source
+all purpose flour,flour,manual
+all-purpose flour,flour,manual
+apple,apple,manual
+apples,apple,manual
+baking powder,baking powder,manual
+baking soda,baking soda,manual
+banana,banana,manual
+bananas,banana,manual
+basil,basil,manual
+beef,beef,manual
+beef broth,beef broth,manual
+bell pepper,pepper,manual
+bell peppers,pepper,manual
+black beans,beans,manual
+black pepper,pepper,manual
+boneless skinless chicken breasts,chicken,manual
+bread,bread,manual
+bread crumbs,bread crumbs,manual
+broccoli,broccoli,manual
+brown sugar,sugar,manual
+butter,butter,manual
+canned beans,beans,manual
+canned tomatoes,tomato,manual
+canola oil,oil,manual
+carrot,carrot,manual
+carrots,carrot,manual
+cassava,cassava,manual
+celery,celery,manual
+cheddar cheese,cheese,manual
+cheese,cheese,manual
+chicken,chicken,manual
+chicken breast,chicken,manual
+chicken breasts,chicken,manual
+chicken broth,chicken broth,manual
+cilantro,cilantro,manual
+cinnamon,cinnamon,manual
+cloves garlic,garlic,manual
+cooking oil,oil,manual
+corn,corn,manual
+corn kernels,corn,manual
+cream,cream,manual
+cream cheese,cheese,manual
+crushed tomatoes,tomato,manual
+cumin,cumin,manual
+diced tomatoes,tomato,manual
+egg,egg,manual
+eggs,egg,manual
+feta cheese,cheese,manual
+flour,flour,manual
+fresh ginger,ginger,manual
+garlic,garlic,manual
+garlic clove,garlic,manual
+garlic cloves,garlic,manual
+garlic powder,garlic powder,manual
+ginger,ginger,manual
+granulated sugar,sugar,manual
+greek yogurt,yogurt,manual
+green onions,onion,manual
+green pepper,pepper,manual
+ground beef,beef,manual
+ground pepper,pepper,manual
+heavy cream,cream,manual
+honey,honey,manual
+jackfruit,jackfruit,manual
+kidney beans,beans,manual
+kimchi,kimchi,manual
+lemon,lemon,manual
+lemon juice,lemon juice,manual
+lemons,lemon,manual
+lime,lime,manual
+lime juice,lime juice,manual
+milk,milk,manual
+miso,miso,manual
+mozzarella cheese,cheese,manual
+mushroom,mushroom,manual
+mushrooms,mushroom,manual
+oil,oil,manual
+olive oil,olive oil,manual
+onion,onion,manual
+onion powder,onion powder,manual
+onions,onion,manual
+oregano,oregano,manual
+pandan,pandan,manual
+paprika,paprika,manual
+parmesan cheese,cheese,manual
+parsley,parsley,manual
+pasta,pasta,manual
+penne,pasta,manual
+pepper,pepper,manual
+plain yogurt,yogurt,manual
+plantain,plantain,manual
+potato,potato,manual
+potatoes,potato,manual
+red pepper,pepper,manual
+rice,rice,manual
+salt,salt,manual
+salt and pepper,salt,manual
+salted butter,butter,manual
+scallions,onion,manual
+skim milk,milk,manual
+sour cream,sour cream,manual
+soy sauce,soy sauce,manual
+spaghetti,pasta,manual
+spinach,spinach,manual
+spring onions,onion,manual
+sugar,sugar,manual
+swiss cheese,cheese,manual
+tempeh,tempeh,manual
+thyme,thyme,manual
+tofu,tofu,manual
+tomato,tomato,manual
+tomato paste,tomato paste,manual
+tomato sauce,tomato sauce,manual
+tomatoes,tomato,manual
+unsalted butter,butter,manual
+vanilla,vanilla extract,manual
+vanilla extract,vanilla extract,manual
+vegetable broth,vegetable broth,manual
+vegetable oil,oil,manual
+water,water,manual
+whipping cream,cream,manual
+white rice,rice,manual
+white sugar,sugar,manual
+whole milk,milk,manual
+whole wheat pasta,pasta,manual
+worcestershire sauce,worcestershire sauce,manual
+yogurt,yogurt,manual
+zucchini,zucchini,manual
+mayonnaise,mayonnaise,auto
+fresh parsley,parsley,auto
+cornstarch,cornstarch,auto
+chili powder,chili powder,auto
+cayenne pepper,cayenne pepper,auto
+fresh ground black pepper,ground black pepper,auto
+bacon,bacon,auto
+dried oregano,oregano,auto
+ground cinnamon,cinnamon,auto
+ground cumin,cumin,auto
+green onion,green onion,auto
+extra virgin olive oil,extra virgin olive oil,auto
+margarine,margarine,auto
+dijon mustard,dijon mustard,auto
+kosher salt,kosher salt,auto
+nutmeg,nutmeg,auto
+fresh lemon juice,lemon juice,auto
+ketchup,ketchup,auto
+dried thyme,thyme,auto
+ground black pepper,pepper,auto
+red onion,red onion,auto
+dried basil,basil,auto
+walnuts,walnut,auto
+seasoning salt,seasoning salt,auto
+powdered sugar,powdered sugar,auto
+pecans,pecan,auto
+balsamic vinegar,balsamic vinegar,auto
+buttermilk,buttermilk,auto
+ground ginger,ginger,auto
+garlic salt,garlic salt,auto
+chicken stock,chicken stock,auto
+vinegar,vinegar,auto
+fresh cilantro,cilantro,auto
+fresh ground pepper,pepper,auto
+crushed red pepper flakes,crushed red pepper flake,auto
+fresh basil,basil,auto
+sesame oil,sesame oil,auto
+raisins,raisin,auto
+red bell pepper,red bell pepper,auto
+salsa,salsa,auto
+orange juice,orange juice,auto
+lean ground beef,lean ground beef,auto
+red pepper flakes,red pepper flake,auto
+red wine vinegar,red wine vinegar,auto
+green bell pepper,green bell pepper,auto
+monterey jack cheese,monterey jack cheese,auto
+confectioners sugar,confectioner sugar,auto
+white pepper,white pepper,auto
+dry mustard,dry mustard,auto
+peanut butter,peanut butter,auto
+light brown sugar,light brown sugar,auto
+chocolate chips,chocolate chip,auto
+white vinegar,white vinegar,auto
+cream of mushroom soup,cream of mushroom soup,auto
+bay leaf,bay leaf,auto
+whole wheat flour,whole wheat flour,auto
+sharp cheddar cheese,sharp cheddar cheese,auto
+shortening,shortening,auto
+italian seasoning,italian seasoning,auto
+boneless skinless chicken breast halves,boneless skinless chicken breast halve,auto
+breadcrumbs,breadcrumb,auto
+semi-sweet chocolate chips,semi-sweet chocolate chip,auto
+salt freshly ground black pepper,salt freshly ground black pepper,auto
+curry powder,curry powder,auto
+cider vinegar,cider vinegar,auto
+warm water,warm water,auto
+ground nutmeg,nutmeg,auto
+nuts,nut,auto
+boiling water,boiling water,auto
+fresh mushrooms,mushroom,auto
+active dry yeast,active dry yeast,auto
+sea salt,sea salt,auto
+tabasco sauce,tabasco sauce,auto
+sesame seeds,sesame seed,auto
+barbecue sauce,barbecue sauce,auto
+bay leaves,bay leave,auto
+white wine,white wine,auto
+cabbage,cabbage,auto
+cooked chicken,cooked chicken,auto
+dry white wine,dry white wine,auto
+hot sauce,hot sauce,auto
+egg whites,egg white,auto
+bread flour,bread flour,auto
+fresh lime juice,lime juice,auto
+salt pepper,salt pepper,auto
+cooking spray,cooking spray,auto
+sliced mushrooms,mushroom,auto
+cream of chicken soup,cream of chicken soup,auto
+black olives,black olive,auto
+cucumber,cucumber,auto
+ground cloves,clove,auto
+dried parsley,parsley,auto
+almond extract,almond extract,auto
+flour tortillas,flour tortilla,auto
+prepared mustard,prepared mustard,auto
+yeast,yeast,auto
+cayenne,cayenne,auto
+red potatoes,red potato,auto
+cocoa,cocoa,auto
+half-and-half,half-and-half,auto
+lemon juice of,lemon juice of,auto
+sweetened condensed milk,sweetened condensed milk,auto
+cold water,cold water,auto
+lettuce,lettuce,auto
+cornmeal,cornmeal,auto
+lemon zest,lemon zest,auto
+fresh rosemary,rosemary,auto
+pork chops,pork chop,auto
+ground coriander,coriander,auto
+shrimp,shrimp,auto
+ham,ham,auto
+green chilies,green chily,auto
+rolled oats,rolled oat,auto
+hot water,hot water,auto
+molasses,molass,auto
+evaporated milk,evaporated milk,auto
+yellow onion,yellow onion,auto
+mustard,mustard,auto
+cooked rice,cooked rice,auto
+fresh garlic,garlic,auto
+shallots,shallot,auto
+egg yolks,egg yolk,auto
+frozen peas,pea,auto
+dry breadcrumbs,dry breadcrumb,auto
+beer,beer,auto
+dark brown sugar,dark brown sugar,auto
+rosemary,rosemary,auto
+chives,chive,auto
+scallion,scallion,auto
+boneless skinless chicken breast,boneless skinless chicken breast,auto
+maple syrup,maple syrup,auto
+rice vinegar,rice vinegar,auto
+white onion,white onion,auto
+turmeric,turmeric,auto
+blueberries,blueberry,auto
+red wine,red wine,auto
+fresh thyme,thyme,auto
+fresh chives,chive,auto
+dried rosemary,rosemary,auto
+peanut oil,peanut oil,auto
+celery ribs,celery rib,auto
+egg white,egg white,auto
+sweet onion,sweet onion,auto
+cherry tomatoes,cherry tomato,auto
+chickpeas,chickpea,auto
+frozen chopped spinach,chopped spinach,auto
+green beans,green bean,auto
+avocado,avocado,auto
+capers,caper,auto
+jalapeno pepper,jalapeno pepper,auto
+elbow macaroni,elbow macaroni,auto
+cucumbers,cucumber,auto
+cool whip,cool whip,auto
+allspice,allspice,auto
+celery seed,celery seed,auto
+fresh dill,dill,auto
+pork tenderloin,pork tenderloin,auto
+spaghetti sauce,spaghetti sauce,auto
+oatmeal,oatmeal,auto
+pure vanilla extract,pure vanilla extract,auto
+sweet potatoes,sweet potato,auto
+boneless chicken breasts,boneless chicken breast,auto
+pineapple juice,pineapple juice,auto
+shallot,shallot,auto
+french bread,french bread,auto
+dry sherry,dry sherry,auto
+cocoa powder,cocoa powder,auto
+vodka,vodka,auto
+creamy peanut butter,creamy peanut butter,auto
+hot pepper sauce,hot pepper sauce,auto
+half-and-half cream,half-and-half cream,auto
+baby carrots,baby carrot,auto
+fresh coarse ground black pepper,coarse ground black pepper,auto
+ice,ice,auto
+hard-boiled eggs,hard-boiled egg,auto
+crushed pineapple,crushed pineapple,auto
+fresh spinach,spinach,auto
+ground allspice,allspice,auto
+baking potatoes,baking potato,auto
+plum tomatoes,plum tomato,auto
+russet potatoes,russet potato,auto
+white bread,white bread,auto
+taco seasoning,taco seasoning,auto
+onion soup mix,onion soup mix,auto
+strawberries,strawberry,auto
+ricotta cheese,ricotta cheese,auto
+dry onion soup mix,dry onion soup mix,auto
+white wine vinegar,white wine vinegar,auto
+dried onion flakes,onion flake,auto
+cauliflower,cauliflower,auto
+apple cider vinegar,apple cider vinegar,auto
+chili sauce,chili sauce,auto
+long grain rice,long grain rice,auto
+almonds,almond,auto
+corn tortillas,corn tortilla,auto
+salmon fillets,salmon fillet,auto
+coconut,coconut,auto
+fresh strawberries,strawberry,auto
+frozen corn,corn,auto
+dried cranberries,cranberry,auto
+yellow cake mix,yellow cake mix,auto
+unsweetened cocoa powder,unsweetened cocoa powder,auto
+hoisin sauce,hoisin sauce,auto
+pepperoni,pepperoni,auto
+whole kernel corn,whole kernel corn,auto
+coconut milk,coconut milk,auto
+heavy whipping cream,heavy whipping cream,auto
+light soy sauce,light soy sauce,auto
+coarse salt,coarse salt,auto
+jalapeno,jalapeno,auto
+whipped cream,whipped cream,auto
+salt and black pepper,salt and black pepper,auto
+light corn syrup,light corn syrup,auto
+taco seasoning mix,taco seasoning mix,auto
+ice cubes,ice cube,auto
+orange zest,orange zest,auto
+low sodium chicken broth,low sodium chicken broth,auto
+american cheese,american cheese,auto
+pine nuts,pine nut,auto
+dry yeast,dry yeast,auto
+oats,oat,auto
+rice wine vinegar,rice wine vinegar,auto
+ground red pepper,pepper,auto
+gingerroot,gingerroot,auto
+egg noodles,egg noodle,auto
+flat leaf parsley,flat leaf parsley,auto
+shredded cheddar cheese,cheese,auto
+romaine lettuce,romaine lettuce,auto
+cooked ham,cooked ham,auto
+stewed tomatoes,stewed tomato,auto
+beef stock,beef stock,auto
+low sodium soy sauce,low sodium soy sauce,auto
+cream of tartar,cream of tartar,auto
+quick-cooking oats,quick-cooking oat,auto
+chicken pieces,chicken piece,auto
+romano cheese,romano cheese,auto
+catsup,catsup,auto
+lemon zest of,lemon zest of,auto
+ground turkey,turkey,auto
+frozen spinach,spinach,auto
+dried parsley flakes,parsley flake,auto
+dill weed,dill weed,auto
+icing sugar,icing sugar,auto
+applesauce,applesauce,auto
+of fresh mint,of fresh mint,auto
+lime juice of,lime juice of,auto
+cracked black pepper,cracked black pepper,auto
+jalapeno peppers,jalapeno pepper,auto
+celery salt,celery salt,auto
+liquid smoke,liquid smoke,auto
+old bay seasoning,old bay seasoning,auto
+blue cheese,blue cheese,auto
+cajun seasoning,cajun seasoning,auto
+provolone cheese,provolone cheese,auto
+tilapia fillets,tilapia fillet,auto
+chicken thighs,chicken thigh,auto
+cottage cheese,cottage cheese,auto
+parsley flakes,parsley flake,auto
+apple juice,apple juice,auto
+velveeta cheese,velveeta cheese,auto
+tortilla chips,tortilla chip,auto
+hamburger buns,hamburger bun,auto
+green peppers,pepper,auto
+lemon pepper,lemon pepper,auto
+asparagus,asparagu,auto
+fresh oregano,oregano,auto
+sliced almonds,almond,auto
+poultry seasoning,poultry seasoning,auto
+avocados,avocado,auto
+coriander,coriander,auto
+dry red wine,dry red wine,auto
+broccoli florets,broccoli floret,auto
+egg yolk,egg yolk,auto
+onion salt,onion salt,auto
+sage,sage,auto
+strawberry,strawberry,auto
+italian seasoned breadcrumbs,italian seasoned breadcrumb,auto
+boneless skinless chicken thighs,boneless skinless chicken thigh,auto
+vegetable stock,vegetable stock,auto
+fish sauce,fish sauce,auto
+nonfat milk,nonfat milk,auto
+slivered almonds,slivered almond,auto
+red onions,red onion,auto
+italian sausage,italian sausage,auto
+sweet red pepper,sweet red pepper,auto
+dried marjoram,marjoram,auto
+fresh blueberries,blueberry,auto
+penne pasta,penne pasta,auto
+kalamata olive,kalamata olive,auto
+yellow cornmeal,yellow cornmeal,auto
+vegetable shortening,vegetable shortening,auto
+old fashioned oats,old fashioned oat,auto
+linguine,linguine,auto
+eggplant,eggplant,auto
+orzo pasta,orzo pasta,auto
+ground pork,pork,auto
+ground cardamom,cardamom,auto
+ground cayenne pepper,cayenne pepper,auto
+red bell peppers,red bell pepper,auto
+pumpkin,pumpkin,auto
+roma tomatoes,roma tomato,auto
+cooked bacon,cooked bacon,auto
+ground turmeric,turmeric,auto
+flaked coconut,flaked coconut,auto
+pizza sauce,pizza sauce,auto
+mashed potatoes,mashed potato,auto
+chopped tomatoes,tomato,auto
+splenda sugar substitute,splenda sugar substitute,auto
+dried oregano leaves,oregano leave,auto
+hamburger,hamburger,auto
+boneless pork chops,boneless pork chop,auto
+yellow mustard,yellow mustard,auto
+quick oats,quick oat,auto
+chicken wings,chicken wing,auto
+kielbasa,kielbasa,auto
+orange rind,orange rind,auto
+red kidney beans,red kidney bean,auto
+prepared horseradish,prepared horseradish,auto
+celery rib,celery rib,auto
+clove,clove,auto
+chicken bouillon cubes,chicken bouillon cube,auto
+large shrimp,large shrimp,auto
+green bell peppers,green bell pepper,auto
+cranberry juice,cranberry juice,auto
+vanilla ice cream,vanilla ice cream,auto
+dried dill weed,dill weed,auto
+horseradish,horseradish,auto
+diced green chilies,green chily,auto
+refried beans,refried bean,auto
+fresh green beans,green bean,auto
+cinnamon stick,cinnamon stick,auto
+white chocolate chips,white chocolate chip,auto
+black peppercorns,black peppercorn,auto
+refrigerated crescent dinner rolls,refrigerated crescent dinner roll,auto
+corn flakes,corn flake,auto
+corn syrup,corn syrup,auto
+low-fat milk,low-fat milk,auto
+pecan halves,pecan halve,auto
+plain flour,plain flour,auto
+milk chocolate chips,milk chocolate chip,auto
+macaroni,macaroni,auto
+fresh tomatoes,tomato,auto
+garbanzo beans,garbanzo bean,auto
+ice cube,ice cube,auto
+peaches,peache,auto
+garam masala,garam masala,auto
+mustard powder,mustard powder,auto
+kahlua,kahlua,auto
+baby spinach,baby spinach,auto
+green cabbage,green cabbage,auto
+tahini,tahini,auto
+nonstick cooking spray,nonstick cooking spray,auto
+dried italian seasoning,italian seasoning,auto
+semisweet chocolate,semisweet chocolate,auto
+pumpkin puree,pumpkin puree,auto
+sweet pickle relish,sweet pickle relish,auto
+italian dressing,italian dressing,auto
+unbleached all-purpose flour,unbleached all-purpose flour,auto
+canned pumpkin,pumpkin,auto
+unsweetened applesauce,unsweetened applesauce,auto
+basil leaves,basil leave,auto
+dried dill,dill,auto
+graham cracker crumbs,graham cracker crumb,auto
+butternut squash,butternut squash,auto
+angel hair pasta,angel hair pasta,auto
+jalapenos,jalapeno,auto
+reduced-sodium chicken broth,reduced-sodium chicken broth,auto
+deli ham,deli ham,auto
+basmati rice,basmati rice,auto
+dark sesame oil,dark sesame oil,auto
+sherry wine,sherry wine,auto
+vegetable oil cooking spray,vegetable oil cooking spray,auto
+fresh basil leaves,basil leave,auto
+bow tie pasta,bow tie pasta,auto
+whole wheat bread,whole wheat bread,auto
+guacamole,guacamole,auto
+minced garlic cloves,garlic,auto
+cumin seed,cumin seed,auto
+light cream,light cream,auto
+pumpkin pie spice,pumpkin pie spice,auto
+iceberg lettuce,iceberg lettuce,auto
+2 low-fat milk,ow-fat milk,auto
+poppy seed,poppy seed,auto
+condensed cream of mushroom soup,condensed cream of mushroom soup,auto
+baking cocoa,baking cocoa,auto
+bisquick baking mix,bisquick baking mix,auto
+peanuts,peanut,auto
+fresh basil leaf,basil leaf,auto
+tuna,tuna,auto
+lime zest,lime zest,auto
+granny smith apples,granny smith apple,auto
+marjoram,marjoram,auto
+fresh gingerroot,gingerroot,auto
+egg substitute,egg substitute,auto
+sweetened flaked coconut,sweetened flaked coconut,auto
+white bread flour,white bread flour,auto
+button mushrooms,button mushroom,auto
+caraway seed,caraway seed,auto
+toasted sesame seeds,toasted sesame seed,auto
+vanilla instant pudding mix,vanilla instant pudding mix,auto
+cherry pie filling,cherry pie filling,auto
+powdered milk,powdered milk,auto
+pasta sauce,pasta sauce,auto
+chopped tomato,tomato,auto
+fennel seed,fennel seed,auto
+ranch dressing,ranch dressing,auto
+red food coloring,red food coloring,auto
+tequila,tequila,auto
+peas,pea,auto
+oyster sauce,oyster sauce,auto
+light sour cream,light sour cream,auto
+grape tomatoes,grape tomato,auto
+tomato puree,tomato puree,auto
+chicken breast halves,chicken breast halve,auto
+lemon wedge,lemon wedge,auto
+sweet paprika,sweet paprika,auto
+bread machine yeast,bread machine yeast,auto
+part-skim mozzarella cheese,part-skim mozzarella cheese,auto
+pizza dough,pizza dough,auto
+hot dogs,hot dog,auto
+teriyaki sauce,teriyaki sauce,auto
+yellow onions,yellow onion,auto
+chipotle chile in adobo,chipotle chile in adobo,auto
+crabmeat,crabmeat,auto
+1 low-fat milk,ow-fat milk,auto
+butterscotch chips,butterscotch chip,auto
+white flour,white flour,auto
+unsweetened cocoa,unsweetened cocoa,auto
+maraschino cherry,maraschino cherry,auto
+leeks,leek,auto
+smoked sausage,smoked sausage,auto
+light mayonnaise,light mayonnaise,auto
+pinto beans,pinto bean,auto
+diced tomato,tomato,auto
+medium shrimp,medium shrimp,auto
+splenda granular,splenda granular,auto
+reduced sodium soy sauce,reduced sodium soy sauce,auto
+yellow bell pepper,yellow bell pepper,auto
+orange,orange,auto
+limes,lime,auto
+chocolate syrup,chocolate syrup,auto
+pineapple,pineapple,auto
+instant vanilla pudding,instant vanilla pudding,auto
+ground chuck,chuck,auto
+coffee,coffee,auto
+salad oil,salad oil,auto
+ranch dressing mix,ranch dressing mix,auto
+wide egg noodles,wide egg noodle,auto
+cream-style corn,cream-style corn,auto
+condensed cream of chicken soup,condensed cream of chicken soup,auto
+monterey jack pepper cheese,monterey jack pepper cheese,auto
+ground mustard,mustard,auto
+fresh asparagus,asparagu,auto
+brown rice,brown rice,auto
+dried red pepper flakes,red pepper flake,auto
+cashews,cashew,auto
+fresh sage,sage,auto
+yellow squash,yellow squash,auto
+green olives,green olive,auto
+plain breadcrumbs,plain breadcrumb,auto
+chuck roast,chuck roast,auto
+mustard seeds,mustard seed,auto
+sauerkraut,sauerkraut,auto
+dill,dill,auto
+kale,kale,auto
+pie crusts,pie crust,auto
+low-fat sour cream,low-fat sour cream,auto
+bacon bits,bacon bit,auto
+eggplants,eggplant,auto
+lasagna noodles,lasagna noodle,auto
+couscous,couscou,auto
+fresh coriander,coriander,auto
+panko breadcrumbs,panko breadcrumb,auto
+salt fresh ground pepper,salt fresh ground pepper,auto
+nonfat dry milk powder,nonfat dry milk powder,auto
+bean sprouts,bean sprout,auto
+mexican blend cheese,mexican blend cheese,auto
+fresh parmesan cheese,cheese,auto
+fresh lemon rind,lemon rind,auto
+tomato juice,tomato juice,auto
+miracle whip,miracle whip,auto
+wheat germ,wheat germ,auto
+saltine crackers,saltine cracker,auto
+firm tofu,firm tofu,auto
+cannellini beans,cannellini bean,auto
+cooked chicken breasts,cooked chicken breast,auto
+lemon peel,lemon peel,auto
+bisquick,bisquick,auto
+dried thyme leaves,thyme leave,auto
+green food coloring,green food coloring,auto
+dill pickle,dill pickle,auto
+corn oil,corn oil,auto
+whole tomatoes,whole tomato,auto
+pesto sauce,pesto sauce,auto
+dried sage,sage,auto
+fresh tomato,tomato,auto
+cloves,clove,auto
+lime wedge,lime wedge,auto
+fresh garlic cloves,garlic,auto
+lentils,lentil,auto
+chicken bouillon cube,chicken bouillon cube,auto
+mango,mango,auto
+liquid honey,liquid honey,auto
+skinless chicken thighs,skinless chicken thigh,auto
+fresh breadcrumb,breadcrumb,auto
+yukon gold potatoes,yukon gold potato,auto
+quinoa,quinoa,auto
+white cake mix,white cake mix,auto
+unbleached flour,unbleached flour,auto
+new potatoes,new potato,auto
+picante sauce,picante sauce,auto
+sunflower seeds,sunflower seed,auto
+low-fat cheddar cheese,low-fat cheddar cheese,auto
+white chocolate,white chocolate,auto
+rum,rum,auto
+caster sugar,caster sugar,auto
+cake flour,cake flour,auto
+oranges,orange,auto
+rhubarb,rhubarb,auto
+wonton wrappers,wonton wrapper,auto
+marinara sauce,marinara sauce,auto
+fresh parsley leaves,parsley leave,auto
+parmigiano-reggiano cheese,parmigiano-reggiano cheese,auto
+rice wine,rice wine,auto
+frozen mixed vegetables,mixed vegetable,auto
+italian salad dressing,italian salad dressing,auto
+mini marshmallows,mini marshmallow,auto
+oregano leaves,oregano leave,auto
+artichoke hearts,artichoke heart,auto
+asiago cheese,asiago cheese,auto
+coleslaw mix,coleslaw mix,auto
+rice krispies,rice krispy,auto
+seasoned bread crumbs,seasoned bread crumb,auto
+baileys irish cream,bailey irish cream,auto
+diced onion,onion,auto
+nonfat sour cream,nonfat sour cream,auto
+cream of celery soup,cream of celery soup,auto
+seasoning,seasoning,auto
+long-grain rice,long-grain rice,auto
+marshmallows,marshmallow,auto
+beef bouillon cubes,beef bouillon cube,auto
+tomato soup,tomato soup,auto
+lemon rind,lemon rind,auto
+sausage,sausage,auto
+triple sec,triple sec,auto
+beef stew meat,beef stew meat,auto
+peppercorns,peppercorn,auto
+italian bread,italian bread,auto
+brandy,brandy,auto
+fresh cilantro leaves,cilantro leave,auto
+lemon slice,lemon slice,auto
+sun-dried tomatoes,sun-dried tomato,auto
+brewed coffee,brewed coffee,auto
+ground sage,sage,auto
+barley,barley,auto
+table salt,table salt,auto
+chocolate cake mix,chocolate cake mix,auto
+prepared yellow mustard,prepared yellow mustard,auto
+onion flakes,onion flake,auto
+ginger ale,ginger ale,auto
+oreo cookies,oreo cooky,auto
+smooth peanut butter,smooth peanut butter,auto
+cinnamon sticks,cinnamon stick,auto
+sweet onions,sweet onion,auto
+fresh orange juice,orange juice,auto
+dried tarragon,tarragon,auto
+lemons juice of,lemon juice of,auto
+snow peas,snow pea,auto
+lemon extract,lemon extract,auto
+fresh cranberries,cranberry,auto
+whipped topping,whipped topping,auto
+self-rising flour,self-rising flour,auto
+thyme leaves,thyme leave,auto
+lettuce leaf,lettuce leaf,auto
+extra-sharp cheddar cheese,extra-sharp cheddar cheese,auto
+arborio rice,arborio rice,auto
+brie cheese,brie cheese,auto
+sourdough starter,sourdough starter,auto
+cooked white rice,cooked white rice,auto
+fresh italian parsley,italian parsley,auto
+salted peanuts,salted peanut,auto
+red peppers,pepper,auto
+extra lean ground beef,extra lean ground beef,auto
+low-fat mayonnaise,low-fat mayonnaise,auto
+lemon rind of,lemon rind of,auto
+whole cloves,whole clove,auto
+creole seasoning,creole seasoning,auto
+green chili,green chili,auto
+instant coffee,instant coffee,auto
+mandarin oranges,mandarin orange,auto
+lipton onion soup mix,lipton onion soup mix,auto
+cranberries,cranberry,auto
+ground sirloin,sirloin,auto
+food coloring,food coloring,auto
+beef bouillon granules,beef bouillon granule,auto
+goat cheese,goat cheese,auto
+italian parsley,italian parsley,auto
+orange marmalade,orange marmalade,auto
+dates,date,auto
+italian salad dressing mix,italian salad dressing mix,auto
+fettuccine,fettuccine,auto
+chunky salsa,chunky salsa,auto
+bourbon,bourbon,auto
+instant chocolate pudding mix,instant chocolate pudding mix,auto
+tuna in water,tuna in water,auto
+pineapple chunks,pineapple chunk,auto
+noodles,noodle,auto
+olive,olive,auto
+creamed corn,creamed corn,auto
+roasted red pepper,roasted red pepper,auto
+golden raisin,golden raisin,auto
+sun-dried tomato,sun-dried tomato,auto
+flank steaks,flank steak,auto
+olive oil flavored cooking spray,olive oil flavored cooking spray,auto
+aluminum foil,aluminum foil,auto
+bittersweet chocolate,bittersweet chocolate,auto
+devil s food cake mix,devil s food cake mix,auto
+ground chicken,chicken,auto
+frozen whipped topping,whipped topping,auto
+amaretto,amaretto,auto
+raspberries,raspberry,auto
+kalamata olives,kalamata olive,auto
+soya sauce,soya sauce,auto
+dried onion,onion,auto
+a 1 original sauce,a 1 original sauce,auto
+frozen strawberries,strawberry,auto
+fresh black pepper,pepper,auto
+dark rum,dark rum,auto
+enchilada sauce,enchilada sauce,auto
+pork sausage,pork sausage,auto
+fresh tarragon,tarragon,auto
+fat free sour cream,fat free sour cream,auto
+coarse black pepper,coarse black pepper,auto
+cooked brown rice,cooked brown rice,auto
+green chili peppers,green chili pepper,auto
+dried breadcrumbs,breadcrumb,auto
+fish fillets,fish fillet,auto
+pimiento,pimiento,auto
+skinless chicken breasts,skinless chicken breast,auto
+gruyere cheese,gruyere cheese,auto
+lemon juice and zest of,lemon juice and zest of,auto
+red lentil,red lentil,auto
+low fat cottage cheese,low fat cottage cheese,auto
+sweet potato,sweet potato,auto
+white onions,white onion,auto
+colby-monterey jack cheese,colby-monterey jack cheese,auto
+great northern beans,great northern bean,auto
+brown gravy mix,brown gravy mix,auto
+vanilla yogurt,vanilla yogurt,auto
+apricot preserves,apricot preserve,auto
+ziti pasta,ziti pasta,auto
+light cream cheese,light cream cheese,auto
+fresh broccoli,broccoli,auto
+quick-cooking rolled oats,quick-cooking rolled oat,auto
+fresh flat-leaf parsley,flat-leaf parsley,auto
+cilantro leaf,cilantro leaf,auto
+tortillas,tortilla,auto
+long-grain white rice,long-grain white rice,auto
+italian breadcrumbs,italian breadcrumb,auto
+chicken drumsticks,chicken drumstick,auto
+roasting chickens,roasting chicken,auto
+unsweetened chocolate,unsweetened chocolate,auto
+whole chickens,whole chicken,auto
+ice water,ice water,auto
+roasted red peppers,roasted red pepper,auto
+imitation crabmeat,imitation crabmeat,auto
+chipotle chiles in adobo,chipotle chile in adobo,auto
+instant potato flakes,instant potato flake,auto
+rolls,roll,auto
+rump roast,rump roast,auto
+mild cheddar cheese,mild cheddar cheese,auto
+tomatoes and green chilies,tomato and green chily,auto
+spicy brown mustard,spicy brown mustard,auto
+fast rising yeast,fast rising yeast,auto
+vegetables,vegetable,auto
+cake mix,cake mix,auto
+salmon steaks,salmon steak,auto
+soymilk,soymilk,auto
+cinnamon sugar,cinnamon sugar,auto
+oat bran,oat bran,auto
+quick-cooking oatmeal,quick-cooking oatmeal,auto
+saffron,saffron,auto
+tart apples,tart apple,auto
+marshmallow creme,marshmallow creme,auto
+chocolate,chocolate,auto
+wine vinegar,wine vinegar,auto
+sliced water chestnuts,water chestnut,auto
+smoked paprika,smoked paprika,auto
+prosciutto,prosciutto,auto
+hidden valley ranch dressing mix,hidden valley ranch dressing mix,auto
+water chestnuts,water chestnut,auto
+mini chocolate chip,mini chocolate chip,auto
+portabella mushrooms,portabella mushroom,auto
+club soda,club soda,auto
+canned black beans,beans,auto
+limes juice of,lime juice of,auto
+grenadine,grenadine,auto
+yellow pepper,yellow pepper,auto
+long grain white rice,long grain white rice,auto
+dijon-style mustard,dijon-style mustard,auto
+soft breadcrumbs,soft breadcrumb,auto
+minced garlic clove,garlic,auto
+beets,beet,auto
+cheddar cheese soup,cheddar cheese soup,auto
+rotini pasta,rotini pasta,auto
+hoagie rolls,hoagie roll,auto
+pears,pear,auto
+vidalia onion,vidalia onion,auto
+chicken tenders,chicken tender,auto
+hot dog buns,hot dog bun,auto
+poppy seeds,poppy seed,auto
+cumin seeds,cumin seed,auto
+potato chips,potato chip,auto
+ritz crackers,ritz cracker,auto
+coriander seed,coriander seed,auto
+pork and beans,pork and bean,auto
+instant yeast,instant yeast,auto
+lettuce leaves,lettuce leave,auto
+spinach leaves,spinach leave,auto
+rye bread,rye bread,auto
+condensed tomato soup,condensed tomato soup,auto
+pure maple syrup,pure maple syrup,auto
+diced tomatoes with juice,tomato with juice,auto
+lemon pepper seasoning,lemon pepper seasoning,auto
+vanilla wafers,vanilla wafer,auto
+pearl barley,pearl barley,auto
+ginger powder,ginger powder,auto
+cornflour,cornflour,auto
+lard,lard,auto
+spanish onion,spanish onion,auto
+cube steaks,cube steak,auto
+frozen chopped broccoli,chopped broccoli,auto
+chili,chili,auto
+hot red pepper flakes,hot red pepper flake,auto
+instant minced onion,instant minced onion,auto
+mangoes,mango,auto
+crouton,crouton,auto
+toasted sesame oil,toasted sesame oil,auto
+round steaks,round steak,auto
+dry milk,dry milk,auto
+corn kernel,corn kernel,auto
+rotel tomatoes,rotel tomato,auto
+berries,berry,auto
+self raising flour,self raising flour,auto
+steak sauce,steak sauce,auto
+tea bags,tea bag,auto
+white button mushrooms,white button mushroom,auto
+country-style pork ribs,country-style pork rib,auto
+fresh herb,herb,auto
+crescent rolls,crescent roll,auto
+coriander powder,coriander powder,auto
+maraschino cherries,maraschino cherry,auto
+beef roast,beef roast,auto
+whole chicken,whole chicken,auto
+crisco,crisco,auto
+condensed golden mushroom soup,condensed golden mushroom soup,auto
+plain nonfat yogurt,plain nonfat yogurt,auto
+meatballs,meatball,auto
+apple cider,apple cider,auto
+turkey,turkey,auto
+fine breadcrumbs,fine breadcrumb,auto
+button mushroom,button mushroom,auto
+red cabbage,red cabbage,auto
+napa cabbage,napa cabbage,auto
+chili-garlic sauce,chili-garlic sauce,auto
+jasmine rice,jasmine rice,auto
+refrigerated biscuits,refrigerated biscuit,auto
+dark soy sauce,dark soy sauce,auto
+cooked turkey,cooked turkey,auto
+grand marnier,grand marnier,auto
+chicken bouillon,chicken bouillon,auto
+chicken bouillon granules,chicken bouillon granule,auto
+raspberry jam,raspberry jam,auto
+flour tortilla,flour tortilla,auto
+sunflower oil,sunflower oil,auto
+fast rise yeast,fast rise yeast,auto
+cod fish fillets,cod fish fillet,auto
+plain fat-free yogurt,plain fat-free yogurt,auto
+frozen blueberries,blueberry,auto
+crunchy peanut butter,crunchy peanut butter,auto
+whiskey,whiskey,auto
+strong coffee,strong coffee,auto
+dried chili pepper flakes,chili pepper flake,auto
+corn flake crumbs,corn flake crumb,auto
+stove top stuffing mix,stove top stuffing mix,auto
+thin spaghetti,thin spaghetti,auto
+plain low-fat yogurt,plain low-fat yogurt,auto
+lemon-pepper seasoning,lemon-pepper seasoning,auto
+fruit,fruit,auto
+celery leaves,celery leave,auto
+frozen green pea,green pea,auto
+chinese five spice powder,chinese five spice powder,auto
+lite olive oil,lite olive oil,auto
+corn chips,corn chip,auto
+dried apricot,apricot,auto
+shredded coconut,coconut,auto
+lemon wedges,lemon wedge,auto
+frozen orange juice concentrate,orange juice concentrate,auto
+green peas,green pea,auto
+cheerios toasted oat cereal,cheerio toasted oat cereal,auto
+boneless pork loin roast,boneless pork loin roast,auto
+pillsbury refrigerated crescent dinner rolls,pillsbury refrigerated crescent dinner roll,auto
+sirloin steaks,sirloin steak,auto
+ground round,round,auto
+frozen corn kernels,corn,auto
+cardamom,cardamom,auto
+english cucumber,english cucumber,auto
+boneless skinless chicken,boneless skinless chicken,auto
+marinated artichoke hearts,marinated artichoke heart,auto
+fresh mint leaves,mint leave,auto
+creme fraiche,creme fraiche,auto
+cumin powder,cumin powder,auto
+self-raising flour,self-raising flour,auto
+baby spinach leaves,baby spinach leave,auto
+fresh breadcrumbs,breadcrumb,auto
+low-fat buttermilk,low-fat buttermilk,auto
+italian spices,italian spice,auto
+jumbo pasta shells,jumbo pasta shell,auto
+cracked pepper,cracked pepper,auto
+peppercorn,peppercorn,auto
+pretzels,pretzel,auto
+instant coffee granules,instant coffee granule,auto
+small red potatoes,small red potato,auto
+lawry s seasoned salt,lawry s seasoned salt,auto
+ramen noodles,ramen noodle,auto
+dill pickles,dill pickle,auto
+baguette,baguette,auto
+dried cilantro,cilantro,auto
+yellow food coloring,yellow food coloring,auto
+season salt,season salt,auto
+english muffins,english muffin,auto
+refrigerated buttermilk biscuits,refrigerated buttermilk biscuit,auto
+leek,leek,auto
+wild rice,wild rice,auto
+boneless chicken breast,boneless chicken breast,auto
+fat-free mayonnaise,fat-free mayonnaise,auto
+mild green chilies,mild green chily,auto
+cheese tortellini,cheese tortellini,auto
+sun-dried tomato packed in oil,sun-dried tomato packed in oil,auto
+peppermint extract,peppermint extract,auto
+watermelon,watermelon,auto
+parsnips,parsnip,auto
+key lime juice,key lime juice,auto
+rice flour,rice flour,auto
+bulk pork sausage,bulk pork sausage,auto
+frozen hash brown potatoes,hash brown potato,auto
+granola cereal,granola cereal,auto
+potato starch,potato starch,auto
+steak,steak,auto
+acorn squash,acorn squash,auto
+toffee pieces,toffee piece,auto
+m m s plain chocolate candy,m m s plain chocolate candy,auto
+ground oregano,oregano,auto
+granny smith apple,granny smith apple,auto
+low-fat vanilla yogurt,low-fat vanilla yogurt,auto
+pork loin roast,pork loin roast,auto
+low-fat cream cheese,low-fat cream cheese,auto
+coconut rum,coconut rum,auto
+pie crust,pie crust,auto
+pimientos,pimiento,auto
+mint leaf,mint leaf,auto
+hard-boiled egg,hard-boiled egg,auto
+italian style breadcrumbs,italian style breadcrumb,auto
+feta,feta,auto
+hardboiled egg,hardboiled egg,auto
+instant mashed potatoes,instant mashed potato,auto
+caraway seeds,caraway seed,auto
+seasoned stuffing mix,seasoned stuffing mix,auto
+fine dry breadcrumb,fine dry breadcrumb,auto
+tarragon,tarragon,auto
+spring onion,spring onion,auto
+roma tomato,roma tomato,auto
+five-spice powder,five-spice powder,auto
+candy sprinkles,candy sprinkle,auto
+dried lentils,lentil,auto
+stewing beef,stewing beef,auto
+macadamia nuts,macadamia nut,auto
+hot pepper flakes,hot pepper flake,auto
+low sodium beef broth,low sodium beef broth,auto
+hot pepper,hot pepper,auto
+white potatoes,white potato,auto
+marshmallow cream,marshmallow cream,auto
+pork loin chops,pork loin chop,auto
+roasted peanuts,roasted peanut,auto
+gouda cheese,gouda cheese,auto
+uncooked rice,uncooked rice,auto
+sweetened whipped cream,sweetened whipped cream,auto
+spaghetti squash,spaghetti squash,auto
+pickle juice,pickle juice,auto
+white beans,white bean,auto
+mint,mint,auto
+toast,toast,auto
+pineapple tidbits,pineapple tidbit,auto
+fat-free cool whip,fat-free cool whip,auto
+prepared pizza crust,prepared pizza crust,auto
+vanilla vodka,vanilla vodka,auto
+ground flax seeds,flax seed,auto
+plum tomato,plum tomato,auto
+condensed milk,condensed milk,auto
+cheese ravioli,cheese ravioli,auto
+pam cooking spray,pam cooking spray,auto
+jello gelatin,jello gelatin,auto
+mascarpone cheese,mascarpone cheese,auto
+puff pastry,puff pastry,auto
+cointreau liqueur,cointreau liqueur,auto
+ghee,ghee,auto
+fresh thyme leave,thyme leave,auto
+flax seed meal,flax seed meal,auto
+distilled white vinegar,distilled white vinegar,auto
+wooden skewers,wooden skewer,auto
+salami,salami,auto
+grape jelly,grape jelly,auto
+mixed vegetables,mixed vegetable,auto
+unbleached white flour,unbleached white flour,auto
+chili pepper flakes,chili pepper flake,auto
+tilapia fillet,tilapia fillet,auto
+dried chives,chive,auto
+italian cheese blend,italian cheese blend,auto
+red curry paste,red curry paste,auto
+fresh mozzarella cheese,cheese,auto
+fresh spinach leaves,spinach leave,auto
+fettuccine pasta,fettuccine pasta,auto
+summer squash,summer squash,auto
+basil pesto,basil pesto,auto
+salmon fillet,salmon fillet,auto
+ground turkey breast,turkey breast,auto
+peach,peach,auto
+olives,olive,auto
+water chestnut,water chestnut,auto
+idaho potatoes,idaho potato,auto
+bratwursts,bratwurst,auto
+pork shoulder,pork shoulder,auto
+black-eyed peas,black-eyed pea,auto
+butterscotch schnapps,butterscotch schnapp,auto
+condensed cream of celery soup,condensed cream of celery soup,auto
+graham crackers,graham cracker,auto
+celery seeds,celery seed,auto
+center-cut pork chops,center-cut pork chop,auto
+canadian bacon,canadian bacon,auto
+light coconut milk,light coconut milk,auto
+reduced-fat cheddar cheese,reduced-fat cheddar cheese,auto
+corned beef brisket,corned beef brisket,auto
+beef bouillon,beef bouillon,auto
+fat-free evaporated milk,fat-free evaporated milk,auto
+cooked shrimp,cooked shrimp,auto
+seasoned dry bread crumb,seasoned dry bread crumb,auto
+fat-free low-sodium chicken broth,fat-free low-sodium chicken broth,auto
+vidalia onions,vidalia onion,auto
+miniature semisweet chocolate chips,miniature semisweet chocolate chip,auto
+coconut extract,coconut extract,auto
+superfine sugar,superfine sugar,auto
+ham bone,ham bone,auto
+coarse grain mustard,coarse grain mustard,auto
+miniature marshmallow,miniature marshmallow,auto
+frozen tater tots,tater tot,auto
+baby potatoes,baby potato,auto
+lean stewing beef,lean stewing beef,auto
+cherries,cherry,auto
+carbonated lemon-lime beverage,carbonated lemon-lime beverage,auto
+unsweetened coconut milk,unsweetened coconut milk,auto
+cauliflower florets,cauliflower floret,auto
+strawberry preserves,strawberry preserve,auto
+pepperoncini peppers,pepperoncini pepper,auto
+cracker crumb,cracker crumb,auto
+dry oregano,dry oregano,auto
+chicken bouillon powder,chicken bouillon powder,auto
+spices,spice,auto
+chicken breast fillets,chicken breast fillet,auto
+apricot jam,apricot jam,auto
+red chili pepper flakes,red chili pepper flake,auto
+brussels sprouts,brussel sprout,auto
+fresh pineapple,pineapple,auto
+pecorino romano cheese,pecorino romano cheese,auto
+purple onion,purple onion,auto
+fresh corn,corn,auto
+sourdough bread,sourdough bread,auto
+mrs dash seasoning mix,mrs dash seasoning mix,auto
+pancetta,pancetta,auto
+fresh thyme leaves,thyme leave,auto
+adobo sauce,adobo sauce,auto
+dry crushed red pepper,dry crushed red pepper,auto
+rice noodles,rice noodle,auto
+pork,pork,auto
+shiitake mushrooms,shiitake mushroom,auto
+boneless beef chuck roast,boneless beef chuck roast,auto
+burgundy wine,burgundy wine,auto
+mirin,mirin,auto
+crusty bread,crusty bread,auto
+guinness stout,guinness stout,auto
+small curd cottage cheese,small curd cottage cheese,auto
+pumpkin seeds,pumpkin seed,auto
+dark molasses,dark molass,auto
+pimento stuffed olive,pimento stuffed olive,auto
+ground thyme,thyme,auto
+xanthan gum,xanthan gum,auto
+boneless chicken breast halves,boneless chicken breast halve,auto
+sugar substitute,sugar substitute,auto
+turkey breast,turkey breast,auto
+mushroom stems and pieces,mushroom stem and piece,auto
+stock,stock,auto
+leg of lamb,leg of lamb,auto
+dry lentils,dry lentil,auto
+miniature marshmallows,miniature marshmallow,auto
+walnut pieces,walnut piece,auto
+part-skim ricotta cheese,part-skim ricotta cheese,auto
+white mushrooms,white mushroom,auto
+crisco shortening,crisco shortening,auto
+chunky peanut butter,chunky peanut butter,auto
+hershey chocolate kisses,hershey chocolate kiss,auto
+reduced-fat cream cheese,reduced-fat cream cheese,auto
+whole berry cranberry sauce,whole berry cranberry sauce,auto
+taco sauce,taco sauce,auto
+french onion soup,french onion soup,auto
+fresh peaches,peache,auto
+seasoned rice vinegar,seasoned rice vinegar,auto
+light olive oil,light olive oil,auto
+rubbed sage,rubbed sage,auto
+frozen raspberries,raspberry,auto
+pork roast,pork roast,auto
+broccoli floret,broccoli floret,auto
+monterey jack and cheddar cheese blend,monterey jack and cheddar cheese blend,auto
+russet potato,russet potato,auto
+biscuits,biscuit,auto
+steak seasoning,steak seasoning,auto
+graham cracker pie crust,graham cracker pie crust,auto
+crushed pineapple in juice,crushed pineapple in juice,auto
+dried herbs,herb,auto
+dark chocolate,dark chocolate,auto
+ranch salad dressing,ranch salad dressing,auto
+minced ginger,ginger,auto
+alfredo sauce,alfredo sauce,auto
+buns,bun,auto
+long grain brown rice,long grain brown rice,auto
+brown mustard,brown mustard,auto
+chicken meat,chicken meat,auto
+hot coffee,hot coffee,auto
+whole grain mustard,whole grain mustard,auto
+rotel tomatoes chilies,rotel tomato chily,auto
+cracker,cracker,auto
+craisins,craisin,auto
+whole wheat tortillas,whole wheat tortilla,auto
+vermicelli,vermicelli,auto
+extra firm tofu,extra firm tofu,auto
+chili paste,chili paste,auto
+asparagus spears,asparagu spear,auto
+vanilla essence,vanilla essence,auto
+instant rice,instant rice,auto
+red seedless grapes,red seedless grape,auto
+reynolds wrap foil,reynold wrap foil,auto
+diced tomatoes with green chilies,tomato with green chily,auto
+french-fried onions,french-fried onion,auto
+toothpick,toothpick,auto
+canned tomato,tomato,auto
+frozen puff pastry,puff pastry,auto
+fontina cheese,fontina cheese,auto
+cremini mushrooms,cremini mushroom,auto
+ritz cracker,ritz cracker,auto
+mashed banana,mashed banana,auto
+extra large eggs,extra large egg,auto
+peanut butter chips,peanut butter chip,auto
+hamburger bun,hamburger bun,auto
+marsala wine,marsala wine,auto
+dry ranch dressing mix,dry ranch dressing mix,auto
+boneless pork roast,boneless pork roast,auto
+italian-style tomatoes,italian-style tomato,auto
+deli roast beef,deli roast beef,auto
+frozen whole kernel corn,whole kernel corn,auto
+mahi mahi fillets,mahi mahi fillet,auto
+sandwich bread,sandwich bread,auto
+chorizo sausage,chorizo sausage,auto
+unseasoned breadcrumbs,unseasoned breadcrumb,auto
+orange jell-o,orange jell-o,auto
+dried split peas,split pea,auto
+caramels,caramel,auto
+dried chipotle powder,chipotle powder,auto
+italian tomatoes,italian tomato,auto
+bok choy,bok choy,auto
+corn muffin mix,corn muffin mix,auto
+scallops,scallop,auto
+rib eye steaks,rib eye steak,auto
+condensed beef broth,condensed beef broth,auto
+real butter,real butter,auto
+hungarian paprika,hungarian paprika,auto
+ground coffee,coffee,auto
+cardamom pods,cardamom pod,auto
+sweet red peppers,sweet red pepper,auto
+rigatoni pasta,rigatoni pasta,auto
+self rising flour,self rising flour,auto
+old cheddar cheese,old cheddar cheese,auto
+chili pepper,chili pepper,auto
+nutella,nutella,auto
+semisweet mini chocolate chips,semisweet mini chocolate chip,auto
+jam,jam,auto
+clams,clam,auto
+horseradish sauce,horseradish sauce,auto
+salmon,salmon,auto
+beef consomme,beef consomme,auto
+colby cheese,colby cheese,auto
+four-cheese mexican blend cheese,four-cheese mexican blend cheese,auto
+dry active yeast,dry active yeast,auto
+green enchilada sauce,green enchilada sauce,auto
+roast,roast,auto
+frozen broccoli florets,broccoli floret,auto
+biscuit mix,biscuit mix,auto
+angel food cake,angel food cake,auto
+chopped pimiento,pimiento,auto
+ripe olives,ripe olive,auto
+fat free cream cheese,fat free cream cheese,auto
+yams,yam,auto
+tapioca flour,tapioca flour,auto
+french dressing,french dressing,auto
+currants,currant,auto
+all-purpose white flour,all-purpose white flour,auto
+amarula cream liqueur,amarula cream liqueur,auto
+grapefruit juice,grapefruit juice,auto
+dill pickle slices,dill pickle slice,auto
+red chilies,red chily,auto
+fresh rosemary leaf,rosemary leaf,auto
+rice chex,rice chex,auto
+cilantro leaves,cilantro leave,auto
+white corn syrup,white corn syrup,auto
+coarse sea salt,coarse sea salt,auto
+accent seasoning,accent seasoning,auto
+pitted ripe olives,pitted ripe olive,auto
+low-fat plain yogurt,low-fat plain yogurt,auto
+dry pectin,dry pectin,auto
+honey mustard,honey mustard,auto
+crystallized ginger,crystallized ginger,auto
+condensed cheddar cheese soup,condensed cheddar cheese soup,auto
+red capsicum,red capsicum,auto
+turmeric powder,turmeric powder,auto
+broth,broth,auto
+dried sweetened cranberries,sweetened cranberry,auto
+chili oil,chili oil,auto
+tamari,tamari,auto
+cooked spaghetti,cooked spaghetti,auto
+smoked ham,smoked ham,auto
+garlic granules,garlic granule,auto
+tasty cheese,tasty cheese,auto
+long grain and wild rice blend,long grain and wild rice blend,auto
+collard greens,collard green,auto
+orange peel,orange peel,auto
+lemongrass,lemongrass,auto
+navy beans,navy bean,auto
+baby red potatoes,baby red potato,auto
+instant minced garlic,instant minced garlic,auto
+eggnog,eggnog,auto
+mace,mace,auto
+mango chutney,mango chutney,auto
+bamboo shoots,bamboo shoot,auto
+ground sausage,sausage,auto
+chicken bouillon granule,chicken bouillon granule,auto
+dried italian herb seasoning,italian herb seasoning,auto
+mixed italian herbs,mixed italian herb,auto
+swiss chard,swiss chard,auto
+jelly,jelly,auto
+butter flavor crisco,butter flavor crisco,auto
+maple extract,maple extract,auto
+roast beef,roast beef,auto
+light rum,light rum,auto
+sambal oelek,sambal oelek,auto
+flat-leaf italian parsley,flat-leaf italian parsley,auto
+tater tots,tater tot,auto
+beef brisket,beef brisket,auto
+beef gravy,beef gravy,auto
+frank s red hot sauce,frank s red hot sauce,auto
+sandwich buns,sandwich bun,auto
+orange extract,orange extract,auto
+beef bouillon cube,beef bouillon cube,auto
+popped popcorn,popped popcorn,auto
+jalapeno chile,jalapeno chile,auto
+rye flour,rye flour,auto
+low-fat yogurt,low-fat yogurt,auto
+sliced ripe olives,ripe olive,auto
+broiler-fryer chickens,broiler-fryer chicken,auto
+head of cabbage,head of cabbage,auto
+cantaloupe,cantaloupe,auto
+kaiser rolls,kaiser roll,auto
+wheat flour,wheat flour,auto
+dried mint,mint,auto
+dutch-processed cocoa powder,dutch-processed cocoa powder,auto
+frozen broccoli,broccoli,auto
+double cream,double cream,auto
+cornbread mix,cornbread mix,auto
+pickle relish,pickle relish,auto
+flank steak,flank steak,auto
+white rum,white rum,auto
+roasted garlic,roasted garlic,auto
+jellied cranberry sauce,jellied cranberry sauce,auto
+radishes,radishe,auto
+solid white tuna,solid white tuna,auto
+graham cracker crust,graham cracker crust,auto
+ground lamb,lamb,auto
+sea scallops,sea scallop,auto
+flounder fillets,flounder fillet,auto
+fresh lemon zest,lemon zest,auto
+red chili powder,red chili powder,auto
+corn tortilla chips,corn tortilla chip,auto
+vital wheat gluten,vital wheat gluten,auto
+frosting,frosting,auto
+spice cake mix,spice cake mix,auto
+season-all salt,season-all salt,auto
+dark red kidney beans,dark red kidney bean,auto
+chow mein noodles,chow mein noodle,auto
+mild salsa,mild salsa,auto
+pie shell,pie shell,auto
+artificial sweetener,artificial sweetener,auto
+arugula,arugula,auto
+turnips,turnip,auto
+star anise,star anise,auto
+coriander leaves,coriander leave,auto
+popcorn,popcorn,auto
+chocolate shavings,chocolate shaving,auto
+pickle,pickle,auto
+corn chex,corn chex,auto
+matzo meal,matzo meal,auto
+miniature peanut butter cups,miniature peanut butter cup,auto
+tomato ketchup,tomato ketchup,auto
+dried ancho chile powder,ancho chile powder,auto
+fresh shrimp,shrimp,auto
+cooking apples,cooking apple,auto
+whole grain bread,whole grain bread,auto
+boneless chicken,boneless chicken,auto
+dried mustard,mustard,auto
+fresh jalapenos,jalapeno,auto
+beans,bean,auto
+dry roasted peanuts,dry roasted peanut,auto
+sprite,sprite,auto
+jumbo shrimp,jumbo shrimp,auto
+tomatillos,tomatillo,auto
+salad greens,salad green,auto
+gorgonzola,gorgonzola,auto
+raw shrimp,raw shrimp,auto
+bacon drippings,bacon dripping,auto
+seasoned croutons,seasoned crouton,auto
+dark beer,dark beer,auto
+lima beans,lima bean,auto
+jalapeno chiles,jalapeno chile,auto
+tuna steaks,tuna steak,auto
+lemons zest of,lemon zest of,auto
+bicarbonate of soda,bicarbonate of soda,auto
+non-fat vanilla yogurt,non-fat vanilla yogurt,auto
+hot chili sauce,hot chili sauce,auto
+extra-large eggs,extra-large egg,auto
+cola,cola,auto
+large raw shrimp,large raw shrimp,auto
+lime rind,lime rind,auto
+pomegranate juice,pomegranate juice,auto
+baked beans,baked bean,auto
+frozen limeade concentrate,limeade concentrate,auto
+jiffy corn muffin mix,jiffy corn muffin mix,auto
+cream of coconut,cream of coconut,auto
+dried yeast,yeast,auto
+irish cream,irish cream,auto
+lump crabmeat,lump crabmeat,auto
+seasoned pepper,seasoned pepper,auto
+lean ham,lean ham,auto
+minced clams,clam,auto
+cut green beans,cut green bean,auto
+real maple syrup,real maple syrup,auto
+virgin olive oil,virgin olive oil,auto
+fresh broccoli florets,broccoli floret,auto
+cooked basmati rice,cooked basmati rice,auto
+herbes de provence,herbe de provence,auto
+butter-flavored cooking spray,butter-flavored cooking spray,auto
+fudge brownie mix,fudge brownie mix,auto
+bleu cheese salad dressing,bleu cheese salad dressing,auto
+hellmann s mayonnaise,hellmann s mayonnaise,auto
+frozen bread dough,bread dough,auto
+caramel ice cream topping,caramel ice cream topping,auto
+chambord raspberry liquor,chambord raspberry liquor,auto
+frozen meatballs,meatball,auto
+rotel,rotel,auto
+cooked macaroni,cooked macaroni,auto
+diced onions,onion,auto
+chicken parts,chicken part,auto
+pita bread,pita bread,auto
+red enchilada sauce,red enchilada sauce,auto
+orange juice concentrate,orange juice concentrate,auto
+round steak,round steak,auto
+mint leaves,mint leave,auto
+tomatoes with juice,tomato with juice,auto
+frozen baby peas,baby pea,auto
+unsifted flour,unsifted flour,auto
+deli turkey,deli turkey,auto
+unflavored gelatin,unflavored gelatin,auto
+fat free chicken broth,fat free chicken broth,auto
+powdered coffee creamer,powdered coffee creamer,auto
+fritos corn chips,frito corn chip,auto
+boneless chuck roast,boneless chuck roast,auto
+lean bacon,lean bacon,auto
+canned chicken broth,chicken broth,auto
+full-fat milk,full-fat milk,auto
+lemon jell-o gelatin,lemon jell-o gelatin,auto
+fresh fruit,fruit,auto
+pasta shells,pasta shell,auto
+unbaked pie shells,unbaked pie shell,auto
+smoked salmon,smoked salmon,auto
+london broil beef,london broil beef,auto
+habanero pepper,habanero pepper,auto
+whole canned tomatoes,whole canned tomato,auto
+red sweet bell pepper,red sweet bell pepper,auto
+kidney bean,kidney bean,auto
+philadelphia cream cheese,philadelphia cream cheese,auto
+heinz chili sauce,heinz chili sauce,auto
+parsley sprig,parsley sprig,auto
+apricots,apricot,auto
+seedless grapes,seedless grape,auto
+ginger paste,ginger paste,auto
+butter flavor shortening,butter flavor shortening,auto
+natural-style peanut butter,natural-style peanut butter,auto
+wheat bran,wheat bran,auto
+coconut cream,coconut cream,auto
+tarragon vinegar,tarragon vinegar,auto
+garlic paste,garlic paste,auto
+coriander seeds,coriander seed,auto
+small pretzels,small pretzel,auto
+reduced-fat peanut butter,reduced-fat peanut butter,auto
+coke,coke,auto
+egg roll wraps,egg roll wrap,auto
+wine,wine,auto
+campbell s cream of mushroom soup,campbell s cream of mushroom soup,auto
+mccormick s montreal brand steak seasoning,mccormick s montreal brand steak seasoning,auto
+oleo,oleo,auto
+split peas,split pea,auto
+minced beef,beef,auto
+hot italian sausage,hot italian sausage,auto
+louisiana hot sauce,louisiana hot sauce,auto
+water-packed artichoke hearts,water-packed artichoke heart,auto
+apple pie filling,apple pie filling,auto
+anise seed,anise seed,auto
+chili flakes,chili flake,auto
+tamari soy sauce,tamari soy sauce,auto
+red cayenne pepper,red cayenne pepper,auto
+fresh jalapeno peppers,jalapeno pepper,auto
+non-dairy powdered coffee creamer,non-dairy powdered coffee creamer,auto
+jiffy cornbread mix,jiffy cornbread mix,auto
+pace picante sauce,pace picante sauce,auto
+icing,icing,auto
+9 inch pie shell,inch pie shell,auto
+cooked long-grain rice,cooked long-grain rice,auto
+nutritional yeast,nutritional yeast,auto
+unsweetened baking chocolate,unsweetened baking chocolate,auto
+sweet corn,sweet corn,auto
+butter beans,butter bean,auto
+catfish fillets,catfish fillet,auto
+fat-free half-and-half,fat-free half-and-half,auto
+fish fillet,fish fillet,auto
+mild italian sausage,mild italian sausage,auto
+italian seasoning mix,italian seasoning mix,auto
+portabella mushroom,portabella mushroom,auto
+fine dry breadcrumbs,fine dry breadcrumb,auto
+grainy mustard,grainy mustard,auto
+kiwi,kiwi,auto
+okra,okra,auto
+fat-free chicken broth,fat-free chicken broth,auto
+nonfat plain yogurt,nonfat plain yogurt,auto
+pie filling,pie filling,auto
+boneless center cut pork chops,boneless center cut pork chop,auto
+mixed salad greens,mixed salad green,auto
+vegetable juice,vegetable juice,auto
+kitchen bouquet,kitchen bouquet,auto
+medium egg noodles,medium egg noodle,auto
+anaheim chilies,anaheim chily,auto
+thick chunky salsa,thick chunky salsa,auto
+salad dressing,salad dressing,auto
+bulb of garlic,bulb of garlic,auto
+orange bell pepper,orange bell pepper,auto
+spanish onions,spanish onion,auto
+seedless raspberry jam,seedless raspberry jam,auto
+condensed chicken broth,condensed chicken broth,auto
+muenster cheese,muenster cheese,auto
+fresh lemon,lemon,auto
+blackberries,blackberry,auto
+beef tenderloin,beef tenderloin,auto
+turkey bacon,turkey bacon,auto
+dried sweet basil leaves,sweet basil leave,auto
+nonfat yogurt,nonfat yogurt,auto
+old-fashioned oatmeal,old-fashioned oatmeal,auto
+dry basil,dry basil,auto
+fresh garlic clove,garlic,auto
+bulk sausage,bulk sausage,auto
+frozen hash browns,hash brown,auto
+soba noodles,soba noodle,auto
+semisweet chocolate morsels,semisweet chocolate morsel,auto
+french vanilla instant pudding,french vanilla instant pudding,auto

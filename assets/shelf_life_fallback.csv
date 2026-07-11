@@ -1,0 +1,44 @@
+ingredient_name,cleaned_ingredient_name,category,storage_type,shelf_life_days_min,shelf_life_days_max,source
+tomato,tomato,vegetable,fridge,3,7,USDA FoodKeeper fallback
+onion,onion,vegetable,pantry,30,60,USDA FoodKeeper fallback
+garlic,garlic,vegetable,pantry,90,180,USDA FoodKeeper fallback
+potato,potato,vegetable,pantry,14,28,USDA FoodKeeper fallback
+carrot,carrot,vegetable,fridge,14,21,USDA FoodKeeper fallback
+spinach,spinach,vegetable,fridge,3,7,USDA FoodKeeper fallback
+broccoli,broccoli,vegetable,fridge,3,7,USDA FoodKeeper fallback
+bell pepper,pepper,vegetable,fridge,7,14,USDA FoodKeeper fallback
+mushroom,mushroom,vegetable,fridge,3,7,USDA FoodKeeper fallback
+cucumber,cucumber,vegetable,fridge,3,7,USDA FoodKeeper fallback
+lettuce,lettuce,vegetable,fridge,3,7,USDA FoodKeeper fallback
+banana,banana,fruit,pantry,3,7,USDA FoodKeeper fallback
+apple,apple,fruit,fridge,14,30,USDA FoodKeeper fallback
+orange,orange,fruit,fridge,14,21,USDA FoodKeeper fallback
+lemon,lemon,fruit,fridge,14,21,USDA FoodKeeper fallback
+milk,milk,dairy,fridge,5,7,USDA FoodKeeper fallback
+cheese,cheese,dairy,fridge,14,30,USDA FoodKeeper fallback
+yogurt,yogurt,dairy,fridge,7,14,USDA FoodKeeper fallback
+butter,butter,dairy,fridge,30,60,USDA FoodKeeper fallback
+egg,egg,protein,fridge,21,35,USDA FoodKeeper fallback
+chicken breast,chicken,protein,fridge,1,2,USDA FoodKeeper fallback
+ground beef,beef,protein,fridge,1,2,USDA FoodKeeper fallback
+salmon,salmon,protein,fridge,1,2,USDA FoodKeeper fallback
+tofu,tofu,protein,fridge,3,5,USDA FoodKeeper fallback
+bread,bread,bakery,pantry,3,7,USDA FoodKeeper fallback
+pasta,pasta,grain,pantry,365,730,USDA FoodKeeper fallback
+rice,rice,grain,pantry,365,730,USDA FoodKeeper fallback
+flour,flour,grain,pantry,180,365,USDA FoodKeeper fallback
+cereal,cereal,grain,pantry,180,365,USDA FoodKeeper fallback
+beans,beans,legume,pantry,365,730,USDA FoodKeeper fallback
+lentils,lentils,legume,pantry,365,730,USDA FoodKeeper fallback
+chickpeas,chickpeas,legume,pantry,365,730,USDA FoodKeeper fallback
+tomato sauce,tomato sauce,canned,pantry,365,730,USDA FoodKeeper fallback
+olive oil,olive oil,condiment,pantry,365,730,USDA FoodKeeper fallback
+honey,honey,condiment,pantry,365,1095,USDA FoodKeeper fallback
+peanut butter,peanut butter,condiment,pantry,90,180,USDA FoodKeeper fallback
+miso,miso,fermented,fridge,90,365,USDA FoodKeeper fallback
+kimchi,kimchi,fermented,fridge,30,90,USDA FoodKeeper fallback
+tempeh,tempeh,fermented,fridge,7,10,USDA FoodKeeper fallback
+jackfruit,jackfruit,fruit,fridge,3,7,USDA FoodKeeper fallback
+plantain,plantain,fruit,pantry,3,7,USDA FoodKeeper fallback
+cassava,cassava,vegetable,pantry,3,7,USDA FoodKeeper fallback
+pandan,pandan,herb,fridge,3,5,USDA FoodKeeper fallback

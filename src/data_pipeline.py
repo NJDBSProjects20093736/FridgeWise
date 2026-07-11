@@ -13,7 +13,7 @@ from typing import Any
 
 import pandas as pd
 
-from src.normalize import normalize_ingredient_list
+from src.normalize import load_aliases, normalize_ingredient_list
 
 # Tags used for feature extraction from Food.com tag lists
 DIETARY_TAG_KEYWORDS = {
@@ -243,6 +243,8 @@ def run_foodcom_pipeline(
 ) -> dict[str, Any]:
     """Run full Food.com clean pipeline; write CSVs and return summary stats."""
     clean_dir.mkdir(parents=True, exist_ok=True)
+    project_root = clean_dir.parent.parent
+    alias_count = load_aliases(project_root / "assets" / "ingredient_aliases.csv")
 
     recipes_raw = load_raw_recipes(raw_dir / "RAW_recipes.csv")
     interactions_raw = load_raw_interactions(raw_dir / "RAW_interactions.csv")
@@ -274,6 +276,7 @@ def run_foodcom_pipeline(
     summary = {
         "k_core": kcore_stats,
         "sparsity": round(sparsity, 4),
+        "alias_count": alias_count,
         "rating_distribution": interactions_clean["rating"].value_counts().sort_index().to_dict(),
         "output_files": [str(recipes_path), str(interactions_path)],
     }

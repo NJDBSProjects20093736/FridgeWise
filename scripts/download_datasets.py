@@ -49,7 +49,11 @@ def download_foodkeeper() -> Path:
             return download_file(url, out)
         except Exception as e:
             print(f"  failed {url}: {e}")
-    raise RuntimeError("Could not download FoodKeeper JSON")
+    fallback = ROOT / "assets" / "shelf_life_fallback.csv"
+    if fallback.exists():
+        print(f"  using fallback shelf-life reference at {fallback}")
+        return fallback
+    raise RuntimeError("Could not download FoodKeeper JSON and no fallback found")
 
 
 def find_fdc_foundation_zip(client: httpx.Client) -> str:

@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 
 from src.features import expiry_priority_score, nutrition_score_from_nutrients
-from src.normalize import normalize_ingredient, normalize_ingredient_list
+from src.normalize import load_aliases, normalize_ingredient, normalize_ingredient_list
 
 # FDC nutrient IDs (per 100g unless noted)
 NUTRIENT_IDS = {
@@ -63,10 +63,14 @@ def _parse_json_list(value: Any) -> list[str]:
         return []
 
 
-def load_shelf_life(raw_dir: Path) -> pd.DataFrame:
+def load_shelf_life(raw_dir: Path, project_root: Path | None = None) -> pd.DataFrame:
     """Load USDA FoodKeeper JSON or fallback CSV."""
     json_path = raw_dir / "usda_foodkeeper" / "foodkeeper.json"
-    fallback = raw_dir / "usda_foodkeeper" / "shelf_life_fallback.csv"
+    fallback_paths = [
+        raw_dir / "usda_foodkeeper" / "shelf_life_fallback.csv",
+    ]
+    if project_root:
+        fallback_paths.append(project_root / "assets" / "shelf_life_fallback.csv")
 
     rows: list[dict[str, Any]] = []
 
@@ -92,6 +96,9 @@ def load_shelf_life(raw_dir: Path) -> pd.DataFrame:
                             "source": "USDA FoodKeeper JSON",
                         })
     else:
+        fallback = next((p for p in fallback_paths if p.exists()), None)
+        if fallback is None:
+            raise FileNotFoundError("No shelf-life fallback file found")
         df = pd.read_csv(fallback)
         for _, r in df.iterrows():
             rows.append(r.to_dict())
@@ -166,12 +173,14 @@ def map_off_generic(product_name: str, categories: str = "") -> str:
     return normalize_ingredient(product_name.split(",")[0][:40])
 
 
-def load_open_food_products(raw_dir: Path) -> pd.DataFrame:
+def load_open_food_products(raw_dir: Path, project_root: Path | None = None) -> pd.DataFrame:
     """Parse cached OFF JSON + embedded fallback products."""
     paths = [
         raw_dir / "open_food_facts" / "products_sample.json",
         raw_dir / "open_food_facts" / "fallback_products.json",
     ]
+    if project_root:
+        paths.append(project_root / "assets" / "open_food_facts_fallback.json")
     products: list[dict] = []
     for p in paths:
         if p.exists():
@@ -449,6 +458,7 @@ def run_enrichment_pipeline(
     """Run Phase 1.5–1.10 after Food.com cleaning."""
     clean_dir = root / "data" / "clean"
     raw_dir = root / "data" / "raw"
+    alias_count = load_aliases(root / "assets" / "ingredient_aliases.csv")
     rng = np.random.default_rng(random_state)
 
     recipes = pd.read_csv(clean_dir / "clean_recipes.csv")
@@ -461,13 +471,13 @@ def run_enrichment_pipeline(
     ing_counts = pd.Series(all_ings).value_counts()
     top_ings = ing_counts.head(80).index.tolist()
 
-    shelf_life = load_shelf_life(raw_dir)
+    shelf_life = load_shelf_life(raw_dir, project_root=root)
     shelf_life.to_csv(clean_dir / "clean_shelf_life.csv", index=False)
 
     fdc_nutrition = load_fdc_nutrition(raw_dir / "usda_fdc", top_ings[:60])
     fdc_nutrition.to_csv(clean_dir / "fdc_nutrition.csv", index=False)
 
-    off_products = load_open_food_products(raw_dir)
+    off_products = load_open_food_products(raw_dir, project_root=root)
     off_products.to_csv(clean_dir / "clean_open_food_products.csv", index=False)
 
     context_lifts = mine_context_tag_lifts(interactions, recipes)
