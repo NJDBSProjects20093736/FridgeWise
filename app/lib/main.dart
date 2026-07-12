@@ -12,6 +12,10 @@ import 'widgets/loading_state.dart';
 import 'widgets/responsive_container.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+  };
   runApp(
     MultiProvider(
       providers: [
@@ -31,14 +35,19 @@ class FridgeWiseApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<AppState>();
+    AppTheme.syncDarkMode(state.themeMode == 'dark');
     return MaterialApp(
       title: 'FridgeWise AI',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.light(),
+      theme: AppTheme.buildTheme(Brightness.light),
+      darkTheme: AppTheme.buildTheme(Brightness.dark),
+      themeMode: state.themeMode == 'dark' ? ThemeMode.dark : ThemeMode.light,
       home: const BootstrapScreen(),
     );
   }
 }
+
 
 class BootstrapScreen extends StatefulWidget {
   const BootstrapScreen({super.key});
@@ -57,11 +66,12 @@ class _BootstrapScreenState extends State<BootstrapScreen> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<AppState>();
+    AppTheme.syncDarkMode(state.themeMode == 'dark');
 
     if (!state.bootstrapped) {
-      return const Scaffold(
+      return Scaffold(
         backgroundColor: AppTheme.background,
-        body: LoadingState(message: 'Starting FridgeWise AI…'),
+        body: LoadingState(message: state.error ?? 'Starting FridgeWise AI…'),
       );
     }
 

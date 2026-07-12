@@ -150,7 +150,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
                   decoration: InputDecoration(
                     hintText: 'Search recipes or ingredients…',
                     border: InputBorder.none,
-                    prefixIcon: const Icon(Icons.search, color: AppTheme.textMuted),
+                    prefixIcon: Icon(Icons.search, color: AppTheme.textMuted),
                     suffixIcon: _searching
                         ? const Padding(
                             padding: EdgeInsets.all(12),

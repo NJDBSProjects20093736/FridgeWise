@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import '../theme/app_theme.dart';
 import '../config/api_config.dart';
 import '../models/fridge_item.dart';
 import '../models/product.dart';
@@ -23,6 +24,7 @@ class AppState extends ChangeNotifier {
   bool bootstrapped = false;
   bool loading = false;
   String? error;
+  String themeMode = 'light';
 
   UserProfile profile = const UserProfile();
   List<FridgeItem> fridge = [];
@@ -39,17 +41,36 @@ class AppState extends ChangeNotifier {
   bool rescueLoading = false;
 
   Future<void> bootstrap() async {
-    apiOk = await repo.healthCheck();
-    onboarded = await local.isOnboarded();
-    final saved = await local.loadProfile();
-    if (saved != null) profile = saved;
-    if (apiOk && onboarded) {
-      await refreshProfileFromApi();
-      await loadFridge();
+    try {
+      apiOk = await repo.healthCheck();
+      try {
+        onboarded = await local.isOnboarded().timeout(const Duration(seconds: 10));
+        final saved = await local.loadProfile();
+        if (saved != null) profile = saved;
+        themeMode = await local.loadThemeMode().timeout(const Duration(seconds: 10));
+      } catch (_) {
+        // Corrupt or slow local storage — continue with defaults.
+      }
+      AppTheme.syncDarkMode(themeMode == 'dark');
+      if (apiOk && onboarded) {
+        await refreshProfileFromApi();
+        await loadFridge();
+      }
+    } catch (e) {
+      error = 'Startup failed: $e';
+    } finally {
+      bootstrapped = true;
+      notifyListeners();
     }
-    bootstrapped = true;
+  }
+
+  Future<void> setThemeMode(String mode) async {
+    themeMode = mode;
+    AppTheme.syncDarkMode(mode == 'dark');
+    await local.saveThemeMode(mode);
     notifyListeners();
   }
+
 
   Future<void> refreshProfileFromApi() async {
     try {

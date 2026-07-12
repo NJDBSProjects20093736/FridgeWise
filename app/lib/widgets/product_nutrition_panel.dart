@@ -33,7 +33,7 @@ class ProductNutritionPanel extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Icon(Icons.qr_code_scanner, color: AppTheme.glacier),
+                Icon(Icons.qr_code_scanner, color: AppTheme.glacier),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
@@ -92,7 +92,7 @@ class ProductNutritionPanel extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(color: AppTheme.dangerRed.withValues(alpha: 0.3)),
                     ),
-                    child: Text(a, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppTheme.dangerRed)),
+                    child: Text(a, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppTheme.dangerRed)),
                   );
                 }).toList(),
               ),

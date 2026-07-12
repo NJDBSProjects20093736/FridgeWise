@@ -90,7 +90,7 @@ class ProfileFormContent extends StatelessWidget {
                   Text('Familiar only', style: Theme.of(context).textTheme.bodySmall),
                   Text(
                     draft.opennessToNewCuisines.toStringAsFixed(1),
-                    style: const TextStyle(fontWeight: FontWeight.w700, color: AppTheme.primaryGreen),
+                    style: TextStyle(fontWeight: FontWeight.w700, color: AppTheme.primaryGreen),
                   ),
                   Text('Adventurous', style: Theme.of(context).textTheme.bodySmall),
                 ],

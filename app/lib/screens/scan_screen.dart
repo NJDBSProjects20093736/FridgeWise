@@ -76,7 +76,7 @@ class _ScanScreenState extends State<ScanScreen> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: AppTheme.frostPanelDecoration(),
-            child: const Row(
+            child: Row(
               children: [
                 Icon(Icons.shopping_basket_outlined, color: AppTheme.glacier, size: 20),
                 SizedBox(width: 10),
@@ -213,12 +213,12 @@ class _ScanScreenState extends State<ScanScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.warning_amber_rounded, color: AppTheme.dangerRed),
+          Icon(Icons.warning_amber_rounded, color: AppTheme.dangerRed),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: warnings.map((w) => Text(w, style: const TextStyle(fontSize: 13, color: AppTheme.dangerRed))).toList(),
+              children: warnings.map((w) => Text(w, style: TextStyle(fontSize: 13, color: AppTheme.dangerRed))).toList(),
             ),
           ),
         ],

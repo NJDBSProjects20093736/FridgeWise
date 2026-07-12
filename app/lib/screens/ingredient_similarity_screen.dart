@@ -54,7 +54,7 @@ class _IngredientSimilarityScreenState extends State<IngredientSimilarityScreen>
             decoration: AppTheme.frostPanelDecoration(),
             child: Row(
               children: [
-                const Icon(Icons.lightbulb_outline, color: AppTheme.glacier, size: 18),
+                Icon(Icons.lightbulb_outline, color: AppTheme.glacier, size: 18),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -88,7 +88,7 @@ class _IngredientSimilarityScreenState extends State<IngredientSimilarityScreen>
                       label: Text(s),
                       onPressed: () => _search(s),
                       backgroundColor: AppTheme.cardSurface,
-                      side: const BorderSide(color: AppTheme.cardBorder),
+                      side: BorderSide(color: AppTheme.cardBorder),
                     );
                   }).toList(),
                 ),
@@ -142,7 +142,7 @@ class _IngredientSimilarityScreenState extends State<IngredientSimilarityScreen>
                                 ),
                                 child: Text(
                                   confidence is num ? (confidence).toStringAsFixed(2) : confidence.toString(),
-                                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppTheme.primaryGreen),
+                                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppTheme.primaryGreen),
                                 ),
                               ),
                           ],

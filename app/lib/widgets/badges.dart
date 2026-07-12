@@ -108,9 +108,9 @@ class ExpiryChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.schedule, size: 14, color: AppTheme.warningOrange),
+          Icon(Icons.schedule, size: 14, color: AppTheme.warningOrange),
           const SizedBox(width: 4),
-          Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppTheme.warningOrange)),
+          Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppTheme.warningOrange)),
         ],
       ),
     );

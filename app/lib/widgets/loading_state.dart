@@ -14,7 +14,7 @@ class LoadingState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const CircularProgressIndicator(color: AppTheme.primaryGreen),
+            CircularProgressIndicator(color: AppTheme.primaryGreen),
             if (message != null) ...[
               const SizedBox(height: 16),
               Text(message!, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted)),
@@ -112,7 +112,7 @@ class NutritionMetricTile extends StatelessWidget {
         children: [
           Icon(icon, size: 16, color: AppTheme.primaryGreen),
           const SizedBox(height: 6),
-          Text(value, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.textDark)),
+          Text(value, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.textDark)),
           Text(label, style: Theme.of(context).textTheme.bodySmall),
         ],
       ),

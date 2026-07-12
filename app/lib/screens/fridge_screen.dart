@@ -144,7 +144,7 @@ class _FridgeScreenState extends State<FridgeScreen> {
       child: Align(
         alignment: Alignment.topCenter,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: AppTheme.maxContentWidth),
+          constraints: BoxConstraints(maxWidth: AppTheme.maxContentWidth),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -309,7 +309,7 @@ class _FridgeScreenState extends State<FridgeScreen> {
           const SizedBox(height: 8),
           Row(
             children: [
-              const Icon(Icons.event, size: 18, color: AppTheme.textMuted),
+              Icon(Icons.event, size: 18, color: AppTheme.textMuted),
               const SizedBox(width: 8),
               Text('Days to expiry: $_days', style: Theme.of(context).textTheme.bodySmall),
             ],

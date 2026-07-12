@@ -139,7 +139,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        const Icon(Icons.schedule, size: 16, color: AppTheme.textMuted),
+                        Icon(Icons.schedule, size: 16, color: AppTheme.textMuted),
                         const SizedBox(width: 4),
                         Text('${s.prepTimeMinutes} min', style: Theme.of(context).textTheme.bodySmall),
                         if (s.difficultyLevel.isNotEmpty) ...[
@@ -221,7 +221,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Row(
                   children: [
-                    const Icon(Icons.fiber_manual_record, size: 8, color: AppTheme.primaryGreen),
+                    Icon(Icons.fiber_manual_record, size: 8, color: AppTheme.primaryGreen),
                     const SizedBox(width: 10),
                     Expanded(child: Text(i)),
                   ],
@@ -242,7 +242,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: AppTheme.warningOrange.withValues(alpha: 0.3)),
                   ),
-                  child: Text(m, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppTheme.warningOrange)),
+                  child: Text(m, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppTheme.warningOrange)),
                 );
               }).toList(),
             ),
@@ -293,7 +293,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.verified_user, size: 18, color: AppTheme.primaryGreen),
+                Icon(Icons.verified_user, size: 18, color: AppTheme.primaryGreen),
                 const SizedBox(width: 10),
                 Expanded(child: Text(n)),
               ],
@@ -314,7 +314,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.eco_outlined, size: 18, color: AppTheme.primaryGreen),
+                Icon(Icons.eco_outlined, size: 18, color: AppTheme.primaryGreen),
                 const SizedBox(width: 10),
                 Expanded(child: Text(n)),
               ],

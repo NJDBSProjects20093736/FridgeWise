@@ -68,7 +68,7 @@ class FridgeItemCard extends StatelessWidget {
                                 color: AppTheme.lightGreen,
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Icon(Icons.qr_code_2, size: 12, color: AppTheme.primaryGreen),

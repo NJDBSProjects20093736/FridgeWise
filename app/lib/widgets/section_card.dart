@@ -163,7 +163,7 @@ class SummaryStatCard extends StatelessWidget {
           children: [
             Icon(icon, color: accent, size: 20),
             const SizedBox(height: 8),
-            Text(value, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: AppTheme.textDark)),
+            Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: AppTheme.textDark)),
             Text(label, style: Theme.of(context).textTheme.bodySmall),
           ],
         ),

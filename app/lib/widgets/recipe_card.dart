@@ -78,7 +78,7 @@ class RecipeCard extends StatelessWidget {
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      const Icon(Icons.schedule, size: 14, color: AppTheme.textMuted),
+                      Icon(Icons.schedule, size: 14, color: AppTheme.textMuted),
                       const SizedBox(width: 4),
                       Text('${recipe.prepTimeMinutes} min prep', style: Theme.of(context).textTheme.bodySmall),
                     ],
@@ -93,7 +93,7 @@ class RecipeCard extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: AppTheme.textMuted),
+            Icon(Icons.chevron_right, color: AppTheme.textMuted),
           ],
         ),
       ),

@@ -54,7 +54,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         child: SingleChildScrollView(
           padding: AppTheme.pagePadding(context),
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: AppTheme.profileMaxWidth),
+            constraints: BoxConstraints(maxWidth: AppTheme.profileMaxWidth),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -78,9 +78,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.error_outline, color: AppTheme.dangerRed, size: 20),
+                        Icon(Icons.error_outline, color: AppTheme.dangerRed, size: 20),
                         const SizedBox(width: 10),
-                        Expanded(child: Text(_error!, style: const TextStyle(fontSize: 13, color: AppTheme.dangerRed))),
+                        Expanded(child: Text(_error!, style: TextStyle(fontSize: 13, color: AppTheme.dangerRed))),
                       ],
                     ),
                   ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../providers/app_state.dart';
+import 'package:provider/provider.dart';
 import '../theme/app_theme.dart';
 import 'fridge_screen.dart';
 import 'ingredient_similarity_screen.dart';
@@ -28,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final wide = isWideLayout(context);
+    final state = context.watch<AppState>();
     const pages = [
       RecommendationsScreen(),
       FridgeScreen(),
@@ -49,13 +52,28 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Icon(Icons.ac_unit, color: Colors.white, size: 20),
             ),
             const SizedBox(width: 10),
-            const Text('FridgeWise AI'),
+            Text.rich(
+              TextSpan(
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                children: [
+                  TextSpan(text: 'FridgeWise ', style: TextStyle(color: AppTheme.textDark)),
+                  TextSpan(text: 'AI', style: TextStyle(color: AppTheme.roseAccent)),
+                ],
+              ),
+            ),
           ],
         ),
         actions: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Center(child: ApiStatusIndicator()),
+          ),
+          IconButton(
+            tooltip: state.themeMode == 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode',
+            icon: Icon(state.themeMode == 'dark' ? Icons.light_mode_outlined : Icons.dark_mode_outlined),
+            onPressed: () {
+              state.setThemeMode(state.themeMode == 'dark' ? 'light' : 'dark');
+            },
           ),
           IconButton(
             tooltip: 'Profile',
@@ -68,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(width: 8),
         ],
       ),
+
       body: Row(
         children: [
           if (wide) ...[
@@ -79,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   .map((t) => NavigationRailDestination(icon: Icon(t.icon), label: Text(t.label)))
                   .toList(),
             ),
-            const VerticalDivider(width: 1, color: AppTheme.cardBorder),
+            VerticalDivider(width: 1, color: AppTheme.cardBorder),
           ],
           Expanded(
             child: AnimatedSwitcher(

@@ -49,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: SingleChildScrollView(
           padding: AppTheme.pagePadding(context),
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: AppTheme.profileMaxWidth),
+            constraints: BoxConstraints(maxWidth: AppTheme.profileMaxWidth),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
