@@ -14,7 +14,7 @@ def main() -> None:
 
     from src.evaluation.evaluator import run_full_evaluation, save_tradeoff_chart
 
-    print("=== FridgeWise Phase 3 — Evaluation ===\n")
+    print("=== ThriftyChef Phase 3 — Evaluation ===\n")
     summary = run_full_evaluation(root, k=10, max_users=500)
 
     out_json = root / "data" / "clean" / "phase3_evaluation.json"

@@ -9,6 +9,7 @@ import 'recommendations_screen.dart';
 import 'scan_screen.dart';
 import '../widgets/app_scaffold.dart';
 import '../widgets/responsive_container.dart';
+import '../widgets/thrifty_chef_logo.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -41,32 +42,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
-        title: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                gradient: AppTheme.glacierHeroGradient,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Icon(Icons.ac_unit, color: Colors.white, size: 20),
-            ),
-            const SizedBox(width: 10),
-            Text.rich(
-              TextSpan(
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
-                children: [
-                  TextSpan(text: 'FridgeWise ', style: TextStyle(color: AppTheme.textDark)),
-                  TextSpan(text: 'AI', style: TextStyle(color: AppTheme.roseAccent)),
-                ],
-              ),
-            ),
-          ],
-        ),
+        title: const ThriftyChefLogo.compact(),
+        titleSpacing: 12,
         actions: [
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: Center(child: ApiStatusIndicator()),
+            padding: EdgeInsets.symmetric(horizontal: 4),
+            child: Center(child: ApiStatusIndicator(compact: true)),
           ),
           IconButton(
             tooltip: state.themeMode == 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode',

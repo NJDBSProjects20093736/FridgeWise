@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// Semantic FridgeWise palette — Light (Frost) and Dark (Nordic Rose & Frost).
+/// Semantic ThriftyChef palette — Light (Frost) and Dark (Nordic Rose & Frost).
 @immutable
-class FridgeWiseColors extends ThemeExtension<FridgeWiseColors> {
+class ThriftyChefColors extends ThemeExtension<ThriftyChefColors> {
   final Color background;
   final Color frost;
   final Color glacierDeep;
@@ -23,7 +23,7 @@ class FridgeWiseColors extends ThemeExtension<FridgeWiseColors> {
   final List<Color> phase2Gradient;
   final bool useGlow;
 
-  const FridgeWiseColors({
+  const ThriftyChefColors({
     required this.background,
     required this.frost,
     required this.glacierDeep,
@@ -45,49 +45,49 @@ class FridgeWiseColors extends ThemeExtension<FridgeWiseColors> {
     required this.useGlow,
   });
 
-  /// Light mode — pale frost dashboard (design ref: light mockup).
-  static const light = FridgeWiseColors(
+  /// Light mode — pale frost dashboard with teal primary (#34A0A4).
+  static const light = ThriftyChefColors(
     background: Color(0xFFF1F5F9),
     frost: Color(0xFFF8FAFC),
-    glacierDeep: Color(0xFF0369A1),
-    glacier: Color(0xFF0284C7),
-    glacierMid: Color(0xFF0EA5E9),
-    iceLight: Color(0xFFE0F2FE),
-    iceAccent: Color(0xFF7DD3FC),
+    glacierDeep: Color(0xFF268387),
+    glacier: Color(0xFF34A0A4),
+    glacierMid: Color(0xFF4DB4B8),
+    iceLight: Color(0xFFE6F4F5),
+    iceAccent: Color(0xFF8FD3D6),
     roseAccent: Color(0xFFE5A99E),
-    arcticGlow: Color(0xFF0EA5E9),
+    arcticGlow: Color(0xFF4DB4B8),
     warningOrange: Color(0xFFD97706),
     dangerRed: Color(0xFFDC2626),
-    goodTeal: Color(0xFF0D9488),
+    goodTeal: Color(0xFF34A0A4),
     textPrimary: Color(0xFF0F172A),
     textMuted: Color(0xFF64748B),
     cardBorder: Color(0xFFE2E8F0),
     cardSurface: Color(0xFFFFFFFF),
-    heroGradient: [Color(0xFF0284C7), Color(0xFF0EA5E9)],
-    phase2Gradient: [Color(0xFF0EA5E9), Color(0xFF7DD3FC)],
+    heroGradient: [Color(0xFF268387), Color(0xFF34A0A4)],
+    phase2Gradient: [Color(0xFF34A0A4), Color(0xFF6EC8CC)],
     useGlow: false,
   );
 
-  /// Dark mode — Nordic Rose & Frost (design ref: frost-heavy dark mockup).
-  static const dark = FridgeWiseColors(
+  /// Dark mode — deep navy with teal glow (#34A0A4).
+  static const dark = ThriftyChefColors(
     background: Color(0xFF0B1220),
     frost: Color(0xFF131C2E),
-    glacierDeep: Color(0xFF0C4A6E),
-    glacier: Color(0xFF38BDF8),
-    glacierMid: Color(0xFF22D3EE),
-    iceLight: Color(0xFF1E3A5F),
-    iceAccent: Color(0xFF0EA5E9),
+    glacierDeep: Color(0xFF1F6B6E),
+    glacier: Color(0xFF34A0A4),
+    glacierMid: Color(0xFF4DB4B8),
+    iceLight: Color(0xFF1A3A3C),
+    iceAccent: Color(0xFF6EC8CC),
     roseAccent: Color(0xFFE8A598),
-    arcticGlow: Color(0xFF22D3EE),
+    arcticGlow: Color(0xFF4DB4B8),
     warningOrange: Color(0xFFF59E0B),
     dangerRed: Color(0xFFEF4444),
-    goodTeal: Color(0xFF10B981),
+    goodTeal: Color(0xFF34A0A4),
     textPrimary: Color(0xFFF1F5F9),
     textMuted: Color(0xFF94A3B8),
     cardBorder: Color(0xFF334155),
     cardSurface: Color(0xFF151F32),
-    heroGradient: [Color(0xFF0EA5E9), Color(0xFF38BDF8)],
-    phase2Gradient: [Color(0xFF22D3EE), Color(0xFF67E8F9)],
+    heroGradient: [Color(0xFF268387), Color(0xFF34A0A4)],
+    phase2Gradient: [Color(0xFF34A0A4), Color(0xFF6EC8CC)],
     useGlow: true,
   );
 
@@ -104,18 +104,18 @@ class FridgeWiseColors extends ThemeExtension<FridgeWiseColors> {
       );
 
   @override
-  FridgeWiseColors copyWith({bool? useGlow}) => this;
+  ThriftyChefColors copyWith({bool? useGlow}) => this;
 
   @override
-  FridgeWiseColors lerp(ThemeExtension<FridgeWiseColors>? other, double t) {
-    if (other is! FridgeWiseColors) return this;
+  ThriftyChefColors lerp(ThemeExtension<ThriftyChefColors>? other, double t) {
+    if (other is! ThriftyChefColors) return this;
     return t < 0.5 ? this : other;
   }
 }
 
-extension FridgeWiseThemeContext on BuildContext {
-  FridgeWiseColors get fw =>
-      Theme.of(this).extension<FridgeWiseColors>() ?? FridgeWiseColors.light;
+extension ThriftyChefThemeContext on BuildContext {
+  ThriftyChefColors get fw =>
+      Theme.of(this).extension<ThriftyChefColors>() ?? ThriftyChefColors.light;
 }
 
 /// Builds Material themes and provides decoration helpers.
@@ -126,7 +126,7 @@ class AppTheme {
   /// Synced from [AppState.themeMode] — do NOT mutate inside buildTheme().
   static bool isDark = false;
 
-  static FridgeWiseColors get c => isDark ? FridgeWiseColors.dark : FridgeWiseColors.light;
+  static ThriftyChefColors get c => isDark ? ThriftyChefColors.dark : ThriftyChefColors.light;
 
   // Backward-compatible accessors (used across widgets)
   static Color get background => c.background;
@@ -156,7 +156,7 @@ class AppTheme {
   static void syncDarkMode(bool dark) => isDark = dark;
 
   static ThemeData buildTheme(Brightness brightness) {
-    final palette = brightness == Brightness.dark ? FridgeWiseColors.dark : FridgeWiseColors.light;
+    final palette = brightness == Brightness.dark ? ThriftyChefColors.dark : ThriftyChefColors.light;
     final isDarkTheme = brightness == Brightness.dark;
 
     final scheme = ColorScheme.fromSeed(
@@ -352,7 +352,7 @@ class AppTheme {
     );
   }
 
-  static List<BoxShadow>? _shadows(FridgeWiseColors palette, {bool hoverable = false}) {
+  static List<BoxShadow>? _shadows(ThriftyChefColors palette, {bool hoverable = false}) {
     if (palette.useGlow) {
       return [
         BoxShadow(

@@ -1,4 +1,4 @@
-# FridgeWise AI — core Python dependencies (Phase 0–4)
+# ThriftyChef — core Python dependencies (Phase 0–4)
 # Install: python -m venv .venv && .venv\Scripts\activate && pip install -r requirements.txt
 
 # Data & numerics

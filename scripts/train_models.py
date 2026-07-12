@@ -18,7 +18,7 @@ def main() -> None:
     from src.models.popularity import PopularityRecommender
     from src.recommender import HybridRecommender
 
-    print("=== FridgeWise Phase 2 — Train models ===\n")
+    print("=== ThriftyChef Phase 2 — Train models ===\n")
     data = load_fridgewise_data(root)
     models_dir = root / "src" / "models" / "artifacts"
     models_dir.mkdir(parents=True, exist_ok=True)

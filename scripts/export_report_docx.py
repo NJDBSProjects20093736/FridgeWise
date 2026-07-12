@@ -223,7 +223,7 @@ def main() -> None:
 
     title = doc.add_paragraph()
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = title.add_run("FridgeWise AI: A Hybrid Recipe Recommender System for Food Waste Reduction")
+    run = title.add_run("ThriftyChef: A Hybrid Recipe Recommender System for Food Waste Reduction")
     run.bold = True
     run.font.size = Pt(16)
 

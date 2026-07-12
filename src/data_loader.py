@@ -34,7 +34,7 @@ def parse_json_list(value) -> list[str]:
 
 
 @dataclass
-class FridgeWiseData:
+class ThriftyChefData:
     recipes: pd.DataFrame
     interactions: pd.DataFrame
     fridge: pd.DataFrame
@@ -50,9 +50,9 @@ class FridgeWiseData:
     def user_rated_recipes(self, user_id: int) -> set[int]:
         return set(self.interactions.loc[self.interactions["user_id"] == user_id, "recipe_id"])
 
-    def with_interactions(self, interactions: pd.DataFrame) -> "FridgeWiseData":
+    def with_interactions(self, interactions: pd.DataFrame) -> "ThriftyChefData":
         """Return a copy with a different interaction set (for train/eval splits)."""
-        return FridgeWiseData(
+        return ThriftyChefData(
             recipes=self.recipes,
             interactions=interactions.reset_index(drop=True),
             fridge=self.fridge,
@@ -63,7 +63,11 @@ class FridgeWiseData:
         )
 
 
-def load_fridgewise_data(root: Path | None = None) -> FridgeWiseData:
+# Backward compatibility — pickled .pkl artifacts were saved before the ThriftyChef rebrand.
+FridgeWiseData = ThriftyChefData
+
+
+def load_fridgewise_data(root: Path | None = None) -> ThriftyChefData:
     root = root or Path(__file__).resolve().parents[1]
     clean = root / "data" / "clean"
 
@@ -78,7 +82,7 @@ def load_fridgewise_data(root: Path | None = None) -> FridgeWiseData:
         rif.groupby("recipe_id")["avg_nutrition_score"].mean().astype(float)
     )
 
-    return FridgeWiseData(
+    return ThriftyChefData(
         recipes=recipes,
         interactions=interactions,
         fridge=fridge,

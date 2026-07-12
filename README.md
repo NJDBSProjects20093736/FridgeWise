@@ -1,14 +1,14 @@
-# FridgeWise AI
+# ThriftyChef
 
 Context-aware hybrid recipe recommendation system for household food waste reduction.
 
-FridgeWise AI ranks recipes by combining fridge inventory, ingredient expiry, nutrition signals, user preference history, and dietary constraints. The system is designed for offline model development, structured evaluation, and deployment through a REST API and mobile client.
+ThriftyChef ranks recipes by combining fridge inventory, ingredient expiry, nutrition signals, user preference history, and dietary constraints. The system is designed for offline model development, structured evaluation, and deployment through a REST API and mobile client.
 
 ---
 
 ## Overview
 
-FridgeWise AI addresses food waste by recommending recipes that:
+ThriftyChef addresses food waste by recommending recipes that:
 
 - maximise use of ingredients already in the user's fridge
 - prioritise items approaching expiry
@@ -200,6 +200,6 @@ Detailed implementation plan: [docs/BUILD_STEPS.md](docs/BUILD_STEPS.md)
 
 ## License
 
-Proprietary. All rights reserved by the FridgeWise AI development team.
+Proprietary. All rights reserved by the ThriftyChef development team.
 
 Third-party datasets are subject to their respective licenses and terms of use.

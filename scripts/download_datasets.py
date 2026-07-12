@@ -1,4 +1,4 @@
-"""Download external datasets for FridgeWise (FoodKeeper, FDC, Open Food Facts sample)."""
+"""Download external datasets for ThriftyChef (FoodKeeper, FDC, Open Food Facts sample)."""
 
 from __future__ import annotations
 
@@ -146,7 +146,7 @@ def download_open_food_facts_sample(max_products: int = 150) -> Path:
 
 
 def main() -> None:
-    print("=== FridgeWise dataset download ===\n")
+    print("=== ThriftyChef dataset download ===\n")
     errors: list[str] = []
     for name, fn in [
         ("FoodKeeper", download_foodkeeper),

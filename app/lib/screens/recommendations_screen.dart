@@ -84,10 +84,10 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
         child: ListView(
           padding: const EdgeInsets.only(bottom: 32),
           children: [
-            Text('AI recommendations', style: Theme.of(context).textTheme.headlineMedium),
+            Text('Recipes for you', style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: 6),
             Text(
-              'Ranked by your fridge, expiry dates, profile, and nutrition preferences.',
+              'Smart matches based on what\'s in your fridge — use expiring items first.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted),
             ),
             const SizedBox(height: 20),
@@ -180,12 +180,21 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
               ),
             ] else ...[
               const SizedBox(height: 20),
+              Text('Top matches', style: Theme.of(context).textTheme.titleMedium),
+              const SizedBox(height: 12),
+              RecipeCarousel(
+                recipes: list.take(6).toList(),
+                onTap: (r) => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => RecipeDetailScreen(recipeId: r.recipeId, summary: r)),
+                ),
+              ),
+              const SizedBox(height: 24),
               Row(
                 children: [
-                  Text('Top picks', style: Theme.of(context).textTheme.titleMedium),
+                  Text('All recommendations', style: Theme.of(context).textTheme.titleMedium),
                   const Spacer(),
                   Text('${list.length} recipes', style: Theme.of(context).textTheme.bodySmall),
-                  const SizedBox(width: 8),
                   IconButton(
                     icon: const Icon(Icons.refresh, size: 20),
                     tooltip: 'Refresh',
@@ -193,14 +202,12 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
-              ...list.map(
-                (r) => RecipeCard(
-                  recipe: r,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => RecipeDetailScreen(recipeId: r.recipeId, summary: r)),
-                  ),
+              const SizedBox(height: 12),
+              RecipeCardLayout(
+                recipes: list,
+                onTap: (r) => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => RecipeDetailScreen(recipeId: r.recipeId, summary: r)),
                 ),
               ),
             ],

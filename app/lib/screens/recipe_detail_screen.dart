@@ -4,6 +4,8 @@ import '../models/recipe_recommendation.dart';
 import '../providers/app_state.dart';
 import '../theme/app_theme.dart';
 import '../widgets/badges.dart';
+import '../widgets/food_image.dart';
+import '../utils/food_imagery.dart';
 import '../widgets/loading_state.dart';
 import '../widgets/responsive_container.dart';
 import '../widgets/section_card.dart';
@@ -119,54 +121,61 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
   }
 
   Widget _summaryCard(RecipeRecommendation s) {
-    return Container(
-      decoration: AppTheme.cardDecoration(color: AppTheme.frost),
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(s.name, style: Theme.of(context).textTheme.titleLarge),
-          const SizedBox(height: 14),
-          Row(
+    final hints = FoodImagery.ingredientHints(s.name, s.expiringUsed);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Stack(
             children: [
-              ScoreBadge(matchPct: s.matchPct, size: 64),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('AI score ${s.finalScore.toStringAsFixed(2)}', style: Theme.of(context).textTheme.bodyMedium),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Icon(Icons.schedule, size: 16, color: AppTheme.textMuted),
-                        const SizedBox(width: 4),
-                        Text('${s.prepTimeMinutes} min', style: Theme.of(context).textTheme.bodySmall),
-                        if (s.difficultyLevel.isNotEmpty) ...[
-                          const SizedBox(width: 12),
-                          Text(s.difficultyLevel, style: Theme.of(context).textTheme.bodySmall),
-                        ],
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    SafetyBadge(safe: s.safetyPassed),
-                  ],
-                ),
+              FoodImage(label: s.name, height: 220, borderRadius: BorderRadius.circular(16)),
+              Positioned(
+                bottom: 12,
+                right: 12,
+                child: ScoreBadge(matchPct: s.matchPct, size: 72, glowing: true),
               ),
             ],
           ),
-          const SizedBox(height: 14),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
+        ),
+        const SizedBox(height: 16),
+        Container(
+          decoration: AppTheme.cardDecoration(color: AppTheme.frost),
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (s.expiringUsed.isNotEmpty) ExpiryChip(count: s.expiringUsed.length, items: s.expiringUsed),
-              TagChip(label: 'Nutrition ${s.nutritionScore.toStringAsFixed(1)}', icon: Icons.eco_outlined),
-              if (s.missingCount > 0) TagChip(label: '${s.missingCount} missing', icon: Icons.shopping_basket_outlined, color: AppTheme.warningOrange),
+              Text(s.name, style: Theme.of(context).textTheme.titleLarge),
+              const SizedBox(height: 12),
+              IngredientAvatarRow(ingredients: hints, size: 36),
+              const SizedBox(height: 14),
+              Row(
+                children: [
+                  Icon(Icons.schedule, size: 16, color: AppTheme.textMuted),
+                  const SizedBox(width: 4),
+                  Text('${s.prepTimeMinutes} min prep', style: Theme.of(context).textTheme.bodySmall),
+                  if (s.difficultyLevel.isNotEmpty) ...[
+                    const SizedBox(width: 12),
+                    Text(s.difficultyLevel, style: Theme.of(context).textTheme.bodySmall),
+                  ],
+                  const Spacer(),
+                  SafetyBadge(safe: s.safetyPassed),
+                ],
+              ),
+              const SizedBox(height: 14),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  if (s.expiringUsed.isNotEmpty) ExpiryChip(count: s.expiringUsed.length, items: s.expiringUsed),
+                  TagChip(label: 'Nutrition ${s.nutritionScore.toStringAsFixed(1)}', icon: Icons.eco_outlined),
+                  if (s.missingCount > 0) TagChip(label: '${s.missingCount} missing', icon: Icons.shopping_basket_outlined, color: AppTheme.warningOrange),
+                ],
+              ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

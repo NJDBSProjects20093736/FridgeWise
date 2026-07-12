@@ -14,7 +14,7 @@ def main() -> None:
 
     from src.evaluation.cold_start import run_cold_start_evaluation, save_warmup_chart
 
-    print("=== FridgeWise Phase 4 — Cold-start evaluation ===\n")
+    print("=== ThriftyChef Phase 4 — Cold-start evaluation ===\n")
     summary = run_cold_start_evaluation(root)
 
     out_json = root / "data" / "clean" / "phase4_cold_start.json"

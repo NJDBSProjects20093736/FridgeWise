@@ -1,4 +1,4 @@
-"""Verify all FridgeWise phase checkpoints."""
+"""Verify all ThriftyChef phase checkpoints."""
 
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ def main() -> int:
     if str(root) not in sys.path:
         sys.path.insert(0, str(root))
 
-    print("=== FridgeWise checkpoint verification ===\n")
+    print("=== ThriftyChef checkpoint verification ===\n")
     all_ok = True
 
     # Phase 0

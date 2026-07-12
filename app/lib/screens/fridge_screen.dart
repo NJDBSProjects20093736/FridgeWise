@@ -183,14 +183,37 @@ class _FridgeScreenState extends State<FridgeScreen> {
   }
 
   Widget _statsRow(int total, int expiringSoon, int barcodeCount) {
-    return Row(
-      children: [
-        SummaryStatCard(label: 'Total items', value: '$total', icon: Icons.inventory_2_outlined, accent: AppTheme.primaryGreen),
-        const SizedBox(width: 10),
-        SummaryStatCard(label: 'Expiring soon', value: '$expiringSoon', icon: Icons.schedule, accent: AppTheme.warningOrange),
-        const SizedBox(width: 10),
-        SummaryStatCard(label: 'Barcode', value: '$barcodeCount', icon: Icons.qr_code_2, accent: AppTheme.primaryGreen),
-      ],
+    final cards = [
+      SummaryStatCard(label: 'Total items', value: '$total', icon: Icons.inventory_2_outlined, accent: AppTheme.primaryGreen, expand: false),
+      SummaryStatCard(label: 'Expiring soon', value: '$expiringSoon', icon: Icons.schedule, accent: AppTheme.warningOrange, expand: false),
+      SummaryStatCard(label: 'Barcode', value: '$barcodeCount', icon: Icons.qr_code_2, accent: AppTheme.primaryGreen, expand: false),
+    ];
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 560) {
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                for (var i = 0; i < cards.length; i++) ...[
+                  if (i > 0) const SizedBox(width: 10),
+                  SizedBox(width: 148, child: cards[i]),
+                ],
+              ],
+            ),
+          );
+        }
+        return Row(
+          children: [
+            Expanded(child: cards[0]),
+            const SizedBox(width: 10),
+            Expanded(child: cards[1]),
+            const SizedBox(width: 10),
+            Expanded(child: cards[2]),
+          ],
+        );
+      },
     );
   }
 

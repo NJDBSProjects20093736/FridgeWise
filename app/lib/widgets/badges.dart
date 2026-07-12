@@ -4,39 +4,62 @@ import '../theme/app_theme.dart';
 class ScoreBadge extends StatelessWidget {
   final double matchPct;
   final double size;
+  final bool glowing;
+  final String? label;
 
-  const ScoreBadge({super.key, required this.matchPct, this.size = 52});
+  const ScoreBadge({
+    super.key,
+    required this.matchPct,
+    this.size = 52,
+    this.glowing = false,
+    this.label,
+  });
 
   @override
   Widget build(BuildContext context) {
     final pct = (matchPct * 100).clamp(0, 100);
-    return SizedBox(
-      width: size,
-      height: size,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          CircularProgressIndicator(
-            value: pct / 100,
-            strokeWidth: 4,
-            backgroundColor: AppTheme.cardBorder,
-            color: AppTheme.primaryGreen,
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '${pct.toStringAsFixed(0)}%',
-                style: TextStyle(
-                  fontSize: size * 0.22,
-                  fontWeight: FontWeight.w800,
-                  color: AppTheme.primaryGreen,
+    return Container(
+      decoration: glowing
+          ? BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppTheme.cardSurface.withValues(alpha: 0.92),
+              boxShadow: [
+                BoxShadow(color: AppTheme.glacier.withValues(alpha: 0.35), blurRadius: 12),
+              ],
+            )
+          : null,
+      padding: glowing ? const EdgeInsets.all(4) : null,
+      child: SizedBox(
+        width: size,
+        height: size,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            CircularProgressIndicator(
+              value: pct / 100,
+              strokeWidth: glowing ? 5 : 4,
+              backgroundColor: AppTheme.cardBorder,
+              color: AppTheme.glacier,
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '${pct.toStringAsFixed(0)}%',
+                  style: TextStyle(
+                    fontSize: size * 0.22,
+                    fontWeight: FontWeight.w800,
+                    color: AppTheme.glacier,
+                  ),
                 ),
-              ),
-              Text('match', style: TextStyle(fontSize: size * 0.14, color: AppTheme.textMuted)),
-            ],
-          ),
-        ],
+                Text(
+                  label ?? 'match',
+                  style: TextStyle(fontSize: size * 0.13, color: AppTheme.textMuted, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,4 @@
--- FridgeWise AI — Supabase / Postgres schema
+-- ThriftyChef — Supabase / Postgres schema
 -- Run in Supabase SQL Editor or via scripts/apply_supabase_schema.py
 
 -- Extensions

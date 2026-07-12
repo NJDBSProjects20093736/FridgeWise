@@ -1,4 +1,4 @@
-# Run all FridgeWise pipelines and verification (long-running)
+# Run all ThriftyChef pipelines and verification (long-running)
 $ErrorActionPreference = "Stop"
 Set-Location $PSScriptRoot\..
 
