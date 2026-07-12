@@ -1,0 +1,563 @@
+inventory_id,user_id,ingredient_name,cleaned_ingredient_name,quantity,unit,storage_type,purchase_date,expiry_date,days_to_expiry,barcode,expiry_priority_score
+1,5060,egg,egg,1.43,cup,fridge,2026-06-25,2026-07-23,12,,0.2
+2,5060,garlic powder,garlic powder,0.77,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+3,5060,potato,potato,1.78,cup,pantry,2026-07-01,2026-07-22,11,,0.2
+4,5060,flour,flour,0.28,g,pantry,2025-11-22,2026-08-21,41,,0.2
+5,5060,chicken,chicken,0.63,pcs,fridge,2026-07-11,2026-07-12,1,,0.9
+6,5060,soy sauce,soy sauce,1.23,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+7,5060,parsley,parsley,0.29,g,fridge,2026-07-05,2026-07-12,1,,0.9
+8,5060,pepper,pepper,1.14,g,fridge,2026-07-11,2026-07-21,10,,0.5
+9,5060,worcestershire sauce,worcestershire sauce,1.7,pcs,fridge,2026-07-05,2026-07-12,1,,0.9
+10,5060,water,water,1.86,pcs,fridge,2026-07-11,2026-07-18,7,,0.5
+11,18391,miso,miso,1.35,g,fridge,2026-01-15,2026-08-30,50,,0.2
+12,18391,butter,butter,0.45,g,fridge,2026-06-30,2026-08-14,34,,0.2
+13,18391,basil,basil,0.95,g,fridge,2026-07-08,2026-07-15,4,,0.7
+14,18391,cheese,cheese,0.86,pcs,fridge,2026-06-28,2026-07-20,9,6111246721261,0.5
+15,18391,soy sauce,soy sauce,0.79,g,fridge,2026-07-08,2026-07-15,4,,0.7
+16,18391,ginger,ginger,1.43,g,fridge,2026-07-08,2026-07-15,4,,0.7
+17,18391,chicken broth,chicken broth,1.91,g,fridge,2026-07-10,2026-07-17,6,,0.5
+18,18391,worcestershire sauce,worcestershire sauce,1.07,cup,fridge,2026-07-07,2026-07-14,3,,0.7
+19,18391,oil,oil,1.16,g,fridge,2026-07-06,2026-07-13,2,,0.9
+20,18391,paprika,paprika,1.37,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+21,18391,cassava,cassava,1.16,cup,pantry,2026-07-10,2026-07-15,4,,0.7
+22,18391,chicken,chicken,1.34,pcs,fridge,2026-07-11,2026-07-12,1,,0.9
+23,18391,cream,cream,1.52,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+24,55906,paprika,paprika,1.93,pcs,fridge,2026-07-11,2026-07-18,7,,0.5
+25,55906,mayonnaise,mayonnaise,1.27,g,fridge,2026-07-06,2026-07-13,2,,0.9
+26,55906,honey,honey,1.63,cup,pantry,2024-12-17,2026-12-17,159,,0.2
+27,55906,parsley,parsley,0.66,ml,fridge,2026-07-05,2026-07-12,1,,0.9
+28,55906,chicken broth,chicken broth,0.37,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+29,55906,soy sauce,soy sauce,0.51,pcs,fridge,2026-07-07,2026-07-14,3,,0.7
+30,55906,flour,flour,1.23,g,pantry,2026-02-08,2026-11-07,119,,0.2
+31,55906,celery,celery,1.14,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+32,55906,garlic powder,garlic powder,1.64,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+33,59199,garlic,garlic,1.57,ml,pantry,2026-03-12,2026-07-25,14,,0.2
+34,59199,worcestershire sauce,worcestershire sauce,0.86,ml,fridge,2026-07-10,2026-07-17,6,,0.5
+35,59199,oregano,oregano,0.48,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+36,59199,pepper,pepper,1.89,ml,fridge,2026-07-10,2026-07-20,9,,0.5
+37,59199,bacon,bacon,0.89,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+38,59199,tomato,tomato,1.2,cup,fridge,2026-07-08,2026-07-13,2,,0.9
+39,59199,potato,potato,1.6,ml,pantry,2026-06-22,2026-07-13,2,,0.9
+40,59199,onion,onion,0.88,ml,pantry,2026-06-20,2026-08-04,24,,0.2
+41,59199,ginger,ginger,1.49,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+42,59199,garlic powder,garlic powder,0.41,g,fridge,2026-07-05,2026-07-12,1,,0.9
+43,59199,honey,honey,1.35,pcs,pantry,2024-10-29,2026-10-29,110,,0.2
+44,60992,onion,onion,0.74,ml,pantry,2026-06-22,2026-08-06,26,,0.2
+45,60992,baking soda,baking soda,1.61,ml,fridge,2026-07-05,2026-07-12,1,,0.9
+46,60992,honey,honey,1.99,pcs,pantry,2026-04-22,2028-04-21,650,,0.2
+47,60992,chicken broth,chicken broth,0.71,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+48,60992,sour cream,sour cream,0.39,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+49,60992,sugar,sugar,1.4,pcs,fridge,2026-07-05,2026-07-12,1,,0.9
+50,60992,tomato,tomato,0.36,ml,fridge,2026-07-08,2026-07-13,2,,0.9
+51,60992,salt,salt,0.25,pcs,fridge,2026-07-05,2026-07-12,1,,0.9
+52,64583,worcestershire sauce,worcestershire sauce,1.64,cup,fridge,2026-07-07,2026-07-14,3,,0.7
+53,64583,flour,flour,1.73,pcs,pantry,2026-05-08,2027-02-04,208,,0.2
+54,64583,bacon,bacon,1.64,cup,fridge,2026-07-11,2026-07-18,7,,0.5
+55,64583,cream,cream,1.59,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+56,64583,vanilla extract,vanilla extract,1.71,g,fridge,2026-07-07,2026-07-14,3,,0.7
+57,64583,salt,salt,0.56,pcs,fridge,2026-07-11,2026-07-18,7,,0.5
+58,64583,cinnamon,cinnamon,1.11,ml,fridge,2026-07-11,2026-07-18,7,,0.5
+59,64583,miso,miso,1.33,pcs,fridge,2026-01-23,2026-09-07,58,,0.2
+60,64583,garlic,garlic,0.48,cup,pantry,2026-03-19,2026-08-01,21,,0.2
+61,65573,mayonnaise,mayonnaise,1.96,ml,fridge,2026-07-10,2026-07-17,6,,0.5
+62,65573,cassava,cassava,1.61,g,pantry,2026-07-09,2026-07-14,3,,0.7
+63,65573,parsley,parsley,1.23,g,fridge,2026-07-07,2026-07-14,3,,0.7
+64,65573,flour,flour,1.9,ml,pantry,2026-06-02,2027-03-01,233,,0.2
+65,65573,garlic powder,garlic powder,1.24,ml,fridge,2026-07-09,2026-07-16,5,,0.7
+66,65573,carrot,carrot,1.37,g,fridge,2026-06-30,2026-07-17,6,,0.5
+67,65573,onion,onion,0.47,g,pantry,2026-05-30,2026-07-14,3,,0.7
+68,65573,cheese,cheese,0.93,cup,fridge,2026-06-30,2026-07-22,11,6111246721261,0.2
+69,65573,potato,potato,0.41,cup,pantry,2026-07-02,2026-07-23,12,,0.2
+70,65573,salt,salt,0.7,pcs,fridge,2026-07-11,2026-07-18,7,,0.5
+71,65573,butter,butter,0.97,cup,fridge,2026-06-28,2026-08-12,32,,0.2
+72,65573,sugar,sugar,1.34,cup,fridge,2026-07-07,2026-07-14,3,,0.7
+73,65573,bacon,bacon,0.94,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+74,73836,sugar,sugar,1.37,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+75,73836,cassava,cassava,0.77,pcs,pantry,2026-07-08,2026-07-13,2,,0.9
+76,73836,oil,oil,1.19,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+77,73836,cornstarch,cornstarch,1.33,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+78,73836,sour cream,sour cream,1.12,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+79,73836,ginger,ginger,1.8,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+80,73836,lemon juice,lemon juice,1.11,ml,fridge,2026-07-05,2026-07-12,1,,0.9
+81,73836,garlic powder,garlic powder,1.64,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+82,73836,celery,celery,1.71,g,fridge,2026-07-09,2026-07-16,5,,0.7
+83,79300,cornstarch,cornstarch,1.74,g,fridge,2026-07-06,2026-07-13,2,,0.9
+84,79300,cream,cream,0.48,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+85,79300,honey,honey,0.42,ml,pantry,2025-04-29,2027-04-29,292,,0.2
+86,79300,oil,oil,1.93,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+87,79300,carrot,carrot,1.59,g,fridge,2026-06-25,2026-07-12,1,,0.9
+88,79300,sugar,sugar,1.44,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+89,79300,thyme,thyme,0.9,cup,fridge,2026-07-07,2026-07-14,3,,0.7
+90,79300,potato,potato,0.22,ml,pantry,2026-06-28,2026-07-19,8,,0.5
+91,79300,onion,onion,1.15,g,pantry,2026-07-02,2026-08-16,36,,0.2
+92,79300,soy sauce,soy sauce,0.5,g,fridge,2026-07-10,2026-07-17,6,,0.5
+93,79300,butter,butter,1.98,cup,fridge,2026-06-04,2026-07-19,8,,0.5
+94,86141,parsley,parsley,0.28,ml,fridge,2026-07-05,2026-07-12,1,,0.9
+95,86141,ginger,ginger,0.73,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+96,86141,chicken,chicken,1.26,g,fridge,2026-07-11,2026-07-12,1,,0.9
+97,86141,chicken broth,chicken broth,0.35,g,fridge,2026-07-06,2026-07-13,2,,0.9
+98,86141,cinnamon,cinnamon,1.72,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+99,86141,flour,flour,1.37,ml,pantry,2025-11-21,2026-08-20,40,,0.2
+100,86141,lemon juice,lemon juice,1.57,ml,fridge,2026-07-09,2026-07-16,5,,0.7
+101,86141,onion,onion,0.86,pcs,pantry,2026-06-14,2026-07-29,18,,0.2
+102,86141,thyme,thyme,0.81,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+103,86141,egg,egg,1.07,cup,fridge,2026-06-15,2026-07-13,2,,0.9
+104,86141,honey,honey,1.73,cup,pantry,2025-06-19,2027-06-19,343,,0.2
+105,86141,olive oil,olive oil,1.84,ml,pantry,2025-12-21,2027-06-21,345,,0.2
+106,92385,oil,oil,0.54,g,fridge,2026-07-11,2026-07-18,7,,0.5
+107,92385,honey,honey,1.87,pcs,pantry,2026-01-03,2028-01-03,541,,0.2
+108,92385,cornstarch,cornstarch,0.75,g,fridge,2026-07-07,2026-07-14,3,,0.7
+109,92385,bacon,bacon,0.21,ml,fridge,2026-07-11,2026-07-18,7,,0.5
+110,92385,ginger,ginger,1.47,g,fridge,2026-07-09,2026-07-16,5,,0.7
+111,92385,garlic powder,garlic powder,1.97,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+112,92385,potato,potato,1.06,ml,pantry,2026-06-25,2026-07-16,5,,0.7
+113,92385,olive oil,olive oil,1.83,cup,pantry,2025-01-19,2026-07-20,9,,0.5
+114,92385,parsley,parsley,1.93,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+115,92385,onion,onion,1.76,cup,pantry,2026-06-13,2026-07-28,17,,0.2
+116,93095,lemon juice,lemon juice,1.55,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+117,93095,sour cream,sour cream,0.42,g,fridge,2026-07-07,2026-07-14,3,,0.7
+118,93095,baking soda,baking soda,1.6,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+119,93095,oregano,oregano,1.97,g,fridge,2026-07-05,2026-07-12,1,,0.9
+120,93095,onion,onion,1.96,g,pantry,2026-06-03,2026-07-18,7,,0.5
+121,93095,honey,honey,1.63,g,pantry,2026-01-16,2028-01-16,554,,0.2
+122,93095,paprika,paprika,1.2,pcs,fridge,2026-07-07,2026-07-14,3,,0.7
+123,93095,mayonnaise,mayonnaise,1.86,cup,fridge,2026-07-08,2026-07-15,4,,0.7
+124,109110,potato,potato,0.62,pcs,pantry,2026-07-03,2026-07-24,13,,0.2
+125,109110,vanilla extract,vanilla extract,1.74,ml,fridge,2026-07-11,2026-07-18,7,,0.5
+126,109110,garlic,garlic,1.13,pcs,pantry,2026-05-13,2026-09-25,76,,0.2
+127,109110,sugar,sugar,0.25,ml,fridge,2026-07-10,2026-07-17,6,,0.5
+128,109110,ginger,ginger,1.81,g,fridge,2026-07-06,2026-07-13,2,,0.9
+129,109110,cumin,cumin,0.63,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+130,109110,mayonnaise,mayonnaise,0.83,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+131,109110,basil,basil,0.74,cup,fridge,2026-07-06,2026-07-13,2,,0.9
+132,109110,thyme,thyme,0.91,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+133,109110,olive oil,olive oil,1.8,g,pantry,2026-05-10,2027-11-08,485,,0.2
+134,109110,pepper,pepper,0.35,pcs,fridge,2026-07-03,2026-07-13,2,,0.9
+135,115658,paprika,paprika,0.44,g,fridge,2026-07-10,2026-07-17,6,,0.5
+136,115658,cinnamon,cinnamon,0.32,g,fridge,2026-07-11,2026-07-18,7,,0.5
+137,115658,garlic powder,garlic powder,0.23,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+138,115658,flour,flour,1.34,g,pantry,2026-04-20,2027-01-17,190,,0.2
+139,115658,milk,milk,0.96,g,fridge,2026-07-06,2026-07-12,1,0049000006306,0.9
+140,115658,worcestershire sauce,worcestershire sauce,1.55,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+141,115658,water,water,0.71,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+142,115658,lemon juice,lemon juice,0.62,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+143,115658,chicken,chicken,0.79,cup,fridge,2026-07-11,2026-07-12,1,,0.9
+144,115658,bacon,bacon,1.15,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+145,115658,sour cream,sour cream,1.26,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+146,115658,thyme,thyme,0.74,cup,fridge,2026-07-07,2026-07-14,3,,0.7
+147,115658,olive oil,olive oil,0.78,pcs,pantry,2026-03-01,2027-08-30,415,,0.2
+148,116137,oil,oil,1.67,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+149,116137,bacon,bacon,1.62,g,fridge,2026-07-05,2026-07-12,1,,0.9
+150,116137,butter,butter,1.21,g,fridge,2026-07-03,2026-08-17,37,,0.2
+151,116137,cream,cream,1.38,g,fridge,2026-07-11,2026-07-18,7,,0.5
+152,116137,salt,salt,1.12,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+153,116137,carrot,carrot,0.26,cup,fridge,2026-07-04,2026-07-21,10,,0.5
+154,116137,milk,milk,0.39,g,fridge,2026-07-06,2026-07-12,1,0049000006306,0.9
+155,116137,garlic powder,garlic powder,0.64,ml,fridge,2026-07-11,2026-07-18,7,,0.5
+156,116137,worcestershire sauce,worcestershire sauce,1.02,g,fridge,2026-07-11,2026-07-18,7,,0.5
+157,157102,cumin,cumin,1.75,pcs,fridge,2026-07-11,2026-07-18,7,,0.5
+158,157102,bacon,bacon,1.11,g,fridge,2026-07-11,2026-07-18,7,,0.5
+159,157102,olive oil,olive oil,0.8,g,pantry,2025-10-17,2027-04-17,280,,0.2
+160,157102,chicken,chicken,1.61,g,fridge,2026-07-11,2026-07-12,1,,0.9
+161,157102,celery,celery,0.67,cup,fridge,2026-07-08,2026-07-15,4,,0.7
+162,157102,milk,milk,0.64,g,fridge,2026-07-10,2026-07-16,5,0049000006306,0.7
+163,157102,potato,potato,1.43,g,pantry,2026-06-22,2026-07-13,2,,0.9
+164,157102,soy sauce,soy sauce,0.8,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+165,157102,basil,basil,0.29,cup,fridge,2026-07-10,2026-07-17,6,,0.5
+166,157102,butter,butter,1.48,g,fridge,2026-06-19,2026-08-03,23,,0.2
+167,157102,sugar,sugar,0.29,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+168,157102,onion,onion,1.85,pcs,pantry,2026-06-27,2026-08-11,31,,0.2
+169,164914,pepper,pepper,0.21,cup,fridge,2026-07-05,2026-07-15,4,,0.7
+170,164914,flour,flour,1.31,cup,pantry,2026-04-26,2027-01-23,196,,0.2
+171,164914,bacon,bacon,1.59,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+172,164914,egg,egg,0.66,cup,fridge,2026-06-14,2026-07-12,1,,0.9
+173,164914,salt,salt,1.02,cup,fridge,2026-07-10,2026-07-17,6,,0.5
+174,164914,soy sauce,soy sauce,1.97,ml,fridge,2026-07-05,2026-07-12,1,,0.9
+175,164914,oregano,oregano,1.66,g,fridge,2026-07-11,2026-07-18,7,,0.5
+176,164914,sugar,sugar,1.64,g,fridge,2026-07-10,2026-07-17,6,,0.5
+177,168423,garlic,garlic,1.51,pcs,pantry,2026-04-08,2026-08-21,41,,0.2
+178,168423,mayonnaise,mayonnaise,1.53,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+179,168423,cinnamon,cinnamon,1.8,g,fridge,2026-07-06,2026-07-13,2,,0.9
+180,168423,water,water,0.43,ml,fridge,2026-07-10,2026-07-17,6,,0.5
+181,168423,parsley,parsley,1.45,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+182,168423,ginger,ginger,1.11,pcs,fridge,2026-07-11,2026-07-18,7,,0.5
+183,168423,vanilla extract,vanilla extract,0.21,cup,fridge,2026-07-11,2026-07-18,7,,0.5
+184,168423,tomato,tomato,1.99,pcs,fridge,2026-07-07,2026-07-12,1,,0.9
+185,173579,worcestershire sauce,worcestershire sauce,1.27,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+186,173579,mayonnaise,mayonnaise,1.77,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+187,173579,garlic,garlic,1.3,g,pantry,2026-03-20,2026-08-02,22,,0.2
+188,173579,onion,onion,0.91,ml,pantry,2026-07-03,2026-08-17,37,,0.2
+189,173579,thyme,thyme,1.51,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+190,173579,oil,oil,1.57,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+191,173579,egg,egg,0.95,cup,fridge,2026-06-21,2026-07-19,8,,0.5
+192,173579,tomato,tomato,0.22,ml,fridge,2026-07-07,2026-07-12,1,,0.9
+193,173579,oregano,oregano,1.14,cup,fridge,2026-07-11,2026-07-18,7,,0.5
+194,173579,baking soda,baking soda,0.37,g,fridge,2026-07-09,2026-07-16,5,,0.7
+195,173579,baking powder,baking powder,0.91,cup,fridge,2026-07-06,2026-07-13,2,,0.9
+196,173579,parsley,parsley,0.47,ml,fridge,2026-07-10,2026-07-17,6,,0.5
+197,204024,milk,milk,1.54,ml,fridge,2026-07-09,2026-07-15,4,0049000006306,0.7
+198,204024,oregano,oregano,1.61,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+199,204024,cheese,cheese,0.39,ml,fridge,2026-06-21,2026-07-13,2,6111246721261,0.9
+200,204024,thyme,thyme,1.76,cup,fridge,2026-07-06,2026-07-13,2,,0.9
+201,204024,cream,cream,0.38,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+202,204024,egg,egg,1.54,pcs,fridge,2026-07-11,2026-08-08,28,,0.2
+203,204024,soy sauce,soy sauce,1.96,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+204,204024,basil,basil,1.49,g,fridge,2026-07-05,2026-07-12,1,,0.9
+205,204024,carrot,carrot,0.91,cup,fridge,2026-06-26,2026-07-13,2,,0.9
+206,204024,flour,flour,1.3,g,pantry,2026-01-22,2026-10-21,102,,0.2
+207,206616,olive oil,olive oil,0.64,cup,pantry,2026-06-29,2027-12-28,535,,0.2
+208,206616,butter,butter,1.56,pcs,fridge,2026-07-03,2026-08-17,37,,0.2
+209,206616,thyme,thyme,0.7,cup,fridge,2026-07-07,2026-07-14,3,,0.7
+210,206616,lemon juice,lemon juice,0.53,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+211,206616,parsley,parsley,1.04,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+212,206616,baking soda,baking soda,0.28,g,fridge,2026-07-08,2026-07-15,4,,0.7
+213,206616,vanilla extract,vanilla extract,1.93,g,fridge,2026-07-11,2026-07-18,7,,0.5
+214,206616,oil,oil,1.09,ml,fridge,2026-07-10,2026-07-17,6,,0.5
+215,206616,ginger,ginger,0.65,pcs,fridge,2026-07-05,2026-07-12,1,,0.9
+216,206616,garlic,garlic,1.58,g,pantry,2026-06-23,2026-11-05,117,,0.2
+217,206616,salt,salt,1.82,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+218,206616,tomato,tomato,1.97,cup,fridge,2026-07-11,2026-07-16,5,,0.7
+219,228297,sour cream,sour cream,0.49,g,fridge,2026-07-11,2026-07-18,7,,0.5
+220,228297,lemon juice,lemon juice,1.25,cup,fridge,2026-07-11,2026-07-18,7,,0.5
+221,228297,parsley,parsley,0.73,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+222,228297,pepper,pepper,0.93,g,fridge,2026-07-03,2026-07-13,2,,0.9
+223,228297,butter,butter,1.59,cup,fridge,2026-07-07,2026-08-21,41,,0.2
+224,228297,olive oil,olive oil,1.89,pcs,pantry,2026-06-18,2027-12-17,524,,0.2
+225,228297,thyme,thyme,1.81,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+226,228297,oil,oil,0.68,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+227,228297,cheese,cheese,0.52,cup,fridge,2026-07-08,2026-07-30,19,6111246721261,0.2
+228,228297,oregano,oregano,1.01,g,fridge,2026-07-07,2026-07-14,3,,0.7
+229,257993,honey,honey,1.8,cup,pantry,2026-06-15,2028-06-14,704,,0.2
+230,257993,mayonnaise,mayonnaise,1.13,cup,fridge,2026-07-11,2026-07-18,7,,0.5
+231,257993,pepper,pepper,1.15,g,fridge,2026-07-09,2026-07-19,8,,0.5
+232,257993,garlic,garlic,0.98,ml,pantry,2026-05-19,2026-10-01,82,,0.2
+233,257993,thyme,thyme,0.43,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+234,257993,oregano,oregano,1.07,cup,fridge,2026-07-10,2026-07-17,6,,0.5
+235,257993,sour cream,sour cream,0.49,cup,fridge,2026-07-06,2026-07-13,2,,0.9
+236,257993,olive oil,olive oil,0.57,ml,pantry,2025-12-20,2027-06-20,344,,0.2
+237,257993,worcestershire sauce,worcestershire sauce,0.25,g,fridge,2026-07-10,2026-07-17,6,,0.5
+238,282215,water,water,0.48,g,fridge,2026-07-09,2026-07-16,5,,0.7
+239,282215,butter,butter,0.81,cup,fridge,2026-06-04,2026-07-19,8,,0.5
+240,282215,oregano,oregano,0.82,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+241,282215,salt,salt,1.32,cup,fridge,2026-07-11,2026-07-18,7,,0.5
+242,282215,onion,onion,1.63,cup,pantry,2026-07-09,2026-08-23,43,,0.2
+243,282215,sour cream,sour cream,1.86,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+244,282215,lemon juice,lemon juice,1.35,g,fridge,2026-07-08,2026-07-15,4,,0.7
+245,282215,pepper,pepper,1.99,pcs,fridge,2026-07-04,2026-07-14,3,,0.7
+246,282215,cream,cream,0.31,g,fridge,2026-07-10,2026-07-17,6,,0.5
+247,282215,baking soda,baking soda,0.43,g,fridge,2026-07-09,2026-07-16,5,,0.7
+248,282215,ginger,ginger,1.34,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+249,282678,chicken broth,chicken broth,1.72,ml,fridge,2026-07-11,2026-07-18,7,,0.5
+250,282678,lemon juice,lemon juice,1.01,pcs,fridge,2026-07-07,2026-07-14,3,,0.7
+251,282678,cornstarch,cornstarch,1.55,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+252,282678,pepper,pepper,1.16,cup,fridge,2026-07-09,2026-07-19,8,,0.5
+253,282678,oregano,oregano,0.74,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+254,282678,honey,honey,0.86,cup,pantry,2025-10-21,2027-10-21,467,,0.2
+255,282678,water,water,0.93,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+256,282678,sour cream,sour cream,1.5,ml,fridge,2026-07-05,2026-07-12,1,,0.9
+257,282678,oil,oil,1.83,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+258,282678,baking powder,baking powder,1.36,g,fridge,2026-07-09,2026-07-16,5,,0.7
+259,282678,potato,potato,0.93,g,pantry,2026-07-03,2026-07-24,13,,0.2
+260,323545,onion,onion,1.4,pcs,pantry,2026-06-08,2026-07-23,12,,0.2
+261,323545,mayonnaise,mayonnaise,0.7,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+262,323545,cream,cream,0.71,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+263,323545,chicken broth,chicken broth,1.84,ml,fridge,2026-07-10,2026-07-17,6,,0.5
+264,323545,bacon,bacon,1.18,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+265,323545,cheese,cheese,1.92,ml,fridge,2026-06-29,2026-07-21,10,6111246721261,0.5
+266,323545,oil,oil,0.66,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+267,323545,pepper,pepper,0.78,ml,fridge,2026-07-08,2026-07-18,7,,0.5
+268,323545,potato,potato,0.92,cup,pantry,2026-06-26,2026-07-17,6,,0.5
+269,323545,olive oil,olive oil,0.24,ml,pantry,2025-11-13,2027-05-14,307,,0.2
+270,323545,cumin,cumin,1.78,g,fridge,2026-07-08,2026-07-15,4,,0.7
+271,348437,cumin,cumin,1.57,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+272,348437,milk,milk,1.02,g,fridge,2026-07-11,2026-07-17,6,0049000006306,0.5
+273,348437,cinnamon,cinnamon,1.36,pcs,fridge,2026-07-07,2026-07-14,3,,0.7
+274,348437,flour,flour,0.66,g,pantry,2026-01-20,2026-10-19,100,,0.2
+275,348437,paprika,paprika,0.94,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+276,348437,chicken broth,chicken broth,1.67,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+277,348437,potato,potato,0.5,cup,pantry,2026-07-05,2026-07-26,15,,0.2
+278,348437,water,water,0.81,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+279,348437,thyme,thyme,1.71,cup,fridge,2026-07-08,2026-07-15,4,,0.7
+280,348437,oregano,oregano,1.59,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+281,348437,lemon juice,lemon juice,0.9,pcs,fridge,2026-07-07,2026-07-14,3,,0.7
+282,348437,vanilla extract,vanilla extract,0.55,cup,fridge,2026-07-08,2026-07-15,4,,0.7
+283,348437,tomato,tomato,0.96,pcs,fridge,2026-07-07,2026-07-12,1,,0.9
+284,348437,bacon,bacon,1.88,ml,fridge,2026-07-09,2026-07-16,5,,0.7
+285,348437,parsley,parsley,0.33,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+286,354465,thyme,thyme,0.37,ml,fridge,2026-07-11,2026-07-18,7,,0.5
+287,354465,cinnamon,cinnamon,1.96,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+288,354465,cheese,cheese,1.03,g,fridge,2026-07-04,2026-07-26,15,6111246721261,0.2
+289,354465,chicken broth,chicken broth,0.29,g,fridge,2026-07-10,2026-07-17,6,,0.5
+290,354465,onion,onion,0.84,ml,pantry,2026-06-25,2026-08-09,29,,0.2
+291,354465,garlic,garlic,1.7,cup,pantry,2026-05-29,2026-10-11,92,,0.2
+292,354465,ginger,ginger,0.95,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+293,354465,celery,celery,1.55,g,fridge,2026-07-09,2026-07-16,5,,0.7
+294,354465,pepper,pepper,1.08,cup,fridge,2026-07-04,2026-07-14,3,,0.7
+295,354465,honey,honey,0.46,cup,pantry,2026-01-30,2028-01-30,568,,0.2
+296,354465,cornstarch,cornstarch,0.37,cup,fridge,2026-07-08,2026-07-15,4,,0.7
+297,354465,soy sauce,soy sauce,1.16,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+298,354465,bacon,bacon,0.3,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+299,354465,baking powder,baking powder,0.99,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+300,354465,chicken,chicken,1.59,pcs,fridge,2026-07-11,2026-07-12,1,,0.9
+301,356127,oregano,oregano,0.37,g,fridge,2026-07-06,2026-07-13,2,,0.9
+302,356127,flour,flour,1.53,ml,pantry,2026-03-26,2026-12-23,165,,0.2
+303,356127,egg,egg,1.55,pcs,fridge,2026-07-04,2026-08-01,21,,0.2
+304,356127,chicken broth,chicken broth,1.55,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+305,356127,vanilla extract,vanilla extract,0.86,g,fridge,2026-07-08,2026-07-15,4,,0.7
+306,356127,chicken,chicken,0.58,pcs,fridge,2026-07-11,2026-07-12,1,,0.9
+307,356127,sugar,sugar,0.41,cup,fridge,2026-07-07,2026-07-14,3,,0.7
+308,356127,oil,oil,0.52,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+309,367753,thyme,thyme,1.77,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+310,367753,butter,butter,0.6,pcs,fridge,2026-06-21,2026-08-05,25,,0.2
+311,367753,flour,flour,0.72,ml,pantry,2026-03-05,2026-12-02,144,,0.2
+312,367753,cream,cream,1.22,ml,fridge,2026-07-10,2026-07-17,6,,0.5
+313,367753,baking powder,baking powder,1.69,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+314,367753,cumin,cumin,0.25,ml,fridge,2026-07-09,2026-07-16,5,,0.7
+315,367753,sugar,sugar,1.28,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+316,367753,paprika,paprika,0.67,g,fridge,2026-07-09,2026-07-16,5,,0.7
+317,367753,cornstarch,cornstarch,1.56,g,fridge,2026-07-09,2026-07-16,5,,0.7
+318,398047,cumin,cumin,0.2,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+319,398047,flour,flour,1.81,pcs,pantry,2026-07-09,2027-04-07,270,,0.2
+320,398047,bacon,bacon,0.51,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+321,398047,cornstarch,cornstarch,1.05,cup,fridge,2026-07-06,2026-07-13,2,,0.9
+322,398047,tomato,tomato,1.88,g,fridge,2026-07-07,2026-07-12,1,,0.9
+323,398047,water,water,0.59,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+324,398047,oil,oil,0.55,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+325,398047,baking powder,baking powder,0.59,ml,fridge,2026-07-09,2026-07-16,5,,0.7
+326,413880,cream,cream,0.39,pcs,fridge,2026-07-07,2026-07-14,3,,0.7
+327,413880,baking soda,baking soda,1.32,pcs,fridge,2026-07-11,2026-07-18,7,,0.5
+328,413880,olive oil,olive oil,1.73,pcs,pantry,2025-12-01,2027-06-01,325,,0.2
+329,413880,worcestershire sauce,worcestershire sauce,1.68,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+330,413880,ginger,ginger,1.99,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+331,413880,oil,oil,0.92,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+332,413880,chicken,chicken,0.78,g,fridge,2026-07-11,2026-07-12,1,,0.9
+333,413880,egg,egg,1.24,cup,fridge,2026-06-15,2026-07-13,2,,0.9
+334,413880,pepper,pepper,0.51,cup,fridge,2026-07-03,2026-07-13,2,,0.9
+335,413880,flour,flour,1.1,ml,pantry,2025-10-18,2026-07-17,6,,0.5
+336,413880,baking powder,baking powder,1.95,cup,fridge,2026-07-08,2026-07-15,4,,0.7
+337,413880,vanilla extract,vanilla extract,0.92,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+338,413880,soy sauce,soy sauce,0.43,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+339,413880,butter,butter,0.55,cup,fridge,2026-06-27,2026-08-11,31,,0.2
+340,413880,onion,onion,1.76,pcs,pantry,2026-07-07,2026-08-21,41,,0.2
+341,441079,soy sauce,soy sauce,1.2,g,fridge,2026-07-07,2026-07-14,3,,0.7
+342,441079,baking soda,baking soda,0.82,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+343,441079,bacon,bacon,0.37,g,fridge,2026-07-09,2026-07-16,5,,0.7
+344,441079,water,water,1.5,cup,fridge,2026-07-10,2026-07-17,6,,0.5
+345,441079,basil,basil,0.59,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+346,441079,thyme,thyme,1.56,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+347,441079,olive oil,olive oil,1.69,cup,pantry,2026-02-21,2027-08-22,407,,0.2
+348,441079,cream,cream,1.28,pcs,fridge,2026-07-05,2026-07-12,1,,0.9
+349,441079,garlic powder,garlic powder,0.29,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+350,441079,chicken,chicken,0.91,cup,fridge,2026-07-11,2026-07-12,1,,0.9
+351,441079,baking powder,baking powder,1.24,cup,fridge,2026-07-11,2026-07-18,7,,0.5
+352,441079,potato,potato,0.27,pcs,pantry,2026-06-21,2026-07-12,1,,0.9
+353,452437,carrot,carrot,1.09,cup,fridge,2026-07-04,2026-07-21,10,,0.5
+354,452437,salt,salt,1.94,ml,fridge,2026-07-10,2026-07-17,6,,0.5
+355,452437,pepper,pepper,1.74,cup,fridge,2026-07-11,2026-07-21,10,,0.5
+356,452437,mayonnaise,mayonnaise,1.27,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+357,452437,lemon juice,lemon juice,0.87,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+358,452437,honey,honey,1.66,pcs,pantry,2026-04-17,2028-04-16,645,,0.2
+359,452437,water,water,1.22,g,fridge,2026-07-08,2026-07-15,4,,0.7
+360,452437,cinnamon,cinnamon,1.29,cup,fridge,2026-07-07,2026-07-14,3,,0.7
+361,452437,basil,basil,0.87,g,fridge,2026-07-05,2026-07-12,1,,0.9
+362,452437,cornstarch,cornstarch,0.41,g,fridge,2026-07-11,2026-07-18,7,,0.5
+363,452437,cheese,cheese,1.71,cup,fridge,2026-06-22,2026-07-14,3,6111246721261,0.7
+364,452437,butter,butter,0.75,g,fridge,2026-07-08,2026-08-22,42,,0.2
+365,452437,cream,cream,0.24,cup,fridge,2026-07-06,2026-07-13,2,,0.9
+366,452437,garlic,garlic,1.03,ml,pantry,2026-03-07,2026-07-20,9,,0.5
+367,452437,bacon,bacon,0.49,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+368,457321,cream,cream,1.95,cup,fridge,2026-07-10,2026-07-17,6,,0.5
+369,457321,baking soda,baking soda,1.37,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+370,457321,cheese,cheese,1.34,cup,fridge,2026-06-20,2026-07-12,1,6111246721261,0.9
+371,457321,mayonnaise,mayonnaise,0.98,g,fridge,2026-07-09,2026-07-16,5,,0.7
+372,457321,garlic powder,garlic powder,1.16,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+373,457321,parsley,parsley,1.93,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+374,457321,basil,basil,1.47,pcs,fridge,2026-07-07,2026-07-14,3,,0.7
+375,457321,oil,oil,1.83,g,fridge,2026-07-08,2026-07-15,4,,0.7
+376,457321,tomato,tomato,1.88,pcs,fridge,2026-07-10,2026-07-15,4,,0.7
+377,457321,potato,potato,0.41,cup,pantry,2026-06-26,2026-07-17,6,,0.5
+378,457321,sugar,sugar,1.7,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+379,457321,onion,onion,1.16,pcs,pantry,2026-05-30,2026-07-14,3,,0.7
+380,457321,pepper,pepper,1.22,cup,fridge,2026-07-11,2026-07-21,10,,0.5
+381,485773,flour,flour,1.9,cup,pantry,2026-01-24,2026-10-23,104,,0.2
+382,485773,chicken,chicken,0.43,cup,fridge,2026-07-11,2026-07-12,1,,0.9
+383,485773,water,water,1.18,g,fridge,2026-07-06,2026-07-13,2,,0.9
+384,485773,worcestershire sauce,worcestershire sauce,1.82,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+385,485773,garlic,garlic,1.47,cup,pantry,2026-03-02,2026-07-15,4,,0.7
+386,485773,butter,butter,1.02,cup,fridge,2026-06-20,2026-08-04,24,,0.2
+387,485773,oregano,oregano,0.85,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+388,485773,basil,basil,0.36,ml,fridge,2026-07-09,2026-07-16,5,,0.7
+389,485773,ginger,ginger,1.6,ml,fridge,2026-07-11,2026-07-18,7,,0.5
+390,485773,oil,oil,1.88,cup,fridge,2026-07-08,2026-07-15,4,,0.7
+391,485773,cornstarch,cornstarch,0.26,g,fridge,2026-07-07,2026-07-14,3,,0.7
+392,485773,garlic powder,garlic powder,0.57,g,fridge,2026-07-10,2026-07-17,6,,0.5
+393,485773,olive oil,olive oil,0.59,g,pantry,2025-01-24,2026-07-25,14,,0.2
+394,501717,tomato,tomato,1.64,cup,fridge,2026-07-10,2026-07-15,4,,0.7
+395,501717,soy sauce,soy sauce,1.76,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+396,501717,olive oil,olive oil,0.83,pcs,pantry,2025-02-07,2026-08-08,28,,0.2
+397,501717,sugar,sugar,0.61,g,fridge,2026-07-11,2026-07-18,7,,0.5
+398,501717,basil,basil,1.9,cup,fridge,2026-07-08,2026-07-15,4,,0.7
+399,501717,flour,flour,1.59,pcs,pantry,2026-03-31,2026-12-28,170,,0.2
+400,501717,celery,celery,0.53,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+401,501717,potato,potato,1.38,pcs,pantry,2026-07-05,2026-07-26,15,,0.2
+402,501717,cheese,cheese,0.98,cup,fridge,2026-06-27,2026-07-19,8,6111246721261,0.5
+403,501717,butter,butter,1.5,cup,fridge,2026-07-01,2026-08-15,35,,0.2
+404,501717,cumin,cumin,1.89,cup,fridge,2026-07-10,2026-07-17,6,,0.5
+405,501717,bacon,bacon,0.39,ml,fridge,2026-07-10,2026-07-17,6,,0.5
+406,511488,garlic powder,garlic powder,0.29,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+407,511488,baking soda,baking soda,1.04,g,fridge,2026-07-05,2026-07-12,1,,0.9
+408,511488,onion,onion,1.06,ml,pantry,2026-06-01,2026-07-16,5,,0.7
+409,511488,milk,milk,1.68,ml,fridge,2026-07-11,2026-07-17,6,0049000006306,0.5
+410,511488,sugar,sugar,1.61,cup,fridge,2026-07-07,2026-07-14,3,,0.7
+411,511488,soy sauce,soy sauce,1.35,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+412,511488,cinnamon,cinnamon,1.34,g,fridge,2026-07-06,2026-07-13,2,,0.9
+413,511488,potato,potato,1.39,cup,pantry,2026-07-04,2026-07-25,14,,0.2
+414,511488,ginger,ginger,1.93,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+415,511488,parsley,parsley,0.97,ml,fridge,2026-07-09,2026-07-16,5,,0.7
+416,511488,celery,celery,1.11,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+417,540346,bacon,bacon,0.72,g,fridge,2026-07-10,2026-07-17,6,,0.5
+418,540346,basil,basil,1.79,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+419,540346,mayonnaise,mayonnaise,1.47,cup,fridge,2026-07-06,2026-07-13,2,,0.9
+420,540346,egg,egg,0.84,cup,fridge,2026-07-07,2026-08-04,24,,0.2
+421,540346,baking powder,baking powder,0.47,g,fridge,2026-07-08,2026-07-15,4,,0.7
+422,540346,oil,oil,0.75,g,fridge,2026-07-10,2026-07-17,6,,0.5
+423,540346,olive oil,olive oil,1.19,cup,pantry,2026-05-03,2027-11-01,478,,0.2
+424,540346,tomato,tomato,0.33,g,fridge,2026-07-08,2026-07-13,2,,0.9
+425,540346,honey,honey,1.61,ml,pantry,2025-07-25,2027-07-25,379,,0.2
+426,540346,pepper,pepper,1.67,pcs,fridge,2026-07-04,2026-07-14,3,,0.7
+427,540346,cornstarch,cornstarch,1.68,g,fridge,2026-07-08,2026-07-15,4,,0.7
+428,540346,cinnamon,cinnamon,0.85,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+429,540346,garlic,garlic,1.04,g,pantry,2026-06-18,2026-10-31,112,,0.2
+430,546010,salt,salt,1.1,ml,fridge,2026-07-05,2026-07-12,1,,0.9
+431,546010,sour cream,sour cream,1.76,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+432,546010,mayonnaise,mayonnaise,1.3,g,fridge,2026-07-05,2026-07-12,1,,0.9
+433,546010,honey,honey,1.84,ml,pantry,2024-09-30,2026-09-30,81,,0.2
+434,546010,garlic,garlic,1.03,cup,pantry,2026-03-27,2026-08-09,29,,0.2
+435,546010,water,water,0.23,ml,fridge,2026-07-11,2026-07-18,7,,0.5
+436,546010,olive oil,olive oil,1.09,g,pantry,2025-10-23,2027-04-23,286,,0.2
+437,546010,egg,egg,1.22,cup,fridge,2026-06-30,2026-07-28,17,,0.2
+438,546010,oregano,oregano,1.71,cup,fridge,2026-07-08,2026-07-15,4,,0.7
+439,546010,potato,potato,0.61,pcs,pantry,2026-07-09,2026-07-30,19,,0.2
+440,546010,flour,flour,1.73,cup,pantry,2025-12-08,2026-09-06,57,,0.2
+441,578914,cornstarch,cornstarch,1.7,pcs,fridge,2026-07-09,2026-07-16,5,,0.7
+442,578914,soy sauce,soy sauce,0.55,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+443,578914,oregano,oregano,1.66,cup,fridge,2026-07-10,2026-07-17,6,,0.5
+444,578914,celery,celery,1.84,cup,fridge,2026-07-10,2026-07-17,6,,0.5
+445,578914,lemon juice,lemon juice,1.42,cup,fridge,2026-07-11,2026-07-18,7,,0.5
+446,578914,pepper,pepper,0.62,cup,fridge,2026-07-03,2026-07-13,2,,0.9
+447,578914,chicken,chicken,1.94,g,fridge,2026-07-11,2026-07-12,1,,0.9
+448,578914,thyme,thyme,0.97,g,fridge,2026-07-08,2026-07-15,4,,0.7
+449,578914,carrot,carrot,0.66,g,fridge,2026-06-25,2026-07-12,1,,0.9
+450,578914,onion,onion,1.59,cup,pantry,2026-06-07,2026-07-22,11,,0.2
+451,578914,paprika,paprika,1.7,g,fridge,2026-07-07,2026-07-14,3,,0.7
+452,578914,cream,cream,0.21,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+453,578914,olive oil,olive oil,1.99,ml,pantry,2025-09-02,2027-03-03,235,,0.2
+454,578914,potato,potato,0.57,pcs,pantry,2026-06-23,2026-07-14,3,,0.7
+455,578914,milk,milk,1.66,ml,fridge,2026-07-06,2026-07-12,1,0049000006306,0.9
+456,693345,oil,oil,0.64,cup,fridge,2026-07-10,2026-07-17,6,,0.5
+457,693345,carrot,carrot,1.56,ml,fridge,2026-06-25,2026-07-12,1,,0.9
+458,693345,water,water,1.04,pcs,fridge,2026-07-05,2026-07-12,1,,0.9
+459,693345,onion,onion,0.53,pcs,pantry,2026-07-06,2026-08-20,40,,0.2
+460,693345,egg,egg,0.72,g,fridge,2026-06-30,2026-07-28,17,,0.2
+461,693345,cheese,cheese,1.83,cup,fridge,2026-07-07,2026-07-29,18,6111246721261,0.2
+462,693345,butter,butter,0.68,cup,fridge,2026-06-17,2026-08-01,21,,0.2
+463,693345,sour cream,sour cream,0.66,g,fridge,2026-07-07,2026-07-14,3,,0.7
+464,693345,cinnamon,cinnamon,1.9,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+465,693345,lemon juice,lemon juice,0.6,g,fridge,2026-07-08,2026-07-15,4,,0.7
+466,693345,pepper,pepper,0.92,cup,fridge,2026-07-07,2026-07-17,6,,0.5
+467,693345,garlic,garlic,0.49,pcs,pantry,2026-06-07,2026-10-20,101,,0.2
+468,693345,basil,basil,1.61,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+469,693345,vanilla extract,vanilla extract,1.85,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+470,730763,chicken broth,chicken broth,1.78,g,fridge,2026-07-05,2026-07-12,1,,0.9
+471,730763,garlic powder,garlic powder,1.54,ml,fridge,2026-07-10,2026-07-17,6,,0.5
+472,730763,potato,potato,1.55,cup,pantry,2026-07-11,2026-08-01,21,,0.2
+473,730763,butter,butter,0.41,g,fridge,2026-06-14,2026-07-29,18,,0.2
+474,730763,sugar,sugar,1.11,pcs,fridge,2026-07-05,2026-07-12,1,,0.9
+475,730763,ginger,ginger,1.25,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+476,730763,mayonnaise,mayonnaise,1.62,g,fridge,2026-07-05,2026-07-12,1,,0.9
+477,730763,garlic,garlic,0.64,cup,pantry,2026-03-04,2026-07-17,6,,0.5
+478,730763,oil,oil,1.42,ml,fridge,2026-07-06,2026-07-13,2,,0.9
+479,730763,onion,onion,0.54,ml,pantry,2026-06-30,2026-08-14,34,,0.2
+480,730763,lemon juice,lemon juice,1.93,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+481,730763,worcestershire sauce,worcestershire sauce,1.85,ml,fridge,2026-07-11,2026-07-18,7,,0.5
+482,731905,cornstarch,cornstarch,0.89,cup,fridge,2026-07-08,2026-07-15,4,,0.7
+483,731905,mayonnaise,mayonnaise,1.79,cup,fridge,2026-07-07,2026-07-14,3,,0.7
+484,731905,butter,butter,1.59,g,fridge,2026-06-06,2026-07-21,10,,0.5
+485,731905,parsley,parsley,1.29,g,fridge,2026-07-10,2026-07-17,6,,0.5
+486,731905,celery,celery,1.69,ml,fridge,2026-07-09,2026-07-16,5,,0.7
+487,731905,oil,oil,0.6,pcs,fridge,2026-07-05,2026-07-12,1,,0.9
+488,731905,chicken,chicken,1.48,g,fridge,2026-07-11,2026-07-12,1,,0.9
+489,731905,soy sauce,soy sauce,1.09,g,fridge,2026-07-08,2026-07-15,4,,0.7
+490,731905,vanilla extract,vanilla extract,0.83,cup,fridge,2026-07-11,2026-07-18,7,,0.5
+491,754827,worcestershire sauce,worcestershire sauce,0.25,g,fridge,2026-07-10,2026-07-17,6,,0.5
+492,754827,milk,milk,1.48,pcs,fridge,2026-07-06,2026-07-12,1,0049000006306,0.9
+493,754827,garlic powder,garlic powder,1.54,cup,fridge,2026-07-07,2026-07-14,3,,0.7
+494,754827,sugar,sugar,1.06,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+495,754827,bacon,bacon,1.35,g,fridge,2026-07-08,2026-07-15,4,,0.7
+496,754827,tomato,tomato,1.8,cup,fridge,2026-07-10,2026-07-15,4,,0.7
+497,754827,cornstarch,cornstarch,0.83,cup,fridge,2026-07-06,2026-07-13,2,,0.9
+498,754827,vanilla extract,vanilla extract,0.45,g,fridge,2026-07-07,2026-07-14,3,,0.7
+499,754827,salt,salt,1.83,ml,fridge,2026-07-05,2026-07-12,1,,0.9
+500,754827,mayonnaise,mayonnaise,0.8,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+501,754827,honey,honey,0.58,pcs,pantry,2026-03-10,2028-03-09,607,,0.2
+502,754827,celery,celery,0.42,g,fridge,2026-07-11,2026-07-18,7,,0.5
+503,754827,chicken broth,chicken broth,1.98,pcs,fridge,2026-07-11,2026-07-18,7,,0.5
+504,754827,oil,oil,0.44,ml,fridge,2026-07-11,2026-07-18,7,,0.5
+505,772912,olive oil,olive oil,0.64,cup,pantry,2026-04-19,2027-10-18,464,,0.2
+506,772912,honey,honey,0.79,cup,pantry,2024-11-04,2026-11-04,116,,0.2
+507,772912,oregano,oregano,1.74,cup,fridge,2026-07-07,2026-07-14,3,,0.7
+508,772912,cream,cream,1.58,pcs,fridge,2026-07-11,2026-07-18,7,,0.5
+509,772912,potato,potato,0.59,g,pantry,2026-07-05,2026-07-26,15,,0.2
+510,772912,butter,butter,1.84,pcs,fridge,2026-06-10,2026-07-25,14,,0.2
+511,772912,chicken,chicken,1.22,g,fridge,2026-07-11,2026-07-12,1,,0.9
+512,772912,tomato,tomato,1.2,g,fridge,2026-07-10,2026-07-15,4,,0.7
+513,772912,sugar,sugar,1.3,ml,fridge,2026-07-10,2026-07-17,6,,0.5
+514,772912,baking soda,baking soda,0.44,ml,fridge,2026-07-10,2026-07-17,6,,0.5
+515,772912,carrot,carrot,1.41,ml,fridge,2026-07-06,2026-07-23,12,,0.2
+516,772912,water,water,0.33,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+517,772912,bacon,bacon,0.94,g,fridge,2026-07-06,2026-07-13,2,,0.9
+518,772912,garlic powder,garlic powder,0.6,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+519,928411,cheese,cheese,1.15,g,fridge,2026-06-21,2026-07-13,2,6111246721261,0.9
+520,928411,chicken broth,chicken broth,1.53,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+521,928411,potato,potato,1.13,pcs,pantry,2026-07-09,2026-07-30,19,,0.2
+522,928411,worcestershire sauce,worcestershire sauce,1.86,g,fridge,2026-07-07,2026-07-14,3,,0.7
+523,928411,olive oil,olive oil,1.04,g,pantry,2026-01-09,2027-07-10,364,,0.2
+524,928411,mayonnaise,mayonnaise,1.01,cup,fridge,2026-07-05,2026-07-12,1,,0.9
+525,928411,sugar,sugar,0.59,pcs,fridge,2026-07-07,2026-07-14,3,,0.7
+526,928411,thyme,thyme,0.2,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+527,928411,sour cream,sour cream,1.58,g,fridge,2026-07-07,2026-07-14,3,,0.7
+528,928411,lemon juice,lemon juice,0.26,ml,fridge,2026-07-08,2026-07-15,4,,0.7
+529,1055648,egg,egg,1.83,pcs,fridge,2026-07-07,2026-08-04,24,,0.2
+530,1055648,basil,basil,1.56,ml,fridge,2026-07-05,2026-07-12,1,,0.9
+531,1055648,parsley,parsley,2.0,cup,fridge,2026-07-08,2026-07-15,4,,0.7
+532,1055648,thyme,thyme,0.72,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+533,1055648,paprika,paprika,0.67,g,fridge,2026-07-09,2026-07-16,5,,0.7
+534,1055648,onion,onion,1.99,ml,pantry,2026-06-13,2026-07-28,17,,0.2
+535,1055648,cinnamon,cinnamon,1.15,cup,fridge,2026-07-11,2026-07-18,7,,0.5
+536,1055648,flour,flour,1.75,ml,pantry,2026-04-10,2027-01-07,180,,0.2
+537,1055648,ginger,ginger,0.57,cup,fridge,2026-07-09,2026-07-16,5,,0.7
+538,1397704,water,water,1.11,ml,fridge,2026-07-11,2026-07-18,7,,0.5
+539,1397704,chicken broth,chicken broth,0.93,ml,fridge,2026-07-07,2026-07-14,3,,0.7
+540,1397704,garlic,garlic,0.8,ml,pantry,2026-04-11,2026-08-24,44,,0.2
+541,1397704,cream,cream,0.43,g,fridge,2026-07-09,2026-07-16,5,,0.7
+542,1397704,cinnamon,cinnamon,1.73,pcs,fridge,2026-07-08,2026-07-15,4,,0.7
+543,1397704,garlic powder,garlic powder,0.61,g,fridge,2026-07-05,2026-07-12,1,,0.9
+544,1397704,cheese,cheese,1.2,cup,fridge,2026-07-09,2026-07-31,20,6111246721261,0.2
+545,1397704,basil,basil,0.77,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+546,1397704,ginger,ginger,1.38,pcs,fridge,2026-07-11,2026-07-18,7,,0.5
+547,1397704,lemon juice,lemon juice,0.32,g,fridge,2026-07-05,2026-07-12,1,,0.9
+548,1397704,cornstarch,cornstarch,1.25,pcs,fridge,2026-07-11,2026-07-18,7,,0.5
+549,1567897,garlic powder,garlic powder,1.39,pcs,fridge,2026-07-05,2026-07-12,1,,0.9
+550,1567897,basil,basil,1.28,ml,fridge,2026-07-11,2026-07-18,7,,0.5
+551,1567897,onion,onion,1.09,cup,pantry,2026-05-29,2026-07-13,2,,0.9
+552,1567897,mayonnaise,mayonnaise,1.06,g,fridge,2026-07-08,2026-07-15,4,,0.7
+553,1567897,garlic,garlic,0.6,g,pantry,2026-03-29,2026-08-11,31,,0.2
+554,1567897,baking soda,baking soda,0.83,pcs,fridge,2026-07-06,2026-07-13,2,,0.9
+555,1567897,butter,butter,0.23,ml,fridge,2026-06-20,2026-08-04,24,,0.2
+556,1567897,parsley,parsley,1.36,g,fridge,2026-07-09,2026-07-16,5,,0.7
+557,1567897,pepper,pepper,1.6,ml,fridge,2026-07-09,2026-07-19,8,,0.5
+558,1567897,salt,salt,1.48,cup,fridge,2026-07-08,2026-07-15,4,,0.7
+559,1567897,cumin,cumin,1.06,pcs,fridge,2026-07-11,2026-07-18,7,,0.5
+560,1567897,potato,potato,0.64,ml,pantry,2026-06-28,2026-07-19,8,,0.5
+561,1567897,cinnamon,cinnamon,0.6,pcs,fridge,2026-07-10,2026-07-17,6,,0.5
+562,1567897,baking powder,baking powder,0.95,g,fridge,2026-07-07,2026-07-14,3,,0.7

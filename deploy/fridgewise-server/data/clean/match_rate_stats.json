@@ -1,0 +1,10 @@
+{
+  "fridge_vocab_before": 0.9524,
+  "fridge_vocab_after": 0.9762,
+  "fridge_vocab_renorm_uplift": 0.9762,
+  "mean_user_match_before": 0.9731,
+  "mean_user_match_after": 0.9947,
+  "num_fridge_items": 562,
+  "num_recipe_raw_tokens": 5316,
+  "num_recipe_norm_tokens": 4432
+}

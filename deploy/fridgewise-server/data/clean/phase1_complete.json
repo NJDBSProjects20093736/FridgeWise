@@ -1,0 +1,53 @@
+{
+  "aliases_file": "D:\\DBS - Sem 2\\RC\\Fridge-Wise\\assets\\ingredient_aliases.csv",
+  "alias_count": 1514,
+  "foodcom": {
+    "k_core": {
+      "before": {
+        "users": 226570,
+        "recipes": 231637,
+        "interactions": 1132367
+      },
+      "after": {
+        "users": 13506,
+        "recipes": 14533,
+        "interactions": 100000
+      }
+    },
+    "sparsity": 0.9995,
+    "alias_count": 1514,
+    "rating_distribution": {
+      "1": 444,
+      "2": 947,
+      "3": 3140,
+      "4": 15214,
+      "5": 77937
+    },
+    "output_files": [
+      "D:\\DBS - Sem 2\\RC\\Fridge-Wise\\data\\clean\\clean_recipes.csv",
+      "D:\\DBS - Sem 2\\RC\\Fridge-Wise\\data\\clean\\clean_interactions.csv"
+    ]
+  },
+  "enrichment": {
+    "shelf_life_rows": 43,
+    "fdc_nutrition_rows": 39,
+    "off_products_rows": 15,
+    "context_lift_rows": 581,
+    "demo_users": 50,
+    "fridge_items": 562,
+    "recipe_ingredient_rows": 123958,
+    "final_dataset_rows": 10000,
+    "sqlite_db": "D:\\DBS - Sem 2\\RC\\Fridge-Wise\\data\\fridge_recommender.db"
+  },
+  "match_rate": {
+    "fridge_vocab_before": 0.9524,
+    "fridge_vocab_after": 0.9762,
+    "fridge_vocab_renorm_uplift": 0.9762,
+    "mean_user_match_before": 0.9731,
+    "mean_user_match_after": 0.9947,
+    "num_fridge_items": 562,
+    "num_recipe_raw_tokens": 5316,
+    "num_recipe_norm_tokens": 4432,
+    "chart_path": "D:\\DBS - Sem 2\\RC\\Fridge-Wise\\report\\appendices\\match_rate_chart.png"
+  }
+}

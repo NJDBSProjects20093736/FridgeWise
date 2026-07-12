@@ -1,0 +1,32 @@
+{
+  "k_core": {
+    "before": {
+      "users": 226570,
+      "recipes": 231637,
+      "interactions": 1132367
+    },
+    "after": {
+      "users": 13506,
+      "recipes": 14533,
+      "interactions": 100000
+    }
+  },
+  "filters": {
+    "min_user_interactions": 5,
+    "min_recipe_interactions": 10,
+    "rating_range": "1-5 (excluded 0)",
+    "max_interactions_cap": 100000
+  },
+  "sparsity": 0.9995,
+  "rating_distribution": {
+    "1": 444,
+    "2": 947,
+    "3": 3140,
+    "4": 15214,
+    "5": 77937
+  },
+  "output_files": [
+    "data/clean/clean_recipes.csv",
+    "data/clean/clean_interactions.csv"
+  ]
+}

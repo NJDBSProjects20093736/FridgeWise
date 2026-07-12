@@ -1,0 +1,154 @@
+{
+  "new_user_fallback": [
+    {
+      "scenario": "new_user_no_ratings",
+      "model": "popularity",
+      "mean_ingredient_match": 0.1438,
+      "waste_coverage": 0.4874,
+      "top_recipe_example": "creamy cajun chicken pasta"
+    },
+    {
+      "scenario": "new_user_no_ratings",
+      "model": "content_based",
+      "mean_ingredient_match": 0.8021,
+      "waste_coverage": 0.739,
+      "top_recipe_example": "martha stewart s hard boiled eggs 101"
+    },
+    {
+      "scenario": "new_user_no_ratings",
+      "model": "hybrid",
+      "mean_ingredient_match": 0.698,
+      "waste_coverage": 0.6824,
+      "top_recipe_example": "steak marinade  quick and easy"
+    }
+  ],
+  "warmup_curve": [
+    {
+      "num_ratings": 0,
+      "users_evaluated": 40,
+      "mean_ingredient_match": 0.6933,
+      "waste_coverage": 0.6824,
+      "cold_start_mode": true
+    },
+    {
+      "num_ratings": 1,
+      "users_evaluated": 40,
+      "mean_ingredient_match": 0.6836,
+      "waste_coverage": 0.6761,
+      "cold_start_mode": false
+    },
+    {
+      "num_ratings": 3,
+      "users_evaluated": 40,
+      "mean_ingredient_match": 0.6836,
+      "waste_coverage": 0.6761,
+      "cold_start_mode": false
+    },
+    {
+      "num_ratings": 5,
+      "users_evaluated": 40,
+      "mean_ingredient_match": 0.6836,
+      "waste_coverage": 0.6761,
+      "cold_start_mode": false
+    }
+  ],
+  "substitution_examples": [
+    {
+      "user_id": 5060,
+      "recipe_id": 8968,
+      "recipe_name": "carol s hummous",
+      "missing_ingredients": [
+        "garbanzo bean",
+        "garlic",
+        "lemon juice"
+      ],
+      "substitutions": [
+        {
+          "missing": "garlic",
+          "substitute": "garlic powder",
+          "reason": "shared token(s): garlic"
+        }
+      ]
+    },
+    {
+      "user_id": 18391,
+      "recipe_id": 57691,
+      "recipe_name": "kale and bean soup",
+      "missing_ingredients": [
+        "olive oil",
+        "garlic",
+        "onion"
+      ],
+      "substitutions": [
+        {
+          "missing": "olive oil",
+          "substitute": "oil",
+          "reason": "shared token(s): oil"
+        }
+      ]
+    },
+    {
+      "user_id": 55906,
+      "recipe_id": 233189,
+      "recipe_name": "cane sauce  for dippin  chicken",
+      "missing_ingredients": [
+        "ketchup",
+        "garlic salt",
+        "worcestershire sauce"
+      ],
+      "substitutions": [
+        {
+          "missing": "garlic salt",
+          "substitute": "garlic powder",
+          "reason": "shared token(s): garlic"
+        },
+        {
+          "missing": "worcestershire sauce",
+          "substitute": "soy sauce",
+          "reason": "shared token(s): sauce"
+        }
+      ]
+    },
+    {
+      "user_id": 59199,
+      "recipe_id": 112901,
+      "recipe_name": "apple cinnamon bundt cake",
+      "missing_ingredients": [
+        "flour",
+        "cinnamon",
+        "baking powder"
+      ],
+      "substitutions": [
+        {
+          "missing": "baking powder",
+          "substitute": "garlic powder",
+          "reason": "shared token(s): powder"
+        }
+      ]
+    },
+    {
+      "user_id": 60992,
+      "recipe_id": 89577,
+      "recipe_name": "cilantro tilapia",
+      "missing_ingredients": [
+        "olive oil",
+        "tilapia fillet",
+        "garlic salt"
+      ],
+      "substitutions": [
+        {
+          "missing": "garlic salt",
+          "substitute": "salt",
+          "reason": "shared token(s): salt"
+        }
+      ]
+    }
+  ],
+  "new_barcode_example": {
+    "barcode": "6111246721261.0",
+    "ingredient_mapped": "cheese",
+    "days_to_expiry": 9,
+    "expiry_priority_score": 0.5,
+    "integration_note": "New barcode scanned \u2192 Open Food Facts lookup \u2192 generic_ingredient_name \u2192 normalize.py \u2192 join shelf_life + fridge inventory \u2192 hybrid expiry score"
+  }
+}

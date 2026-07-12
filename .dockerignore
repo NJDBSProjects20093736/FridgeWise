@@ -1,0 +1,40 @@
+# Git & IDE
+.git
+.gitignore
+.idea
+.vscode
+
+# Python
+.venv
+venv
+__pycache__
+*.py[cod]
+.pytest_cache
+.mypy_cache
+
+# Flutter build cache (source copied selectively in web Dockerfile)
+app/.dart_tool
+app/build
+app/.flutter-plugins-dependencies
+
+# Local-only / secrets
+.env
+.env.local
+report
+docs
+TEAM.md
+
+# Large local data (mount at runtime instead)
+data/raw
+data/clean
+data/**/*.db
+data/**/*.json
+src/models/artifacts
+
+# Notebooks & tests (not needed in API runtime image)
+notebooks
+tests
+
+# Logs
+*.log
+api/logs

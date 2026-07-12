@@ -1,0 +1,51 @@
+user_id,allergies,dietary_type,preferred_cuisines,region,openness_to_new_cuisines
+5060,[],vegan,"[""chinese"", ""indian"", ""mediterranean""]",EU,0.88
+18391,[],halal,"[""mediterranean"", ""american"", ""chinese""]",US,0.46
+55906,[],vegetarian,"[""american"", ""chinese"", ""indian""]",US,0.59
+59199,[],none,"[""mediterranean"", ""chinese"", ""italian""]",Global,0.45
+60992,[],none,"[""mexican"", ""chinese"", ""mediterranean""]",US,0.23
+64583,"[""gluten""]",vegan,"[""chinese""]",Global,0.88
+65573,"[""peanuts"", ""shellfish""]",none,"[""italian"", ""indian""]",US,0.53
+73836,[],vegan,"[""mexican""]",Asia,0.51
+79300,[],halal,"[""italian"", ""american"", ""indian""]",US,0.47
+86141,"[""peanuts"", ""fish""]",none,"[""chinese"", ""italian"", ""indian""]",Global,0.67
+92385,"[""soy"", ""tree-nuts""]",none,"[""american"", ""indian"", ""chinese""]",EU,0.67
+93095,[],none,"[""indian"", ""mediterranean""]",Global,0.64
+109110,"[""gluten""]",halal,"[""american""]",US,0.22
+115658,"[""tree-nuts""]",none,"[""italian"", ""mexican"", ""indian""]",EU,0.24
+116137,"[""shellfish"", ""eggs""]",vegan,"[""american"", ""italian""]",Global,0.67
+157102,"[""tree-nuts""]",vegetarian,"[""mexican"", ""chinese""]",EU,0.26
+164914,"[""shellfish"", ""soy""]",vegetarian,"[""chinese"", ""italian"", ""american""]",Asia,0.51
+168423,[],vegan,"[""mexican"", ""mediterranean""]",Asia,0.26
+173579,"[""peanuts""]",halal,"[""indian""]",US,0.69
+204024,"[""tree-nuts"", ""peanuts""]",vegetarian,"[""mexican"", ""american"", ""mediterranean""]",Asia,0.27
+206616,[],vegan,"[""italian"", ""chinese""]",EU,0.41
+228297,"[""shellfish"", ""gluten""]",vegetarian,"[""chinese"", ""italian""]",Asia,0.5
+257993,[],vegan,"[""american"", ""italian""]",Asia,0.49
+282215,[],vegan,"[""chinese"", ""indian"", ""italian""]",EU,0.27
+282678,[],halal,"[""mexican"", ""american""]",Global,0.44
+323545,"[""gluten""]",halal,"[""italian"", ""mexican""]",US,0.75
+348437,"[""milk""]",vegetarian,"[""mexican""]",Asia,0.86
+354465,"[""eggs""]",vegetarian,"[""indian"", ""mediterranean""]",Global,0.56
+356127,[],none,"[""mexican"", ""italian"", ""chinese""]",Global,0.3
+367753,[],vegan,"[""mexican"", ""italian""]",EU,0.66
+398047,[],vegan,"[""chinese"", ""mediterranean"", ""indian""]",Global,0.36
+413880,[],vegan,"[""italian""]",Asia,0.78
+441079,"[""tree-nuts""]",vegetarian,"[""american"", ""mexican"", ""mediterranean""]",Asia,0.38
+452437,"[""shellfish""]",vegetarian,"[""chinese"", ""american"", ""italian""]",Global,0.82
+457321,"[""milk"", ""soy""]",vegetarian,"[""mediterranean"", ""italian"", ""chinese""]",EU,0.66
+485773,"[""peanuts"", ""shellfish""]",vegan,"[""chinese""]",US,0.86
+501717,[],halal,"[""mediterranean"", ""chinese"", ""italian""]",EU,0.33
+511488,"[""gluten""]",halal,"[""italian"", ""mexican"", ""american""]",Global,0.88
+540346,"[""gluten""]",none,"[""mediterranean"", ""italian""]",EU,0.29
+546010,[],vegan,"[""american"", ""mexican"", ""italian""]",Global,0.34
+578914,"[""fish""]",none,"[""italian"", ""american"", ""mediterranean""]",US,0.85
+693345,[],halal,"[""indian""]",US,0.54
+730763,"[""soy""]",vegan,"[""mediterranean""]",US,0.85
+731905,"[""milk""]",halal,"[""indian"", ""italian""]",EU,0.3
+754827,"[""peanuts"", ""milk""]",none,"[""american""]",Global,0.76
+772912,"[""tree-nuts""]",vegan,"[""mediterranean"", ""american""]",EU,0.78
+928411,[],vegan,"[""mexican"", ""indian"", ""chinese""]",Global,0.62
+1055648,"[""tree-nuts"", ""peanuts""]",vegan,"[""indian"", ""chinese""]",Global,0.52
+1397704,"[""eggs"", ""tree-nuts""]",vegan,"[""mediterranean""]",Global,0.27
+1567897,"[""milk"", ""fish""]",halal,"[""italian"", ""mexican""]",US,0.3

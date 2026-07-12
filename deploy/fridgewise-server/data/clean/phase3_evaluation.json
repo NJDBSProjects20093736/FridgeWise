@@ -1,0 +1,119 @@
+{
+  "k": 10,
+  "max_eval_users": 500,
+  "train_interactions": 82160,
+  "test_interactions": 15522,
+  "test_users_with_relevant": 4646,
+  "rmse": {
+    "full_data": 0.5709,
+    "train_split": 0.5903
+  },
+  "ranking": [
+    {
+      "model": "popularity",
+      "k": 10,
+      "users_evaluated": 500,
+      "precision": 0.0054,
+      "recall": 0.0204,
+      "map_score": 0.0083,
+      "ndcg": 0.0141,
+      "hit_rate": 0.052
+    },
+    {
+      "model": "content_based",
+      "k": 10,
+      "users_evaluated": 500,
+      "precision": 0.0002,
+      "recall": 0.001,
+      "map_score": 0.0001,
+      "ndcg": 0.0004,
+      "hit_rate": 0.002
+    },
+    {
+      "model": "svd",
+      "k": 10,
+      "users_evaluated": 500,
+      "precision": 0.0002,
+      "recall": 0.0002,
+      "map_score": 0.0,
+      "ndcg": 0.0001,
+      "hit_rate": 0.002
+    },
+    {
+      "model": "hybrid",
+      "k": 10,
+      "users_evaluated": 500,
+      "precision": 0.0002,
+      "recall": 0.001,
+      "map_score": 0.0003,
+      "ndcg": 0.0005,
+      "hit_rate": 0.002
+    }
+  ],
+  "waste_simulation": [
+    {
+      "model_name": "popularity",
+      "users_evaluated": 50,
+      "expiring_items_total": 318,
+      "expiring_items_used": 155,
+      "waste_coverage": 0.4874,
+      "mean_expiry_priority_captured": 0.7934
+    },
+    {
+      "model_name": "content_based",
+      "users_evaluated": 50,
+      "expiring_items_total": 318,
+      "expiring_items_used": 235,
+      "waste_coverage": 0.739,
+      "mean_expiry_priority_captured": 0.7863
+    },
+    {
+      "model_name": "hybrid",
+      "users_evaluated": 50,
+      "expiring_items_total": 318,
+      "expiring_items_used": 215,
+      "waste_coverage": 0.6761,
+      "mean_expiry_priority_captured": 0.7889
+    }
+  ],
+  "context_comparison": {
+    "hybrid_with_context": {
+      "model": "hybrid",
+      "k": 10,
+      "users_evaluated": 500,
+      "precision": 0.0002,
+      "recall": 0.001,
+      "map_score": 0.0003,
+      "ndcg": 0.0005,
+      "hit_rate": 0.002
+    },
+    "hybrid_without_context": {
+      "model": "hybrid",
+      "k": 10,
+      "users_evaluated": 500,
+      "precision": 0.0002,
+      "recall": 0.001,
+      "map_score": 0.0002,
+      "ndcg": 0.0004,
+      "hit_rate": 0.002
+    },
+    "ndcg_delta": 0.0001
+  },
+  "tradeoff": [
+    {
+      "model": "popularity",
+      "ndcg": 0.0141,
+      "waste_coverage": 0.4874
+    },
+    {
+      "model": "content_based",
+      "ndcg": 0.0004,
+      "waste_coverage": 0.739
+    },
+    {
+      "model": "hybrid",
+      "ndcg": 0.0005,
+      "waste_coverage": 0.6761
+    }
+  ]
+}

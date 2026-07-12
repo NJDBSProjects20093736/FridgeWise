@@ -1,0 +1,215 @@
+{
+  "demo_user_id": 5060,
+  "warm_user_id": 140132,
+  "svd_rmse": 0.5708849982570048,
+  "models": {
+    "popularity": [
+      {
+        "recipe_id": 39087,
+        "recipe_name": "creamy cajun chicken pasta",
+        "score": 26.2197
+      },
+      {
+        "recipe_id": 27208,
+        "recipe_name": "to die for crock pot roast",
+        "score": 25.3661
+      },
+      {
+        "recipe_id": 32204,
+        "recipe_name": "whatever floats your boat  brownies",
+        "score": 25.1317
+      },
+      {
+        "recipe_id": 89204,
+        "recipe_name": "crock pot chicken with black beans   cream cheese",
+        "score": 24.683
+      },
+      {
+        "recipe_id": 82102,
+        "recipe_name": "kittencal s moist cheddar garlic oven fried chicken breast",
+        "score": 24.5898
+      },
+      {
+        "recipe_id": 28148,
+        "recipe_name": "oven fried chicken chimichangas",
+        "score": 24.0231
+      },
+      {
+        "recipe_id": 25885,
+        "recipe_name": "banana banana bread",
+        "score": 23.6973
+      },
+      {
+        "recipe_id": 67256,
+        "recipe_name": "best ever banana cake with cream cheese frosting",
+        "score": 23.5694
+      },
+      {
+        "recipe_id": 63689,
+        "recipe_name": "my family s favorite sloppy joes  pizza joes",
+        "score": 23.5445
+      },
+      {
+        "recipe_id": 10744,
+        "recipe_name": "delicious chicken pot pie",
+        "score": 23.5191
+      }
+    ],
+    "content_based": [
+      {
+        "recipe_id": 173837,
+        "recipe_name": "martha stewart s hard boiled eggs 101",
+        "score": 0.6059
+      },
+      {
+        "recipe_id": 24799,
+        "recipe_name": "hard boiled eggs",
+        "score": 0.6056
+      },
+      {
+        "recipe_id": 302972,
+        "recipe_name": "the easiest perfect hard boiled eggs  technique",
+        "score": 0.6053
+      },
+      {
+        "recipe_id": 64854,
+        "recipe_name": "foolproof hard boiled eggs",
+        "score": 0.6051
+      },
+      {
+        "recipe_id": 68491,
+        "recipe_name": "perfect boiled eggs",
+        "score": 0.6049
+      },
+      {
+        "recipe_id": 293366,
+        "recipe_name": "easy peel no fail hard cooked eggs",
+        "score": 0.6043
+      },
+      {
+        "recipe_id": 228819,
+        "recipe_name": "steamed eggs  kai meung",
+        "score": 0.6041
+      },
+      {
+        "recipe_id": 258049,
+        "recipe_name": "shanna s favorite chicken kiev",
+        "score": 0.5372
+      },
+      {
+        "recipe_id": 188329,
+        "recipe_name": "crock pot shredded chicken breasts for freezing   oamc",
+        "score": 0.5029
+      },
+      {
+        "recipe_id": 93990,
+        "recipe_name": "egg roll wrappers",
+        "score": 0.4581
+      }
+    ],
+    "svd": [
+      {
+        "recipe_id": 20376,
+        "recipe_name": "nestle  oatmeal scotchies",
+        "score": 4.9897
+      },
+      {
+        "recipe_id": 82023,
+        "recipe_name": "kittencal s perfect prime rib roast beef",
+        "score": 4.9753
+      },
+      {
+        "recipe_id": 309199,
+        "recipe_name": "beer braised onions",
+        "score": 4.9694
+      },
+      {
+        "recipe_id": 10481,
+        "recipe_name": "marvelous broccoli salad",
+        "score": 4.9644
+      },
+      {
+        "recipe_id": 150898,
+        "recipe_name": "tuscan white bean   spinach soup",
+        "score": 4.9606
+      },
+      {
+        "recipe_id": 76312,
+        "recipe_name": "no knead batter dinner rolls",
+        "score": 4.959
+      },
+      {
+        "recipe_id": 81902,
+        "recipe_name": "to die for make ahead mashed potatoes",
+        "score": 4.9582
+      },
+      {
+        "recipe_id": 445214,
+        "recipe_name": "roasted cherry or grape tomatoes",
+        "score": 4.9425
+      },
+      {
+        "recipe_id": 43908,
+        "recipe_name": "yummy baked potato skins",
+        "score": 4.9417
+      },
+      {
+        "recipe_id": 77800,
+        "recipe_name": "hot butter your buns with buttered rum in a crock pot",
+        "score": 4.9343
+      }
+    ],
+    "hybrid": [
+      {
+        "recipe_id": 39145,
+        "recipe_name": "steak marinade  quick and easy",
+        "score": 0.9662
+      },
+      {
+        "recipe_id": 31806,
+        "recipe_name": "steak marinade",
+        "score": 0.9405
+      },
+      {
+        "recipe_id": 136817,
+        "recipe_name": "daddy s steak marinade",
+        "score": 0.9177
+      },
+      {
+        "recipe_id": 334698,
+        "recipe_name": "acadia s bell pepper onion stir fry",
+        "score": 0.9096
+      },
+      {
+        "recipe_id": 274478,
+        "recipe_name": "ten clove garlic marinade",
+        "score": 0.9083
+      },
+      {
+        "recipe_id": 218626,
+        "recipe_name": "steak marinade my way",
+        "score": 0.906
+      },
+      {
+        "recipe_id": 113019,
+        "recipe_name": "super simple garlic salt",
+        "score": 0.9056
+      },
+      {
+        "recipe_id": 155988,
+        "recipe_name": "steak rub marinade",
+        "score": 0.9019
+      },
+      {
+        "recipe_id": 83316,
+        "recipe_name": "pizza crust  bread machine",
+        "score": 0.8988
+      },
+      {
+        "recipe_id": 391028,
+        "recipe_name": "chicken finger dipping sauce",
+        "score": 0.8978
+      }
+    ]
+  }
+}

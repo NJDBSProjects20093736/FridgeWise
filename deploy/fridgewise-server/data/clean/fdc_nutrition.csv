@@ -1,0 +1,40 @@
+cleaned_ingredient_name,fdc_id,description,energy_kcal_100g,fat_100g,saturated_fat_100g,carbohydrates_100g,sugars_100g,protein_100g,salt_100g,fiber_100g,nutrition_score
+salt,321361,"SALT, MORTON, IODIZED",,,,,,,0.0,,1.0
+sugar,321662,"Broccoli, Region 1, n/a, Yes, Sugar - NFY01047P",,,,,,,0.0,,1.0
+butter,324654,"Peanut butter, creamy, SKIPPY (MI) - CY120GH",,,,,,,0.0,,1.0
+onion,324158,"Onion rings, frozen, oven-heated, ALEXIA (CA2,NC) - CY1205A",,,,,,,0.0,,1.0
+pepper,325795,"White bread, PEPPERIDGE FARMS (FL1,MO1) - CY090F2",,,,,,,0.0,,1.0
+flour,789829,"FLOUR, ALL PURPOSE (ENRICHED) (BLEACHED)",,,,,,,0.0,,1.0
+egg,323506,"EGG, LIQUID WHOLE, Producer C, LOT 3",,,,,,,0.0,,1.0
+garlic,1104593,GARLIC,,,,,,,0.0,,1.0
+cheese,323295,"CHEESE, RICOTTA, WHOLE MILK, GALBANI",,,,,,,0.0,,1.0
+milk,320025,"MILK, 2% (WAVE 22E)",,,,,,,0.0,,1.0
+water,332397,"Ham, sliced, pre-packaged, deli meat (96%fat free, water added)",106.0,3.73,1.12,0.27,,16.7,1.04,,1.0
+oil,326196,"Kale, frozen, cooked, boiled, drained, without salt",36.0,1.21,,5.3,1.12,2.94,0.016,,1.0
+olive oil,748367,"OLIVE OIL, EXTRA VIRGIN",,,,,,,0.0,,1.0
+tomato,320413,"TOMATOES, GRAPE",,,,,,,0.0,,1.0
+garlic powder,1104593,GARLIC,,,,,,,0.0,,1.0
+sour cream,2346468,"sour cream, full fat",,,,,,,0.0,,1.0
+chicken,330870,"Chicken, dark meat, lean only, drumstick, braised, non-enhanced (AL1,CA1) - 14B-06-05",,,,,,,0.0,,1.0
+carrot,326197,"Carrots, sliced or crinkle cut, frozen, unprepared, mixed composite, C9818L",,,,,,,0.0,,1.0
+mayonnaise,2758986,"Mayonnaise, Regular",,,11.3,,,,0.0,,0.8
+chicken broth,330870,"Chicken, dark meat, lean only, drumstick, braised, non-enhanced (AL1,CA1) - 14B-06-05",,,,,,,0.0,,1.0
+bacon,748968,APPLEBEES -  BACON,,,,,,,0.0,,1.0
+soy sauce,1104648,"FLOUR, SOY (DEFATTED)",,,,,,,0.0,,1.0
+celery,2346405,"Celery, raw",,0.1625,,3.3165125,,0.4921875,0.09720999999999999,,1.0
+potato,2261422,"Flour, potato",,0.9513,,79.9422,,8.1125,0.047659999999999994,5.401,1.0
+cream,324654,"Peanut butter, creamy, SKIPPY (MI) - CY120GH",,,,,,,0.0,,1.0
+honey,325872,"TURKEY BREAKFAST SAUSAGE, HONEYSUCKLE WHITE",,,,,,,0.0,,1.0
+mushroom,1750344,"Mushroom, lion's mane",,0.2563,,7.5897,,2.5,0.0003363,,1.0
+banana,790647,"BANANAS, OVERRIPE",,,,,,,0.0,,1.0
+beef,320353,"Beef, Eye of Round roast/steak, lean only, raw, animal 5, select",,,,,,,0.0,,1.0
+ground black pepper,330459,"Ground turkey, 93% lean, 7% fat, pan-broiled crumbles (AL1)",,,,,,,0.0,,1.0
+green onion,2727585,"Green onion, (scallion), bulb and greens, root removed, raw",,,,,2.618,0.66875,0.009948,2.3,1.0
+walnut,2346394,"Nuts, walnuts, English, halves, raw",,69.74,6.054,10.9096,,14.5644,0.0,5.21,1.0
+pecan,2346395,"Nuts, pecans, halves, raw",,73.28,6.465,12.6993,,9.9587,0.0,5.793,0.9
+buttermilk,2259792,"Buttermilk, low fat",,1.081,0.5525,4.811522,,3.464978,0.09248999999999999,,1.0
+ketchup,747449,MCDONALDS - KETCHUP,,,,,,,0.0,,1.0
+extra virgin olive oil,748367,"OLIVE OIL, EXTRA VIRGIN",,,,,,,0.0,,1.0
+onion powder,324158,"Onion rings, frozen, oven-heated, ALEXIA (CA2,NC) - CY1205A",,,,,,,0.0,,1.0
+apple,747135,APPLEBEES -  AMERICAN CHEESE,,,,,,,0.0,,1.0
+red onion,333281,"Tomatoes, canned, red, ripe, diced",18.0,0.5,,3.32,2.99,0.84,0.125,,1.0
