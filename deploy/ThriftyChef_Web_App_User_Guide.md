@@ -1,4 +1,4 @@
-# ThriftyChef — Web App User Guide (v4)
+# ThriftyChef — Web App User Guide (v5)
 
 **Product prototype** — Flutter web + FastAPI (polished UI with food photography)
 
@@ -241,13 +241,19 @@ Recipe name, circular match %, AI score, prep time, difficulty, safety badge, ta
 
 ### Workflow
 1. Choose a scan mode card at the top
-2. Enter barcode manually (web demo — no camera)
-3. Tap **Look up product**
-4. Review nutrition panel, allergen warnings, and safety check against your profile
-5. **Fridge Scan:** set expiry slider → **Add to fridge**
-6. **Rescue Basket:** tap **Get recipe ideas** → verdict card + recommended recipes → optionally **Add to rescue basket**
+2. Use **Open camera scanner** from the **Scan a product** section, or type the barcode manually
+3. If using camera scan, allow browser/device camera permission and align the barcode inside the frame
+4. The detected barcode is filled automatically and product lookup runs
+5. Review nutrition panel, allergen warnings, and safety check against your profile
+6. **Fridge Scan:** set expiry slider → **Add to fridge**
+7. **Rescue Basket:** tap **Get recipe ideas** → verdict card + recommended recipes → optionally **Add to rescue basket**
 
 **Demo barcode:** `6111246721261`
+
+### Notes
+- **Web:** camera scanning works when the browser allows camera access; manual entry remains available as fallback
+- **Mobile:** camera barcode scanning is included in the Scan tab
+- If the camera cannot open, type the barcode manually and tap **Lookup product**
 
 API endpoints: product lookup via barcode; rescue recommendations via `POST /rescue/recommendations`.
 
@@ -287,7 +293,7 @@ Tap the **Profile** icon (person) in the top app bar. Same centred form as onboa
 1. Open app — confirm **green API dot** in header; note **Loading ThriftyChef** splash
 2. Onboarding: vegetarian, milk allergy, low sugar, Asian + Sri Lankan, openness 0.7
 3. **Fridge tab** — add eggs (2d), parsley (4d), cheese (9d), tomato, onion; show ingredient photos and expiry bars
-4. **Scan tab** — barcode `6111246721261` in **Rescue Basket** mode → get recipe ideas
+4. **Scan tab** — use **Open camera scanner** or enter barcode `6111246721261` in **Rescue Basket** mode → get recipe ideas
 5. **Recipes tab** — hero card, mood chips, food-photo cards, Safe badge, match % rings
 6. Toggle **expiry OFF** — show ranking change
 7. Mood: **Comfort** → **Healthy**
@@ -307,7 +313,7 @@ Tap the **Profile** icon (person) in the top app bar. Same centred form as onboa
 - [ ] Onboarding centred card with section A–E
 - [ ] Fridge: stat cards, filters, add form on right (desktop), ingredient photos
 - [ ] Fridge items show expiry progress bars with urgency colours
-- [ ] Scan tab: both modes, barcode lookup, rescue recommendations
+- [ ] Scan tab: both modes, camera scanner or manual barcode lookup, rescue recommendations
 - [ ] AI recommendations: hero card, mood chips, food-photo cards, match % rings
 - [ ] Recipe detail: hero image, steps + why recommended card
 - [ ] Mood / expiry toggles change results
@@ -325,6 +331,8 @@ Tap the **Profile** icon (person) in the top app bar. Same centred form as onboa
 | API not reachable | Run `python scripts/run_api.py`; click Retry; check red API dot |
 | localhost:8080 fails | Use http://127.0.0.1:8080 instead |
 | Old UI after update | Rebuild web (`flutter build web --release …`); hard refresh (`Ctrl+Shift+R`) |
+| Camera scanner not opening | Allow camera permission in the browser/device; on web prefer Chrome/Edge with `127.0.0.1` or HTTPS |
+| Camera opens but no scan detected | Improve lighting, hold the barcode inside the frame, or type the barcode manually |
 | No food photos | Requires internet (Unsplash URLs); placeholders show if offline |
 | No cooking steps | Restart API after code updates; hard refresh browser |
 | Empty recommendations | Wait 30s for models to load; add fridge items |
@@ -337,7 +345,7 @@ Tap the **Profile** icon (person) in the top app bar. Same centred form as onboa
 ## 16. Known limitations
 
 - Demo user ID **5060** only — no login yet
-- Web barcode = manual entry (no camera scanner)
+- Browser camera access may depend on permission settings and secure context support
 - Food photos load from Unsplash — need internet connection
 - Fridge may reset on API restart (in-memory backend store)
 - Profile cached locally via SharedPreferences if API fails
@@ -354,7 +362,7 @@ Capture from http://127.0.0.1:8080 in Chrome (Win + Shift + S). Save to `deploy/
 4. **AI recommendations** — hero card, mood chips, food-photo recipe card with match ring
 5. **Recipe detail** — hero food image, why recommended card, numbered steps
 6. **Fridge** — stat cards, two-column layout, ingredient photos, expiry bars
-7. **Scan** — rescue basket mode, nutrition panel, recipe suggestions
+7. **Scan** — camera scanner open, or rescue basket mode with nutrition panel and recipe suggestions
 8. **Substitute** — search with quick chips, miso result card
 9. **Dark mode** — Recipes tab with navy background and teal accents
 

@@ -53,51 +53,74 @@ class HeroCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final narrow = MediaQuery.sizeOf(context).width < 520;
     return Container(
       decoration: AppTheme.heroDecoration(),
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(narrow ? 16 : 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(Icons.auto_awesome, color: Colors.white),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          if (narrow)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
                   children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      subtitle,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.white.withValues(alpha: 0.88),
-                          ),
-                    ),
+                    _heroIcon(),
+                    const Spacer(),
+                    if (trailing != null) trailing!,
                   ],
                 ),
-              ),
-              if (trailing != null) trailing!,
-            ],
-          ),
+                const SizedBox(height: 12),
+                _heroText(context),
+              ],
+            )
+          else
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _heroIcon(),
+                const SizedBox(width: 14),
+                Expanded(child: _heroText(context)),
+                if (trailing != null) trailing!,
+              ],
+            ),
           if (badges != null && badges!.isNotEmpty) ...[
             const SizedBox(height: 14),
             Wrap(spacing: 8, runSpacing: 8, children: badges!),
           ],
         ],
       ),
+    );
+  }
+
+  Widget _heroIcon() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.2),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: const Icon(Icons.auto_awesome, color: Colors.white),
+    );
+  }
+
+  Widget _heroText(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          subtitle,
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Colors.white.withValues(alpha: 0.88),
+              ),
+        ),
+      ],
     );
   }
 }
@@ -143,6 +166,7 @@ class SummaryStatCard extends StatelessWidget {
   final String value;
   final IconData icon;
   final Color accent;
+  final bool expand;
 
   const SummaryStatCard({
     super.key,
@@ -150,24 +174,24 @@ class SummaryStatCard extends StatelessWidget {
     required this.value,
     required this.icon,
     required this.accent,
+    this.expand = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        decoration: AppTheme.cardDecoration(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(icon, color: accent, size: 20),
-            const SizedBox(height: 8),
-            Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: AppTheme.textDark)),
-            Text(label, style: Theme.of(context).textTheme.bodySmall),
-          ],
-        ),
+    final card = Container(
+      padding: const EdgeInsets.all(14),
+      decoration: AppTheme.cardDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, color: accent, size: 20),
+          const SizedBox(height: 8),
+          Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: AppTheme.textDark)),
+          Text(label, style: Theme.of(context).textTheme.bodySmall),
+        ],
       ),
     );
+    return expand ? Expanded(child: card) : card;
   }
 }

@@ -63,6 +63,10 @@ class ThriftyChefData:
         )
 
 
+# Backward compatibility — pickled .pkl artifacts were saved before the ThriftyChef rebrand.
+FridgeWiseData = ThriftyChefData
+
+
 def load_fridgewise_data(root: Path | None = None) -> ThriftyChefData:
     root = root or Path(__file__).resolve().parents[1]
     clean = root / "data" / "clean"

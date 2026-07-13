@@ -19,5 +19,5 @@ fi
 
 docker compose up -d --build
 echo ""
-echo "Web:  http://localhost:8080"
-echo "API:  http://localhost:8000/docs"
+echo "Web:  http://localhost:${WEB_HOST_PORT:-8004}"
+echo "API:  http://localhost:${API_HOST_PORT:-8005}/docs"

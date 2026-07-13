@@ -7,6 +7,15 @@ import '../models/rescue_result.dart';
 import '../models/recipe_recommendation.dart';
 import '../models/user_profile.dart';
 
+class ProductLookupException implements Exception {
+  final String message;
+
+  const ProductLookupException(this.message);
+
+  @override
+  String toString() => message;
+}
+
 /// API client with legacy endpoint fallbacks where product routes are unavailable.
 class ThriftyChefRepository {
   ThriftyChefRepository({String? baseUrl}) : baseUrl = baseUrl ?? ApiConfig.baseUrl;
@@ -109,13 +118,22 @@ class ThriftyChefRepository {
   }
 
   Future<ProductInfo?> lookupProduct(String barcode) async {
+    Object? lastError;
     for (final path in ['/products/$barcode', '/product/barcode/$barcode']) {
       try {
         final res = await http.get(Uri.parse('$baseUrl$path'));
         if (res.statusCode == 200) {
           return ProductInfo.fromJson(jsonDecode(res.body) as Map<String, dynamic>);
         }
-      } catch (_) {}
+        if (res.statusCode != 404) {
+          lastError = 'Product lookup failed (${res.statusCode})';
+        }
+      } catch (e) {
+        lastError = e;
+      }
+    }
+    if (lastError != null) {
+      throw ProductLookupException('Could not look up product right now. Check that the API is running.');
     }
     return null;
   }

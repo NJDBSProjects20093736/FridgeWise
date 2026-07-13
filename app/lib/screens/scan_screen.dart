@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 import '../models/rescue_result.dart';
 import '../models/scanned_product.dart';
 import '../providers/app_state.dart';
+import '../services/thrifty_chef_repository.dart';
 import '../theme/app_theme.dart';
 import '../utils/product_safety.dart';
 import '../widgets/empty_state.dart';
@@ -25,6 +27,7 @@ class _ScanScreenState extends State<ScanScreen> {
   final _qtyCtrl = TextEditingController();
   ScanMode _mode = ScanMode.rescueBasket;
   bool _lookupLoading = false;
+  bool _cameraOpening = false;
 
   @override
   void dispose() {
@@ -37,14 +40,55 @@ class _ScanScreenState extends State<ScanScreen> {
     final code = _barcodeCtrl.text.trim();
     if (code.isEmpty) return;
     setState(() => _lookupLoading = true);
-    final state = context.read<AppState>();
-    final scanned = await state.lookupAndScan(code, _mode);
-    if (!mounted) return;
-    setState(() => _lookupLoading = false);
-    if (scanned == null) {
+    try {
+      final state = context.read<AppState>();
+      final scanned = await state.lookupAndScan(code, _mode);
+      if (!mounted) return;
+      if (scanned == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Product not found — check barcode or add manually in Fridge')),
+        );
+      }
+    } on ProductLookupException catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Product not found — check barcode or add manually in Fridge')),
+        SnackBar(content: Text(e.message)),
       );
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Product lookup failed. Please try again.')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() => _lookupLoading = false);
+      }
+    }
+  }
+
+  Future<void> _scanWithCamera() async {
+    if (_cameraOpening) return;
+    setState(() => _cameraOpening = true);
+    try {
+      final code = await showModalBottomSheet<String>(
+        context: context,
+        isScrollControlled: true,
+        useSafeArea: true,
+        backgroundColor: Colors.black,
+        builder: (context) => const _BarcodeScannerSheet(),
+      );
+      if (!mounted || code == null || code.trim().isEmpty) return;
+      _barcodeCtrl.text = code.trim();
+      await _lookup();
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not open the camera scanner on this device/browser.')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() => _cameraOpening = false);
+      }
     }
   }
 
@@ -107,12 +151,28 @@ class _ScanScreenState extends State<ScanScreen> {
                   onSubmitted: (_) => _lookup(),
                 ),
                 const SizedBox(height: 12),
-                FilledButton.icon(
-                  onPressed: _lookupLoading ? null : _lookup,
-                  icon: _lookupLoading
-                      ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                      : const Icon(Icons.search),
-                  label: const Text('Lookup product'),
+                Row(
+                  children: [
+                    Expanded(
+                      child: FilledButton.icon(
+                        onPressed: _lookupLoading ? null : _lookup,
+                        icon: _lookupLoading
+                            ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                            : const Icon(Icons.search),
+                        label: const Text('Lookup product'),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: _cameraOpening ? null : _scanWithCamera,
+                        icon: _cameraOpening
+                            ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
+                            : const Icon(Icons.photo_camera_outlined),
+                        label: const Text('Scan camera'),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -148,12 +208,33 @@ class _ScanScreenState extends State<ScanScreen> {
             ] else
               _fridgeActions(state),
           ] else
-            const Padding(
-              padding: EdgeInsets.only(top: 24),
-              child: EmptyState(
-                icon: Icons.qr_code_scanner,
-                title: 'Scan a product',
-                message: 'Choose a mode above, enter a barcode, and lookup the product.',
+            Padding(
+              padding: const EdgeInsets.only(top: 24),
+              child: Column(
+                children: [
+                  const EmptyState(
+                    icon: Icons.qr_code_scanner,
+                    title: 'Scan a product',
+                    message: 'Choose a mode above, scan with the camera or enter a barcode, then lookup the product.',
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: 240,
+                    child: FilledButton.icon(
+                      onPressed: _cameraOpening ? null : _scanWithCamera,
+                      icon: _cameraOpening
+                          ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                          : const Icon(Icons.photo_camera_outlined),
+                      label: const Text('Open camera scanner'),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Or type the barcode above if camera access is unavailable.',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppTheme.textMuted),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
         ],
@@ -375,5 +456,126 @@ class _ScanScreenState extends State<ScanScreen> {
       _barcodeCtrl.clear();
       _qtyCtrl.clear();
     }
+  }
+}
+
+class _BarcodeScannerSheet extends StatefulWidget {
+  const _BarcodeScannerSheet();
+
+  @override
+  State<_BarcodeScannerSheet> createState() => _BarcodeScannerSheetState();
+}
+
+class _BarcodeScannerSheetState extends State<_BarcodeScannerSheet> {
+  final MobileScannerController _controller = MobileScannerController(
+    detectionSpeed: DetectionSpeed.noDuplicates,
+    facing: CameraFacing.back,
+    formats: const [
+      BarcodeFormat.ean13,
+      BarcodeFormat.ean8,
+      BarcodeFormat.upcA,
+      BarcodeFormat.upcE,
+      BarcodeFormat.code128,
+      BarcodeFormat.code39,
+      BarcodeFormat.code93,
+    ],
+  );
+
+  bool _handled = false;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _handleCapture(BarcodeCapture capture) {
+    if (_handled) return;
+    for (final barcode in capture.barcodes) {
+      final value = barcode.rawValue?.trim();
+      if (value != null && value.isNotEmpty) {
+        _handled = true;
+        Navigator.of(context).pop(value);
+        return;
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.82,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: MobileScanner(
+              controller: _controller,
+              onDetect: _handleCapture,
+              errorBuilder: (context, error) {
+                return Container(
+                  color: Colors.black,
+                  padding: const EdgeInsets.all(24),
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.camera_alt_outlined, color: Colors.white, size: 42),
+                      const SizedBox(height: 12),
+                      const Text(
+                        'Camera scanner unavailable',
+                        style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        error.toString(),
+                        style: const TextStyle(color: Colors.white70),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+          Positioned(
+            top: 12,
+            left: 12,
+            right: 12,
+            child: Row(
+              children: [
+                IconButton.filledTonal(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: const Icon(Icons.close),
+                ),
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Text(
+                    'Align the barcode inside the frame',
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                IconButton.filledTonal(
+                  onPressed: _controller.toggleTorch,
+                  icon: const Icon(Icons.flashlight_on_outlined),
+                ),
+              ],
+            ),
+          ),
+          Center(
+            child: IgnorePointer(
+              child: Container(
+                width: 280,
+                height: 150,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 3),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

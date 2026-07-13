@@ -11,7 +11,7 @@ from docx.shared import Inches, Pt, RGBColor
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "deploy" / "ThriftyChef_Web_App_User_Guide.docx"
-OUTPUT_V4 = ROOT / "deploy" / "ThriftyChef_Web_App_User_Guide_v4.docx"
+OUTPUT_V5 = ROOT / "deploy" / "ThriftyChef_Web_App_User_Guide_v5.docx"
 MARKDOWN = ROOT / "deploy" / "ThriftyChef_Web_App_User_Guide.md"
 
 
@@ -75,7 +75,7 @@ def build() -> None:
     r.font.size = Pt(20)
     sub = doc.add_paragraph()
     sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    sub.add_run("Product prototype — Flutter web + FastAPI (v4 — polished UI with food photography)").italic = True
+    sub.add_run("Product prototype — Flutter web + FastAPI (v5 — camera barcode scan added)").italic = True
     doc.add_paragraph()
     doc.add_paragraph(
         "ThriftyChef is a smart fridge and recipe assistant that helps reduce food waste by "
@@ -147,7 +147,7 @@ def build() -> None:
             ["Profile icon", "Edit diet/allergies anytime"],
             ["Recipes", "AI hybrid recommendations (default tab)"],
             ["Fridge", "Inventory, expiry tracking, add-item form"],
-            ["Scan", "Barcode lookup — fridge or rescue-basket demo"],
+            ["Scan", "Barcode lookup — camera scan or manual entry, fridge or rescue-basket demo"],
             ["Substitute", "Unfamiliar ingredient similarity (cold-start)"],
         ],
     )
@@ -200,7 +200,7 @@ def build() -> None:
             ["Ingredient name", "e.g. tomato, eggs, parsley"],
             ["Quantity / unit", "Optional, e.g. 2 pcs"],
             ["Days to expiry", "Colour-coded slider 1–30 days"],
-            ["Barcode", "Manual entry (e.g. 6111246721261)"],
+            ["Barcode", "Camera scan or manual entry (e.g. 6111246721261)"],
         ],
     )
     doc.add_paragraph("Item cards show circular ingredient photos, expiry progress bars, and urgency colours:")
@@ -277,13 +277,23 @@ def build() -> None:
         doc,
         [
             "Choose scan mode",
-            "Enter barcode manually (web demo — no camera)",
-            "Look up product → nutrition panel and safety check",
+            "Use Open camera scanner or enter barcode manually",
+            "Allow camera permission and align barcode inside the frame",
+            "Detected barcode auto-fills and product lookup runs",
+            "Review nutrition panel and safety check",
             "Fridge Scan: set expiry → Add to fridge",
             "Rescue Basket: Get recipe ideas → verdict + recommended recipes",
         ],
     )
     doc.add_paragraph("Demo barcode: 6111246721261")
+    add_bullets(
+        doc,
+        [
+            "Web: camera scanning works when browser camera permission is allowed",
+            "Mobile: camera barcode scanning is included in the Scan tab",
+            "If camera access fails, type the barcode manually and tap Lookup product",
+        ],
+    )
 
     doc.add_heading("10. Ingredient substitutes (Substitute tab)", level=1)
     doc.add_paragraph(
@@ -313,7 +323,7 @@ def build() -> None:
             "Open app — green API dot; note Loading ThriftyChef splash",
             "Onboarding: vegetarian, milk allergy, low sugar, Asian + Sri Lankan",
             "Fridge — add eggs, parsley, cheese, tomato; show photos and expiry bars",
-            "Scan — barcode 6111246721261 in Rescue Basket mode → recipe ideas",
+            "Scan — use Open camera scanner or barcode 6111246721261 in Rescue Basket mode → recipe ideas",
             "Recipes — hero card, mood chips, food-photo cards, match % rings",
             "Toggle expiry OFF — show ranking change",
             "Mood Comfort → Healthy",
@@ -331,7 +341,7 @@ def build() -> None:
         "ThriftyChef logo with chef hat; teal UI",
         "Onboarding centred card with sections A–E",
         "Fridge: stat cards, ingredient photos, expiry bars",
-        "Scan tab: both modes, rescue recommendations",
+        "Scan tab: both modes, camera scan or manual entry, rescue recommendations",
         "AI recommendations: food-photo cards, match % rings",
         "Recipe detail: hero image, why-recommended card",
         "Light/dark theme toggle works",
@@ -350,6 +360,8 @@ def build() -> None:
             ["Blank white screen", "Use release build + Python static server (see §1)"],
             ["API not reachable", "Run python scripts/run_api.py; click Retry"],
             ["localhost:8080 fails", "Use http://127.0.0.1:8080 instead"],
+            ["Camera scanner not opening", "Allow camera permission; on web use Chrome/Edge with 127.0.0.1 or HTTPS"],
+            ["Camera opens but does not detect", "Improve lighting, hold barcode inside the frame, or type it manually"],
             ["No food photos", "Requires internet (Unsplash); placeholders if offline"],
             ["Old UI after update", "Rebuild web; hard refresh (Ctrl+Shift+R)"],
             ["Empty recommendations", "Wait 30s for models; add fridge items"],
@@ -363,7 +375,7 @@ def build() -> None:
         doc,
         [
             "Demo user ID 5060 only — no login yet",
-            "Web barcode = manual entry (no camera)",
+            "Browser camera access depends on permission settings and secure-context support",
             "Food photos from Unsplash — need internet",
             "Fridge may reset on API restart (in-memory store)",
             "Profile cached locally via SharedPreferences",
@@ -380,7 +392,7 @@ def build() -> None:
             "AI recommendations — hero card, food-photo cards, match rings",
             "Recipe detail — hero image, why recommended, steps",
             "Fridge — stat cards, ingredient photos, expiry bars",
-            "Scan — rescue basket mode, nutrition panel",
+            "Scan — camera scanner open, or rescue basket mode with nutrition panel",
             "Substitute — miso quick chip and result card",
             "Dark mode — Recipes tab with navy background",
         ],
@@ -405,7 +417,7 @@ def build() -> None:
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     saved: list[Path] = []
-    for path in (OUTPUT_V4, OUTPUT):
+    for path in (OUTPUT_V5, OUTPUT):
         try:
             doc.save(path)
             saved.append(path)

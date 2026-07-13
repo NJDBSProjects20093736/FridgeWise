@@ -2,8 +2,8 @@
 # Usage:
 #   cp .env.example .env   # fill Supabase / DATABASE_URL
 #   docker compose up -d --build
-#   Web UI: http://localhost:8080
-#   API (direct): http://localhost:8000/docs
+#   Web UI: http://localhost:8004
+#   API (direct): http://localhost:8005/docs
 
 services:
   api:
@@ -22,7 +22,7 @@ services:
       # Required: trained model artifacts (run scripts/train_models.py locally first)
       - ./src/models/artifacts:/app/src/models/artifacts:ro
     ports:
-      - "8000:8000"
+      - "${API_HOST_PORT:-8005}:8000"
     restart: unless-stopped
 
   web:
@@ -34,7 +34,7 @@ services:
         API_BASE_URL: ${API_BASE_URL:-}
     container_name: thriftychef-web
     ports:
-      - "8080:80"
+      - "${WEB_HOST_PORT:-8004}:80"
     depends_on:
       - api
     restart: unless-stopped

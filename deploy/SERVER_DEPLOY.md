@@ -36,7 +36,7 @@ thriftychef-server/
 | RAM | 4 GB (8 GB safer — models load in memory) |
 | Disk | 2 GB free |
 | Software | Docker Engine 24+ and Docker Compose v2 |
-| Network | Ports **8080** (web) open; **8000** optional (API direct) |
+| Network | Ports **8004** (web) open; **8005** optional (API direct) |
 
 ---
 
@@ -110,6 +110,10 @@ Example:
 API_HOST=0.0.0.0
 API_PORT=8000
 DEMO_LEGACY_USER_ID=5060
+
+# Docker host ports (must be > 8003 on shared servers)
+WEB_HOST_PORT=8004
+API_HOST_PORT=8005
 ```
 
 ---
@@ -145,9 +149,9 @@ Replace `YOUR_SERVER_IP` with your server address:
 
 | Check | URL |
 |-------|-----|
-| Web app | http://YOUR_SERVER_IP:8080 |
-| API health (via proxy) | http://YOUR_SERVER_IP:8080/api/health |
-| API docs (direct) | http://YOUR_SERVER_IP:8000/docs |
+| Web app | http://YOUR_SERVER_IP:8004 |
+| API health (via proxy) | http://YOUR_SERVER_IP:8004/api/health |
+| API docs (direct) | http://YOUR_SERVER_IP:8005/docs |
 
 Expected health response:
 
@@ -160,8 +164,8 @@ Expected health response:
 ## 8. Firewall (if enabled)
 
 ```bash
-sudo ufw allow 8080/tcp
-sudo ufw allow 8000/tcp   # optional — skip if you only use /api via web
+sudo ufw allow 8004/tcp
+sudo ufw allow 8005/tcp   # optional — skip if you only use /api via web
 sudo ufw reload
 ```
 
@@ -182,7 +186,7 @@ Edit `/etc/caddy/Caddyfile`:
 
 ```
 thriftychef.yourdomain.com {
-    reverse_proxy localhost:8080
+    reverse_proxy localhost:8004
 }
 ```
 
@@ -200,9 +204,9 @@ Then open `https://thriftychef.yourdomain.com` — the app calls `/api` on the s
 Internet
    │
    ▼
-:8080  nginx (web container)
+:8004  nginx (web container)
    ├── /           → Flutter web (static)
-   └── /api/*      → FastAPI :8000 (api container)
+   └── /api/*      → FastAPI :8000 (api container, internal)
                          │
                          ▼
                    Supabase Postgres
@@ -248,7 +252,7 @@ docker compose up -d --build web
 - [ ] Never commit `.env` to git
 - [ ] Do not expose `SUPABASE_SERVICE_ROLE_KEY` in the Flutter app
 - [ ] Rotate Supabase keys if they were ever shared in chat/email
-- [ ] For production, hide port 8000 and only expose 8080 (or HTTPS via Caddy)
+- [ ] For production, hide port 8005 and only expose 8004 (or HTTPS via Caddy)
 - [ ] Keep Docker updated: `sudo apt upgrade`
 
 ---
