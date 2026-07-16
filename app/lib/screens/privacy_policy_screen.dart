@@ -6,7 +6,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});
 
   static const publicUrl =
-      'https://njdbsprojects20093736.github.io/FridgeWise/privacy-policy.html';
+      'https://cdn.jsdelivr.net/gh/NJDBSProjects20093736/FridgeWise@Thrifty-chef-implementations/docs/privacy-policy.html';
 
   @override
   Widget build(BuildContext context) {
