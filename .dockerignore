@@ -24,12 +24,10 @@ report
 docs
 TEAM.md
 
-# Large local data (mount at runtime instead)
+# Large local data
 data/raw
-data/clean
 data/**/*.db
 data/**/*.json
-src/models/artifacts
 
 # Notebooks & tests (not needed in API runtime image)
 notebooks
