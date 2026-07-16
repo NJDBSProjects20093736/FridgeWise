@@ -5,6 +5,7 @@ import '../theme/app_theme.dart';
 import 'assistant_screen.dart';
 import 'leftovers_screen.dart';
 import 'meal_planner_screen.dart';
+import 'privacy_policy_screen.dart';
 import 'shopping_list_screen.dart';
 import 'sustainability_screen.dart';
 
@@ -51,6 +52,13 @@ class MoreHubScreen extends StatelessWidget {
         subtitle: '${state.shoppingList.where((i) => !i.checked).length} items to buy',
         color: AppTheme.roseAccent,
         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ShoppingListScreen())),
+      ),
+      _HubTile(
+        icon: Icons.privacy_tip_outlined,
+        title: 'Privacy Policy',
+        subtitle: 'How ThriftyChef uses your data',
+        color: AppTheme.textMuted,
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen())),
       ),
     ];
 
