@@ -66,10 +66,43 @@ class CollaborativeRecommender:
         )
         return self
 
-    def predict_rating(self, user_id: int, recipe_id: int) -> float:
+    def _user_base_score(self, user_id: int) -> float:
+        """Global mean + user bias — score for items unseen in training."""
+        ts = self.trainset
+        if ts is None:
+            return 0.0
+        try:
+            iuid = ts.to_inner_uid(int(user_id))
+        except (ValueError, KeyError):
+            return float(ts.global_mean)
+        return float(ts.global_mean + self.model.bu[iuid])
+
+    def _all_item_scores(self, user_id: int) -> dict[int, float] | None:
+        """Vectorised unclipped SVD estimate for every training item.
+
+        Returns {raw_recipe_id: score} or None if the user is unknown or the
+        factor matrices are unavailable. ~1000x faster than looping predict().
+        """
+        ts = self.trainset
+        model = self.model
+        if ts is None or model is None or not hasattr(model, "qi"):
+            return None
+        try:
+            iuid = ts.to_inner_uid(int(user_id))
+        except (ValueError, KeyError):
+            return None
+        import numpy as np
+
+        scores = ts.global_mean + model.bu[iuid] + model.bi + model.qi.dot(model.pu[iuid])
+        return {int(ts.to_raw_iid(i)): float(scores[i]) for i in range(ts.n_items)}
+
+    def predict_rating(self, user_id: int, recipe_id: int, *, clip: bool = True) -> float:
         if self.model is None:
             raise RuntimeError("Call fit() before predict_rating()")
-        return float(self.model.predict(int(user_id), int(recipe_id)).est)
+        # clip=True bounds the estimate to [1, 5] (for RMSE / display). For
+        # ranking we use clip=False so tied ceiling estimates (common when
+        # ratings are skewed to 5) still discriminate between candidates.
+        return float(self.model.predict(int(user_id), int(recipe_id), clip=clip).est)
 
     def predict_rating_norm(self, user_id: int, recipe_id: int) -> float:
         return normalize_rating(self.predict_rating(user_id, recipe_id))
@@ -80,24 +113,23 @@ class CollaborativeRecommender:
         k: int = 10,
         *,
         exclude_seen: bool = True,
-        candidate_pool: int = 300,
     ) -> list[Recommendation]:
         if self.model is None:
             raise RuntimeError("Call fit() before recommend()")
 
         seen = self._user_history.get(user_id, set()) if exclude_seen else set()
         candidates = [rid for rid in self.all_recipe_ids if rid not in seen]
-        if len(candidates) > candidate_pool:
-            # Score a random subset plus any high-popularity recipes for speed
-            import numpy as np
 
-            rng = np.random.default_rng(user_id)
-            candidates = list(rng.choice(candidates, size=candidate_pool, replace=False))
-
-        scored: list[tuple[int, float]] = []
-        for rid in candidates:
-            pred = self.predict_rating(user_id, rid)
-            scored.append((rid, pred))
+        # Score the full catalogue. Previously this randomly sub-sampled to
+        # `candidate_pool` recipes, which on a large catalogue almost never
+        # contained the user's genuinely relevant items and made top-N ranking
+        # effectively random. Scores are the unclipped SVD estimate so tied
+        # ceiling ratings still discriminate.
+        score_by_id = self._all_item_scores(user_id)
+        if score_by_id is not None:
+            scored = [(rid, score_by_id.get(rid, self._user_base_score(user_id))) for rid in candidates]
+        else:  # unknown user (not in trainset) — fall back to per-item predict
+            scored = [(rid, self.predict_rating(user_id, rid, clip=False)) for rid in candidates]
         scored.sort(key=lambda x: x[1], reverse=True)
 
         return [

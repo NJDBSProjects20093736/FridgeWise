@@ -37,7 +37,7 @@ class RecommendRequest(BaseModel):
     openness_to_new_cuisines: float = 0.5
     mood: str = "comfort"
     use_expiry: bool = True
-    use_context: bool = True
+    use_context: bool = False
     k: int = Field(default=10, ge=1, le=50)
     model: str = "hybrid"
 
@@ -131,7 +131,7 @@ class RescueRecommendationsRequest(BaseModel):
     use_current_fridge: bool = True
     mood: str = "quick"
     use_expiry: bool = True
-    use_context: bool = True
+    use_context: bool = False
     k: int = Field(default=10, ge=1, le=30)
     model: str = "hybrid"
 

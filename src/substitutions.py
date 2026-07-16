@@ -25,7 +25,11 @@ def suggest_substitutes(
     """
     Suggest fridge substitutes for a missing recipe ingredient.
 
-    Strategy: same canonical name via alias table, then token overlap fallback.
+    Strategy: only suggest ingredients in the same curated canonical family.
+
+    A generic token-overlap rule can create unsafe nonsense (for example,
+    matching two unrelated ingredients because both contain "powder").  The
+    feature now prefers no suggestion over an unvalidated substitution.
     """
     missing_norm = normalize_ingredient(missing_ingredient)
     if not missing_norm:
@@ -53,18 +57,5 @@ def suggest_substitutes(
                     "substitute": raw,
                     "reason": f"same canonical group ({canonical})",
                 })
-
-    # Token overlap fallback
-    missing_tokens = set(missing_norm.split())
-    for raw, norm in zip(fridge_ingredients, fridge_norm):
-        if not norm or norm == missing_norm:
-            continue
-        overlap = missing_tokens & set(norm.split())
-        if overlap and not any(s["substitute"] == raw for s in suggestions):
-            suggestions.append({
-                "missing": missing_ingredient,
-                "substitute": raw,
-                "reason": f"shared token(s): {', '.join(sorted(overlap))}",
-            })
 
     return suggestions[:max_suggestions]

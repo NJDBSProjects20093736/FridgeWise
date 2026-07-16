@@ -13,9 +13,10 @@ def main() -> None:
         sys.path.insert(0, str(root))
 
     from src.evaluation.cold_start import run_cold_start_evaluation, save_warmup_chart
+    from src.experiment import CA_ONE_CONFIG
 
     print("=== ThriftyChef Phase 4 — Cold-start evaluation ===\n")
-    summary = run_cold_start_evaluation(root)
+    summary = run_cold_start_evaluation(root, config=CA_ONE_CONFIG)
 
     out_json = root / "data" / "clean" / "phase4_cold_start.json"
     out_json.write_text(json.dumps(summary, indent=2), encoding="utf-8")
@@ -35,7 +36,8 @@ def main() -> None:
         mode = "COLD" if row["cold_start_mode"] else "warm"
         print(
             f"  {row['num_ratings']} ratings ({mode:4s})  "
-            f"match={row['mean_ingredient_match']:.4f}  waste={row['waste_coverage']:.2%}"
+            f"NDCG={row['ndcg']:.4f}  match={row['mean_ingredient_match']:.4f}  "
+            f"waste={row['waste_coverage']:.2%}"
         )
 
     print(f"\nSubstitution examples: {len(summary['substitution_examples'])}")

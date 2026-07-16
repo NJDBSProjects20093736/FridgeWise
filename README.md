@@ -38,7 +38,7 @@ Offline (training & evaluation)
 
 Online (serving)
   Flutter client ↔ FastAPI
-    → FAISS candidate retrieval
+    → candidate generation (content, SVD, popularity)
     → hard filters (allergens, diet)
     → hybrid scoring + context re-ranking
     → ranked recommendations + explanations
