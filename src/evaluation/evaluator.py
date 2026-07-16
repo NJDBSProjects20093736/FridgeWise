@@ -14,6 +14,7 @@ from surprise import SVD
 from surprise.model_selection import train_test_split as surprise_split
 
 from src.data_loader import ThriftyChefData, load_fridgewise_data
+from src.experiment import CA_ONE_CONFIG, CAOneExperimentConfig
 from src.evaluation.metrics import (
     average_precision_at_k,
     hit_rate_at_k,
@@ -52,9 +53,13 @@ def evaluate_ranking(
     *,
     k: int = 10,
     max_users: int | None = 500,
-    seed: int = 42,
+    seed: int = CA_ONE_CONFIG.random_state,
+    eligible_user_ids: list[int] | set[int] | None = None,
 ) -> RankingMetrics:
     user_ids = list(test_relevant.keys())
+    if eligible_user_ids is not None:
+        allowed = {int(uid) for uid in eligible_user_ids}
+        user_ids = [uid for uid in user_ids if int(uid) in allowed]
     if max_users and len(user_ids) > max_users:
         rng = np.random.default_rng(seed)
         user_ids = list(rng.choice(user_ids, size=max_users, replace=False))
@@ -111,74 +116,115 @@ def evaluate_svd_rmse(
     return float(accuracy.rmse(model.test(testset), verbose=False))
 
 
-def train_models_on_split(train_data: ThriftyChefData) -> dict[str, Any]:
+def train_models_on_split(
+    train_data: ThriftyChefData,
+    *,
+    config: CAOneExperimentConfig = CA_ONE_CONFIG,
+) -> dict[str, Any]:
     pop = PopularityRecommender().fit(train_data)
     content = ContentBasedRecommender().fit(train_data)
-    cf = CollaborativeRecommender(n_factors=50, n_epochs=20).fit(
-        train_data, test_size=0.0, random_state=42
+    cf = CollaborativeRecommender(n_factors=config.svd_factors, n_epochs=config.svd_epochs).fit(
+        train_data, test_size=0.0, random_state=config.random_state
     )
 
     hybrid = HybridRecommender().fit(train_data, cf, content)
-    hybrid_no_context = HybridRecommender(context_max_boost=0.0).fit(train_data, cf, content)
+    hybrid_with_context = HybridRecommender(context_max_boost=0.15).fit(train_data, cf, content)
 
     return {
         "popularity": pop,
         "content_based": content,
         "svd": cf,
         "hybrid": hybrid,
-        "hybrid_no_context": hybrid_no_context,
+        "hybrid_with_context": hybrid_with_context,
     }
 
 
 def run_full_evaluation(
     root: Path | None = None,
     *,
-    k: int = 10,
-    max_users: int = 500,
+    config: CAOneExperimentConfig = CA_ONE_CONFIG,
 ) -> dict[str, Any]:
     root = root or Path(__file__).resolve().parents[1]
     data = load_fridgewise_data(root)
 
-    train_df, test_df, test_relevant = user_holdout_split(data.interactions)
+    train_df, test_df, test_relevant = user_holdout_split(
+        data.interactions,
+        test_frac=config.test_fraction,
+        min_user_interactions=config.min_user_interactions,
+        relevant_rating_threshold=config.relevant_rating_threshold,
+        random_state=config.random_state,
+    )
     train_data = data.with_interactions(train_df)
 
-    models = train_models_on_split(train_data)
+    models = train_models_on_split(train_data, config=config)
 
-    ranking_results = [
-        evaluate_ranking(m, train_data, test_relevant, k=k, max_users=max_users)
-        for key, m in [
-            ("popularity", models["popularity"]),
-            ("content_based", models["content_based"]),
-            ("svd", models["svd"]),
-            ("hybrid", models["hybrid"]),
-        ]
+    all_relevant_users = set(test_relevant)
+    fridge_users = set(data.fridge["user_id"].astype(int))
+    profile_users = set(data.profiles["user_id"].astype(int))
+    fridge_eval_users = sorted(all_relevant_users & fridge_users & profile_users)
+
+    # Rating relevance must be evaluated only with model inputs available for all
+    # sampled Food.com users. The fridge-aware models are evaluated separately.
+    rating_results = [
+        evaluate_ranking(
+            m, train_data, test_relevant, k=config.k,
+            max_users=config.max_eval_users, seed=config.random_state,
+        )
+        for m in [models["popularity"], models["svd"]]
+    ]
+    fridge_results = [
+        evaluate_ranking(
+            m, train_data, test_relevant, k=config.k,
+            max_users=None, seed=config.random_state, eligible_user_ids=fridge_eval_users,
+        )
+        for m in [models["popularity"], models["content_based"], models["svd"], models["hybrid"]]
     ]
 
     waste_results = [
-        simulate_waste_reduction(m, data, k=k)
-        for m in [models["popularity"], models["content_based"], models["hybrid"]]
+        simulate_waste_reduction(
+            m, data, k=config.k, user_ids=fridge_eval_users, exclude_seen=True,
+        )
+        for m in [models["popularity"], models["content_based"], models["svd"], models["hybrid"]]
     ]
 
-    # Context-aware comparison (Track D)
+    # Context is opt-in because it must beat the no-context model on the held-out
+    # fridge-aware track before it becomes part of the submitted system.
     ctx_on = evaluate_ranking(
-        models["hybrid"], train_data, test_relevant, k=k, max_users=max_users
+        models["hybrid_with_context"], train_data, test_relevant, k=config.k,
+        max_users=None, seed=config.random_state, eligible_user_ids=fridge_eval_users,
     )
     ctx_off = evaluate_ranking(
-        models["hybrid_no_context"], train_data, test_relevant, k=k, max_users=max_users
+        models["hybrid"], train_data, test_relevant, k=config.k,
+        max_users=None, seed=config.random_state, eligible_user_ids=fridge_eval_users,
     )
 
-    rmse_full = evaluate_svd_rmse(data.interactions)
-    rmse_train = evaluate_svd_rmse(train_df)
+    rmse_full = evaluate_svd_rmse(
+        data.interactions, random_state=config.random_state,
+        n_factors=config.svd_factors, n_epochs=config.svd_epochs,
+    )
+    rmse_train = evaluate_svd_rmse(
+        train_df, random_state=config.random_state,
+        n_factors=config.svd_factors, n_epochs=config.svd_epochs,
+    )
 
     summary = {
-        "k": k,
-        "max_eval_users": max_users,
+        "experiment_config": config.to_dict(),
         "train_interactions": len(train_df),
         "test_interactions": len(test_df),
         "test_users_with_relevant": len(test_relevant),
         "rmse": {"full_data": round(rmse_full, 4), "train_split": round(rmse_train, 4)},
-        "ranking": [asdict(r) for r in ranking_results],
-        "waste_simulation": [asdict(w) for w in waste_results],
+        "rating_relevance_benchmark": {
+            "description": "Food.com users; only rating-compatible recommenders are compared.",
+            "users_available": len(all_relevant_users),
+            "users_sampled": min(len(all_relevant_users), config.max_eval_users),
+            "results": [asdict(r) for r in rating_results],
+        },
+        "fridge_rescue_benchmark": {
+            "description": "Users with both a synthetic fridge and profile; all models receive equivalent fridge context.",
+            "users_available": len(fridge_eval_users),
+            "ranking": [asdict(r) for r in fridge_results],
+            "waste_simulation": [asdict(w) for w in waste_results],
+        },
         "context_comparison": {
             "hybrid_with_context": asdict(ctx_on),
             "hybrid_without_context": asdict(ctx_off),
@@ -191,7 +237,7 @@ def run_full_evaluation(
         {"model": r.model, "ndcg": r.ndcg, "waste_coverage": next(
             (w.waste_coverage for w in waste_results if w.model_name == r.model), 0.0
         )}
-        for r in ranking_results
+        for r in fridge_results
         if r.model in ("popularity", "content_based", "hybrid")
     ]
     summary["tradeoff"] = tradeoff

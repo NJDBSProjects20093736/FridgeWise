@@ -25,11 +25,13 @@ class HybridRecommender:
         self,
         *,
         candidate_pool: int = 400,
-        context_max_boost: float = 0.15,
+        context_max_boost: float = 0.0,
         popularity_weight: float = 0.6,
         cold_popularity_weight: float = 0.2,
     ) -> None:
         self.candidate_pool = candidate_pool
+        # The context ablation is retained as an optional experiment. It is
+        # disabled by default until validation shows a positive held-out gain.
         self.context_max_boost = context_max_boost
         # Weight of the popularity prior in the final relevance blend. On very
         # sparse catalogues pure CF/content cannot beat a popularity baseline on

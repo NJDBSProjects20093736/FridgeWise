@@ -47,6 +47,12 @@ class ModelRegistry:
             self.cf.save(artifacts / "svd.pkl")
             self.hybrid.save(artifacts / "hybrid.pkl")
 
+        # Context was not beneficial in the recorded offline ablation.  Keep it
+        # as an explicit serving-time option instead of allowing stale pickled
+        # model settings to apply it by default.
+        assert self.hybrid is not None
+        self.hybrid.context_max_boost = 0.0
+
         self._loaded = True
 
 
