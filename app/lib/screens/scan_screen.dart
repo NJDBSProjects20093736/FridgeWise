@@ -438,13 +438,52 @@ class _ScanScreenState extends State<ScanScreen> {
           ),
           const SizedBox(height: 8),
           Text(rescue.verdictReason, style: Theme.of(context).textTheme.bodyMedium),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           Text(
             'Uses ${rescue.fridgeItemsUsed} fridge items · ${rescue.recipes.length} recipes found',
             style: Theme.of(context).textTheme.bodySmall,
           ),
+          const SizedBox(height: 12),
+          _rescueImpactRow(rescue),
         ],
       ),
+    );
+  }
+
+  Widget _rescueImpactRow(RescueResult rescue) {
+    final recipes = rescue.recipes.length;
+    final worthBuying = rescue.verdict == 'good_buy'
+        ? 'Yes'
+        : rescue.verdict == 'not_recommended'
+            ? 'No'
+            : 'Maybe';
+    final moneySaved = (recipes * 2.5 + rescue.fridgeItemsUsed * 1.5).round().clamp(1, 45);
+    final wasteKg = (0.15 + recipes * 0.08).clamp(0.1, 2.0);
+
+    Widget tile(String value, String label) => Expanded(
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+            decoration: AppTheme.cardDecoration(color: AppTheme.background),
+            child: Column(
+              children: [
+                Text(value, style: TextStyle(fontWeight: FontWeight.w800, color: AppTheme.primaryGreen)),
+                const SizedBox(height: 4),
+                Text(label, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodySmall),
+              ],
+            ),
+          ),
+        );
+
+    return Row(
+      children: [
+        tile(worthBuying, 'Worth buying?'),
+        const SizedBox(width: 8),
+        tile('$recipes', 'Recipes unlocked'),
+        const SizedBox(width: 8),
+        tile('€$moneySaved', 'Est. saved'),
+        const SizedBox(width: 8),
+        tile('~${wasteKg.toStringAsFixed(1)}kg', 'Waste avoided'),
+      ],
     );
   }
 

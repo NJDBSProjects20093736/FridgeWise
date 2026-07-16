@@ -6,11 +6,13 @@ import '../providers/app_state.dart';
 import '../theme/app_theme.dart';
 import '../widgets/chip_selectors.dart';
 import '../widgets/empty_state.dart';
+import '../widgets/home_greeting_header.dart';
 import '../widgets/loading_state.dart';
 import '../widgets/recipe_card.dart';
 import '../widgets/responsive_container.dart';
 import '../widgets/section_card.dart';
 import 'recipe_detail_screen.dart';
+import 'assistant_screen.dart';
 
 class RecommendationsScreen extends StatefulWidget {
   const RecommendationsScreen({super.key});
@@ -27,8 +29,10 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AppState>().loadRecommendations();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final state = context.read<AppState>();
+      if (state.fridge.isEmpty) await state.loadFridge();
+      await state.loadRecommendations();
     });
   }
 
@@ -75,21 +79,27 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<AppState>();
-    final list = state.filteredRecommendations;
+    final q = state.searchQuery.trim();
+    final useNl = q.contains(' ') ||
+        q.contains('under') ||
+        q.contains('healthy') ||
+        q.contains('quick') ||
+        q.contains('minutes');
+    final list = useNl ? state.searchNaturalLanguage(q) : state.filteredRecommendations;
 
-    return RefreshIndicator(
+    return Stack(
+      children: [
+        RefreshIndicator(
       color: AppTheme.glacier,
-      onRefresh: state.loadRecommendations,
+      onRefresh: () async {
+        await state.loadFridge();
+        await state.loadRecommendations();
+      },
       child: ResponsiveContainer(
         child: ListView(
-          padding: const EdgeInsets.only(bottom: 32),
+          padding: const EdgeInsets.only(bottom: 96),
           children: [
-            Text('Recipes for you', style: Theme.of(context).textTheme.headlineMedium),
-            const SizedBox(height: 6),
-            Text(
-              'Smart matches based on what\'s in your fridge — use expiring items first.',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted),
-            ),
+            HomeGreetingHeader(state: state),
             const SizedBox(height: 20),
             HeroCard(
               title: 'AI recommendations',
@@ -103,7 +113,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
                 initialValue: state.model,
                 onSelected: state.setModel,
                 tooltip: 'Tune model',
-                icon: const Icon(Icons.tune, color: Colors.white),
+                icon: Icon(Icons.tune, color: AppTheme.glacier),
                 itemBuilder: (_) => const [
                   PopupMenuItem(value: 'hybrid', child: Text('Hybrid (AI)')),
                   PopupMenuItem(value: 'content', child: Text('Content-based')),
@@ -148,7 +158,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
                 child: TextField(
                   controller: _searchCtrl,
                   decoration: InputDecoration(
-                    hintText: 'Search recipes or ingredients…',
+                    hintText: 'Try “healthy dinner under 20 minutes”…',
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.search, color: AppTheme.textMuted),
                     suffixIcon: _searching
@@ -229,6 +239,21 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
           ],
         ),
       ),
+        ),
+        Positioned(
+          right: 16,
+          bottom: 16,
+          child: FloatingActionButton.extended(
+            heroTag: 'ask_chef_ai_fab',
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const AssistantScreen()),
+            ),
+            icon: const Icon(Icons.auto_awesome),
+            label: const Text('Ask Chef AI'),
+          ),
+        ),
+      ],
     );
   }
 

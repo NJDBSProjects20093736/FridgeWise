@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Semantic ThriftyChef palette — Light (Frost) and Dark (Nordic Rose & Frost).
+/// Semantic ThriftyChef palette — clean soft-white / teal / coral design system.
 @immutable
 class ThriftyChefColors extends ThemeExtension<ThriftyChefColors> {
   final Color background;
@@ -45,50 +45,51 @@ class ThriftyChefColors extends ThemeExtension<ThriftyChefColors> {
     required this.useGlow,
   });
 
-  /// Light mode — pale frost dashboard with teal primary (#34A0A4).
+  /// Light — soft white (~70%), teal actions (~20%), coral branding (~10%).
   static const light = ThriftyChefColors(
-    background: Color(0xFFF1F5F9),
-    frost: Color(0xFFF8FAFC),
+    background: Color(0xFFF8FAFC),
+    frost: Color(0xFFFFFFFF),
     glacierDeep: Color(0xFF268387),
     glacier: Color(0xFF34A0A4),
     glacierMid: Color(0xFF4DB4B8),
-    iceLight: Color(0xFFE6F4F5),
-    iceAccent: Color(0xFF8FD3D6),
+    iceLight: Color(0xFFEEF7F8),
+    iceAccent: Color(0xFFD9F2F3),
     roseAccent: Color(0xFFE5A99E),
     arcticGlow: Color(0xFF4DB4B8),
-    warningOrange: Color(0xFFD97706),
-    dangerRed: Color(0xFFDC2626),
-    goodTeal: Color(0xFF34A0A4),
-    textPrimary: Color(0xFF0F172A),
+    warningOrange: Color(0xFFF59E0B),
+    dangerRed: Color(0xFFEF4444),
+    goodTeal: Color(0xFF22C55E),
+    textPrimary: Color(0xFF1E293B),
     textMuted: Color(0xFF64748B),
-    cardBorder: Color(0xFFE2E8F0),
+    cardBorder: Color(0xFFE5E7EB),
     cardSurface: Color(0xFFFFFFFF),
-    heroGradient: [Color(0xFF268387), Color(0xFF34A0A4)],
-    phase2Gradient: [Color(0xFF34A0A4), Color(0xFF6EC8CC)],
+    // Light teal hero (#EAF8F8 → #D9F2F3) — food photos stay the focus
+    heroGradient: [Color(0xFFEAF8F8), Color(0xFFD9F2F3)],
+    phase2Gradient: [Color(0xFFEAF8F8), Color(0xFFD9F2F3)],
     useGlow: false,
   );
 
-  /// Dark mode — deep navy with teal glow (#34A0A4).
+  /// Dark — deep navy with restrained teal accents.
   static const dark = ThriftyChefColors(
-    background: Color(0xFF0B1220),
-    frost: Color(0xFF131C2E),
-    glacierDeep: Color(0xFF1F6B6E),
+    background: Color(0xFF0F172A),
+    frost: Color(0xFF1E293B),
+    glacierDeep: Color(0xFF268387),
     glacier: Color(0xFF34A0A4),
     glacierMid: Color(0xFF4DB4B8),
     iceLight: Color(0xFF1A3A3C),
     iceAccent: Color(0xFF6EC8CC),
-    roseAccent: Color(0xFFE8A598),
+    roseAccent: Color(0xFFE5A99E),
     arcticGlow: Color(0xFF4DB4B8),
     warningOrange: Color(0xFFF59E0B),
     dangerRed: Color(0xFFEF4444),
-    goodTeal: Color(0xFF34A0A4),
+    goodTeal: Color(0xFF22C55E),
     textPrimary: Color(0xFFF1F5F9),
     textMuted: Color(0xFF94A3B8),
     cardBorder: Color(0xFF334155),
-    cardSurface: Color(0xFF151F32),
-    heroGradient: [Color(0xFF268387), Color(0xFF34A0A4)],
-    phase2Gradient: [Color(0xFF34A0A4), Color(0xFF6EC8CC)],
-    useGlow: true,
+    cardSurface: Color(0xFF1E293B),
+    heroGradient: [Color(0xFF1A3A3C), Color(0xFF134E4A)],
+    phase2Gradient: [Color(0xFF1A3A3C), Color(0xFF134E4A)],
+    useGlow: false,
   );
 
   LinearGradient get glacierHeroGradient => LinearGradient(
@@ -122,13 +123,13 @@ extension ThriftyChefThemeContext on BuildContext {
 class AppTheme {
   static const double maxContentWidth = 1140;
   static const double profileMaxWidth = 720;
+  static const double cardRadius = 22;
 
   /// Synced from [AppState.themeMode] — do NOT mutate inside buildTheme().
   static bool isDark = false;
 
   static ThriftyChefColors get c => isDark ? ThriftyChefColors.dark : ThriftyChefColors.light;
 
-  // Backward-compatible accessors (used across widgets)
   static Color get background => c.background;
   static Color get frost => c.frost;
   static Color get glacierDeep => c.glacierDeep;
@@ -163,7 +164,7 @@ class AppTheme {
       seedColor: palette.glacier,
       brightness: brightness,
       primary: palette.glacier,
-      onPrimary: isDarkTheme ? palette.background : Colors.white,
+      onPrimary: Colors.white,
       secondary: palette.roseAccent,
       tertiary: palette.arcticGlow,
       surface: palette.cardSurface,
@@ -179,7 +180,13 @@ class AppTheme {
       scaffoldBackgroundColor: palette.background,
       textTheme: TextTheme(
         headlineMedium: TextStyle(
-          fontSize: 22,
+          fontSize: 24,
+          fontWeight: FontWeight.w700,
+          color: palette.textPrimary,
+          letterSpacing: -0.4,
+        ),
+        headlineSmall: TextStyle(
+          fontSize: 20,
           fontWeight: FontWeight.w700,
           color: palette.textPrimary,
           letterSpacing: -0.3,
@@ -196,12 +203,11 @@ class AppTheme {
         color: palette.cardSurface,
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-          side: BorderSide(
-            color: palette.useGlow ? palette.glacier.withValues(alpha: 0.35) : palette.cardBorder,
-          ),
+          borderRadius: BorderRadius.circular(cardRadius),
+          side: BorderSide(color: palette.cardBorder),
         ),
         margin: EdgeInsets.zero,
+        shadowColor: Colors.black.withValues(alpha: 0.05),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
@@ -209,15 +215,15 @@ class AppTheme {
         hintStyle: TextStyle(color: palette.textMuted),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: palette.cardBorder),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: palette.cardBorder),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: palette.glacier, width: 1.5),
         ),
       ),
@@ -236,20 +242,28 @@ class AppTheme {
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           backgroundColor: palette.glacier,
-          foregroundColor: isDarkTheme ? palette.background : Colors.white,
+          foregroundColor: Colors.white,
           disabledBackgroundColor: palette.cardBorder,
           disabledForegroundColor: palette.textMuted,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        ).copyWith(
+          overlayColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed)) {
+              return palette.glacierDeep.withValues(alpha: 0.18);
+            }
+            return null;
+          }),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: palette.glacier,
-          side: BorderSide(color: palette.useGlow ? palette.glacier.withValues(alpha: 0.5) : palette.cardBorder),
+          backgroundColor: isDarkTheme ? Colors.transparent : Colors.white,
+          side: BorderSide(color: palette.glacier),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         ),
       ),
       switchTheme: SwitchThemeData(
@@ -258,13 +272,14 @@ class AppTheme {
           return Colors.grey.shade400;
         }),
         trackColor: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) return palette.arcticGlow;
+          if (states.contains(WidgetState.selected)) return palette.iceAccent;
           return palette.cardBorder;
         }),
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: palette.cardSurface,
         indicatorColor: palette.iceLight,
+        elevation: 0,
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
           final selected = states.contains(WidgetState.selected);
           return TextStyle(
@@ -279,12 +294,18 @@ class AppTheme {
         }),
       ),
       navigationRailTheme: NavigationRailThemeData(
-        backgroundColor: palette.frost,
+        backgroundColor: palette.cardSurface,
         indicatorColor: palette.iceLight,
         selectedIconTheme: IconThemeData(color: palette.glacier),
         unselectedIconTheme: IconThemeData(color: palette.textMuted),
         selectedLabelTextStyle: TextStyle(color: palette.glacier, fontWeight: FontWeight.w600, fontSize: 12),
         unselectedLabelTextStyle: TextStyle(color: palette.textMuted, fontSize: 12),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: palette.glacier,
+        foregroundColor: Colors.white,
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       ),
       appBarTheme: AppBarTheme(
         centerTitle: false,
@@ -297,7 +318,7 @@ class AppTheme {
       dividerTheme: DividerThemeData(color: palette.cardBorder, thickness: 1),
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         backgroundColor: palette.glacierDeep,
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(color: palette.glacier),
@@ -312,68 +333,47 @@ class AppTheme {
     return BoxDecoration(
       color: gradient == null ? (color ?? palette.cardSurface) : null,
       gradient: gradient,
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: palette.useGlow
-            ? palette.glacier.withValues(alpha: hoverable ? 0.55 : 0.35)
-            : palette.cardBorder,
-      ),
-      boxShadow: _shadows(palette, hoverable: hoverable),
+      borderRadius: BorderRadius.circular(cardRadius),
+      border: Border.all(color: palette.cardBorder),
+      boxShadow: softShadow(elevated: hoverable),
     );
   }
 
+  /// Soft glass-style hero — light teal wash, not solid teal.
   static BoxDecoration heroDecoration({Gradient? gradient}) {
     final palette = c;
     return BoxDecoration(
       gradient: gradient ?? palette.glacierHeroGradient,
-      borderRadius: BorderRadius.circular(16),
-      boxShadow: palette.useGlow
-          ? [
-              BoxShadow(color: palette.arcticGlow.withValues(alpha: 0.45), blurRadius: 20, spreadRadius: 0),
-              BoxShadow(color: palette.glacier.withValues(alpha: 0.25), blurRadius: 8, offset: const Offset(0, 4)),
-            ]
-          : [
-              BoxShadow(color: palette.glacier.withValues(alpha: 0.2), blurRadius: 16, offset: const Offset(0, 6)),
-            ],
+      borderRadius: BorderRadius.circular(cardRadius),
+      border: Border.all(color: Colors.white.withValues(alpha: isDark ? 0.08 : 0.7)),
+      boxShadow: softShadow(elevated: true),
     );
   }
 
   static BoxDecoration frostPanelDecoration() {
     final palette = c;
     return BoxDecoration(
-      color: palette.frost,
-      borderRadius: BorderRadius.circular(14),
-      border: Border.all(
-        color: palette.useGlow ? palette.glacier.withValues(alpha: 0.25) : palette.cardBorder,
-      ),
-      boxShadow: palette.useGlow
-          ? [BoxShadow(color: palette.arcticGlow.withValues(alpha: 0.12), blurRadius: 12)]
-          : null,
+      color: palette.iceLight,
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(color: palette.cardBorder),
     );
   }
 
-  static List<BoxShadow>? _shadows(ThriftyChefColors palette, {bool hoverable = false}) {
-    if (palette.useGlow) {
-      return [
-        BoxShadow(
-          color: palette.arcticGlow.withValues(alpha: hoverable ? 0.35 : 0.2),
-          blurRadius: hoverable ? 16 : 10,
-          spreadRadius: 0,
-        ),
-      ];
-    }
-    if (hoverable) {
-      return [
-        BoxShadow(color: palette.glacier.withValues(alpha: 0.12), blurRadius: 14, offset: const Offset(0, 4)),
-      ];
-    }
-    return null;
+  /// Soft shadow: 0 8px 24px rgba(0,0,0,0.05)
+  static List<BoxShadow> softShadow({bool elevated = false}) {
+    return [
+      BoxShadow(
+        color: Colors.black.withValues(alpha: elevated ? 0.07 : 0.05),
+        blurRadius: elevated ? 28 : 24,
+        offset: Offset(0, elevated ? 10 : 8),
+      ),
+    ];
   }
 
   static EdgeInsets pagePadding(BuildContext context) {
     final w = MediaQuery.sizeOf(context).width;
-    if (w >= 900) return const EdgeInsets.symmetric(horizontal: 32, vertical: 24);
-    if (w >= 600) return const EdgeInsets.symmetric(horizontal: 24, vertical: 20);
-    return const EdgeInsets.symmetric(horizontal: 16, vertical: 16);
+    if (w >= 900) return const EdgeInsets.symmetric(horizontal: 32, vertical: 28);
+    if (w >= 600) return const EdgeInsets.symmetric(horizontal: 24, vertical: 22);
+    return const EdgeInsets.symmetric(horizontal: 16, vertical: 18);
   }
 }

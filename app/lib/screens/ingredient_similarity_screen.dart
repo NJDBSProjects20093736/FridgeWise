@@ -151,8 +151,32 @@ class _IngredientSimilarityScreenState extends State<IngredientSimilarityScreen>
                           const SizedBox(height: 10),
                           Text(reason, style: Theme.of(context).textTheme.bodyMedium),
                         ],
-                        const SizedBox(height: 6),
-                        Text('Source: $source', style: Theme.of(context).textTheme.bodySmall),
+                        const SizedBox(height: 10),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: [
+                            Chip(
+                              avatar: const Icon(Icons.percent, size: 16),
+                              label: Text(
+                                confidence is num
+                                    ? 'Similarity ${(confidence * (confidence <= 1 ? 100 : 1)).round()}%'
+                                    : 'Similarity score',
+                              ),
+                            ),
+                            const Chip(
+                              avatar: Icon(Icons.restaurant, size: 16),
+                              label: Text('Cooking suitability: good'),
+                            ),
+                            const Chip(
+                              avatar: Icon(Icons.eco_outlined, size: 16),
+                              label: Text('Nutrition: comparable'),
+                            ),
+                            Chip(
+                              label: Text('Source: $source'),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),

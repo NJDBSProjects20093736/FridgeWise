@@ -123,13 +123,17 @@ class ThriftyChefLogoHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const ThriftyChefLogo.header(),
+        ThriftyChefLogo.header(),
+        // Official logo already includes the tagline; optional extra subtitle below.
         if (subtitle != null) ...[
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
           Text(
             subtitle!,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: AppTheme.textMuted,
+                  height: 1.45,
+                ),
           ),
         ],
       ],

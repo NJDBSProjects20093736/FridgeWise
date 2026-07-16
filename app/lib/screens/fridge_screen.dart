@@ -11,6 +11,8 @@ import '../widgets/loading_state.dart';
 import '../widgets/product_nutrition_panel.dart';
 import '../widgets/responsive_container.dart';
 import '../widgets/section_card.dart';
+import '../utils/fridge_health.dart';
+import 'shopping_list_screen.dart';
 
 class FridgeScreen extends StatefulWidget {
   const FridgeScreen({super.key});
@@ -29,6 +31,7 @@ class _FridgeScreenState extends State<FridgeScreen> {
   bool _lookupLoading = false;
   bool _addLoading = false;
   String _filter = 'All';
+  String _storageFilter = 'All storage';
 
   static const _units = ['pcs', 'g', 'kg', 'ml', 'L', 'cup', 'tbsp'];
 
@@ -48,15 +51,29 @@ class _FridgeScreenState extends State<FridgeScreen> {
   }
 
   List<FridgeItem> _filtered(List<FridgeItem> items) {
+    var list = items;
     switch (_filter) {
       case 'Expiring soon':
-        return items.where((i) => i.daysToExpiry <= 5).toList();
+        list = list.where((i) => i.daysToExpiry <= 5).toList();
+        break;
       case 'Barcode items':
-        return items.where((i) => i.barcode != null && i.barcode!.isNotEmpty).toList();
-      case 'Safe ingredients':
-        return items;
+        list = list.where((i) => i.barcode != null && i.barcode!.isNotEmpty).toList();
+        break;
+      case 'Depleting soon':
+        list = list.where((i) => i.predictedDaysUntilDepletion <= 3).toList();
+        break;
       default:
-        return items;
+        break;
+    }
+    switch (_storageFilter) {
+      case 'Fridge':
+        return list.where((i) => i.storageLocation == 'fridge').toList();
+      case 'Freezer':
+        return list.where((i) => i.storageLocation == 'freezer').toList();
+      case 'Pantry':
+        return list.where((i) => i.storageLocation == 'pantry').toList();
+      default:
+        return list;
     }
   }
 
@@ -150,12 +167,20 @@ class _FridgeScreenState extends State<FridgeScreen> {
             children: [
               _header(context),
               const SizedBox(height: 16),
+              _fridgeHealthCard(FridgeHealthScore.from(state.fridge)),
+              const SizedBox(height: 16),
               _statsRow(state.fridge.length, expiringSoon, barcodeCount),
               const SizedBox(height: 16),
               FilterChipRow(
-                options: const ['All', 'Expiring soon', 'Barcode items', 'Safe ingredients'],
+                options: const ['All', 'Expiring soon', 'Depleting soon', 'Barcode items'],
                 selected: _filter,
                 onSelected: (v) => setState(() => _filter = v),
+              ),
+              const SizedBox(height: 8),
+              FilterChipRow(
+                options: const ['All storage', 'Fridge', 'Freezer', 'Pantry'],
+                selected: _storageFilter,
+                onSelected: (v) => setState(() => _storageFilter = v),
               ),
               const SizedBox(height: 16),
               Expanded(
@@ -169,16 +194,90 @@ class _FridgeScreenState extends State<FridgeScreen> {
   }
 
   Widget _header(BuildContext context) {
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('My Fridge', style: Theme.of(context).textTheme.headlineMedium),
-        const SizedBox(height: 6),
-        Text(
-          'Track ingredients and expiry to power personalised recipes.',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('My Fridge', style: Theme.of(context).textTheme.headlineMedium),
+              const SizedBox(height: 6),
+              Text(
+                'Track ingredients and expiry to power personalised recipes.',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted),
+              ),
+            ],
+          ),
+        ),
+        Builder(
+          builder: (context) {
+            final pending = context.watch<AppState>().shoppingList.where((i) => !i.checked).length;
+            return IconButton(
+              tooltip: 'Shopping list',
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const ShoppingListScreen()),
+              ),
+              icon: Badge(
+                isLabelVisible: pending > 0,
+                label: Text('$pending'),
+                child: const Icon(Icons.shopping_basket_outlined),
+              ),
+            );
+          },
         ),
       ],
+    );
+  }
+
+  Widget _fridgeHealthCard(FridgeHealthScore health) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: AppTheme.cardDecoration(),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 72,
+            height: 72,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  width: 72,
+                  height: 72,
+                  child: CircularProgressIndicator(
+                    value: health.score / 100,
+                    strokeWidth: 7,
+                    backgroundColor: AppTheme.iceLight,
+                    color: health.color,
+                  ),
+                ),
+                Text(
+                  '${health.score}',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: health.color),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Fridge health · ${health.label}', style: Theme.of(context).textTheme.titleMedium),
+                const SizedBox(height: 6),
+                Text(health.summary, style: Theme.of(context).textTheme.bodySmall),
+                const SizedBox(height: 8),
+                Text(
+                  '${health.freshCount} fresh · ${health.soonCount} soon · ${health.criticalCount} urgent',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -257,6 +356,7 @@ class _FridgeScreenState extends State<FridgeScreen> {
                 item: item,
                 onDelete: () => _confirmDelete(item),
                 onEdit: () => _editItem(context, item),
+                onStorageChanged: (loc) => context.read<AppState>().setStorageLocation(item.itemId, loc),
               ),
             ),
           const SizedBox(height: 16),
@@ -289,6 +389,7 @@ class _FridgeScreenState extends State<FridgeScreen> {
             item: item,
             onDelete: () => _confirmDelete(item),
             onEdit: () => _editItem(context, item),
+            onStorageChanged: (loc) => context.read<AppState>().setStorageLocation(item.itemId, loc),
           );
         },
       ),

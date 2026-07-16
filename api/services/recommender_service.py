@@ -8,6 +8,7 @@ import pandas as pd
 
 from api.services.context_mood import cuisine_boost, current_context_label, mood_boost
 from api.services.explanations import build_explanation
+from api.services.lecture_extensions import lecture_extensions
 from api.services.model_registry import registry
 from api.services.recipe_catalog import apply_user_profile_override
 from api import store as mem_store
@@ -165,20 +166,32 @@ def recommend_for_user(
                 "safety_passed": True,
                 "context_label": ctx_label,
                 "model_used": model,
-                "why_recommended": build_explanation(
-                    match_score=match_score,
-                    matched_ingredients=matched,
+                "why_recommended": lecture_extensions.enrich_explanations(
+                    user_id=user_id,
+                    recipe_id=rec.recipe_id,
+                    profile=profile,
+                    fridge_ingredients=matched,
                     missing_ingredients=missing,
-                    expiring_used=expiring,
+                    match_score=match_score,
+                    expiry_priority=0.9 if expiring else 0.3,
                     nutrition_score=nutrition,
-                    cold_start=cold,
                     predicted_rating=pred,
-                    dietary_type=dietary_type,
-                    allergies=allergies,
-                    mood=mood,
-                    context_label=ctx_label,
-                    use_expiry=use_expiry,
-                    use_context=use_context,
+                    cold_start=cold,
+                    base_why=build_explanation(
+                        match_score=match_score,
+                        matched_ingredients=matched,
+                        missing_ingredients=missing,
+                        expiring_used=expiring,
+                        nutrition_score=nutrition,
+                        cold_start=cold,
+                        predicted_rating=pred,
+                        dietary_type=dietary_type,
+                        allergies=allergies,
+                        mood=mood,
+                        context_label=ctx_label,
+                        use_expiry=use_expiry,
+                        use_context=use_context,
+                    ),
                 ),
             }
         )
@@ -389,6 +402,20 @@ def build_recipe_explanation(user_id: int, recipe_id: int) -> dict:
         allergies=profile.get("allergies", []),
         mood=profile.get("mood"),
         context_label=current_context_label(),
+    )
+
+    why = lecture_extensions.enrich_explanations(
+        user_id=user_id,
+        recipe_id=recipe_id,
+        profile=profile,
+        fridge_ingredients=matched,
+        missing_ingredients=missing,
+        match_score=match_score,
+        expiry_priority=0.9 if expiring else 0.3,
+        nutrition_score=nutrition,
+        predicted_rating=pred,
+        cold_start=cold,
+        base_why=why,
     )
 
     safety = [
