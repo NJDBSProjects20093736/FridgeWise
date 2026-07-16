@@ -25,6 +25,8 @@ data/**/*.json
 # Internal / local-only (not for public repo)
 report/
 docs/
+!docs/privacy-policy.html
+!docs/README.md
 TEAM.md
 
 # IDE / OS
