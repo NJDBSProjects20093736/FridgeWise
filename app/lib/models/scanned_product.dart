@@ -99,7 +99,7 @@ class ScannedProduct {
         'use_current_fridge': true,
         'mood': 'quick',
         'use_expiry': true,
-        'use_context': true,
+        'use_context': false,
         'k': 10,
         'model': 'hybrid',
       };

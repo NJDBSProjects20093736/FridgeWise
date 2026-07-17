@@ -156,7 +156,7 @@ class ThriftyChefRepository {
     int k = 10,
     String model = 'hybrid',
     bool useExpiry = true,
-    bool useContext = true,
+    bool useContext = false,
   }) async {
     try {
       final uri = Uri.parse('$baseUrl/users/$userId/recommendations').replace(
@@ -324,7 +324,7 @@ class ThriftyChefRepository {
         'favourite_categories': profile.favouriteCategories,
         'ai_surprise': profile.aiSurprise,
         'use_expiry': body['use_expiry'] ?? true,
-        'use_context': body['use_context'] ?? true,
+        'use_context': body['use_context'] ?? false,
       }),
     );
     if (res.statusCode != 200) throw Exception('Rescue recommendations failed');

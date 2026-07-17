@@ -9,7 +9,9 @@ from typing import Any
 import pandas as pd
 
 from src.data_loader import ThriftyChefData, load_fridgewise_data, parse_json_list
+from src.evaluation.evaluator import evaluate_ranking
 from src.evaluation.waste import simulate_waste_reduction
+from src.experiment import CA_ONE_CONFIG, CAOneExperimentConfig
 from src.features import ingredient_match_score
 from src.models.collaborative import CollaborativeRecommender
 from src.models.content_based import ContentBasedRecommender
@@ -53,6 +55,7 @@ def _mean_ingredient_match(
     *,
     k: int = 10,
     history_override: dict[int, set[int]] | None = None,
+    exclude_seen: bool = False,
 ) -> float:
     recipe_ings: dict[int, set[str]] = {}
     for _, row in data.recipes.iterrows():
@@ -67,10 +70,10 @@ def _mean_ingredient_match(
 
         if history_override is not None and isinstance(model, HybridRecommender):
             recs = model.recommend(
-                uid, k=k, exclude_seen=False, history_override=history_override.get(uid, set())
+                uid, k=k, exclude_seen=exclude_seen, history_override=history_override.get(uid, set())
             )
         else:
-            recs = model.recommend(uid, k=k, exclude_seen=False)
+            recs = model.recommend(uid, k=k, exclude_seen=exclude_seen)
 
         for rec in recs:
             r_ings = recipe_ings.get(rec.recipe_id, set())
@@ -112,34 +115,99 @@ def evaluate_new_user_fallback(
     return results
 
 
+def _warmup_partition(
+    data: ThriftyChefData,
+    *,
+    max_observed_ratings: int,
+    relevant_rating_threshold: int,
+) -> tuple[pd.DataFrame, dict[int, pd.DataFrame], dict[int, set[int]]]:
+    """Create leakage-free user histories and later relevant holdouts.
+
+    Evaluation users are removed from the shared training set. At each milestone
+    only their first N chronological ratings are added back, while the later
+    ratings remain unseen for evaluation.
+    """
+    histories: dict[int, pd.DataFrame] = {}
+    relevant: dict[int, set[int]] = {}
+    profile_users = data.profiles["user_id"].astype(int).tolist()
+
+    for uid in profile_users:
+        rows = data.interactions[data.interactions["user_id"] == uid].sort_values("interaction_date")
+        holdout_size = max(1, int(round(len(rows) * 0.2)))
+        if len(rows) <= max_observed_ratings + holdout_size:
+            continue
+        held_out = rows.iloc[-holdout_size:]
+        held_out_relevant = set(
+            held_out.loc[
+                held_out["rating"] >= relevant_rating_threshold, "recipe_id"
+            ].astype(int)
+        )
+        if not held_out_relevant:
+            continue
+        histories[int(uid)] = rows.iloc[:max_observed_ratings].copy()
+        relevant[int(uid)] = held_out_relevant
+
+    base = data.interactions[~data.interactions["user_id"].isin(histories)].copy()
+    return base, histories, relevant
+
+
 def evaluate_warmup_curve(
     hybrid: HybridRecommender,
     data: ThriftyChefData,
     *,
     milestones: tuple[int, ...] = (0, 1, 3, 5),
-    k: int = 10,
+    k: int = CA_ONE_CONFIG.k,
+    config: CAOneExperimentConfig = CA_ONE_CONFIG,
 ) -> list[dict[str, Any]]:
-    """Measure hybrid quality as simulated rating history grows."""
-    demo_users = data.profiles["user_id"].astype(int).tolist()
-    user_ratings: dict[int, list[int]] = {}
-    for uid in demo_users:
-        rows = data.interactions[data.interactions["user_id"] == uid].sort_values("interaction_date")
-        if len(rows) >= max(milestones):
-            user_ratings[uid] = rows["recipe_id"].astype(int).tolist()
+    """Measure a real cold-to-warm transition using chronological holdouts.
 
-    eval_users = [u for u in demo_users if u in user_ratings]
+    The supplied fitted hybrid provides the selected hyperparameters only. Each
+    milestone trains fresh models without the evaluation users' later ratings.
+    """
+    if not milestones or min(milestones) < 0:
+        raise ValueError("milestones must contain non-negative rating counts")
+
+    base_interactions, histories, test_relevant = _warmup_partition(
+        data,
+        max_observed_ratings=max(milestones),
+        relevant_rating_threshold=config.relevant_rating_threshold,
+    )
+    eval_users = sorted(test_relevant)
+    if not eval_users:
+        return []
+
     curve: list[dict[str, Any]] = []
 
     for n in milestones:
-        history_override = {uid: set(user_ratings[uid][:n]) for uid in eval_users}
-        wrapper = _HybridColdWrapper(hybrid, history_override)
+        observed = [histories[uid].iloc[:n] for uid in eval_users if n]
+        interactions = pd.concat([base_interactions, *observed], ignore_index=True)
+        warm_data = data.with_interactions(interactions)
+        content = ContentBasedRecommender().fit(warm_data)
+        cf = CollaborativeRecommender(
+            n_factors=config.svd_factors, n_epochs=config.svd_epochs,
+        ).fit(warm_data, test_size=0.0, random_state=config.random_state)
+        warm_hybrid = HybridRecommender(
+            candidate_pool=hybrid.candidate_pool,
+            context_max_boost=hybrid.context_max_boost,
+            popularity_weight=hybrid.popularity_weight,
+            cold_popularity_weight=hybrid.cold_popularity_weight,
+        ).fit(warm_data, cf, content)
+        ranking = evaluate_ranking(
+            warm_hybrid, warm_data, test_relevant, k=k, max_users=None,
+            seed=config.random_state, eligible_user_ids=eval_users,
+        )
         curve.append({
             "num_ratings": n,
             "users_evaluated": len(eval_users),
+            "relevant_holdout_items": sum(len(items) for items in test_relevant.values()),
+            "ndcg": ranking.ndcg,
+            "map_score": ranking.map_score,
             "mean_ingredient_match": _mean_ingredient_match(
-                hybrid, data, eval_users, k=k, history_override=history_override
+                warm_hybrid, data, eval_users, k=k, exclude_seen=True,
             ),
-            "waste_coverage": simulate_waste_reduction(wrapper, data, k=k).waste_coverage,
+            "waste_coverage": simulate_waste_reduction(
+                warm_hybrid, data, k=k, user_ids=eval_users, exclude_seen=True,
+            ).waste_coverage,
             "cold_start_mode": n == 0,
         })
     return curve
@@ -205,13 +273,13 @@ def save_warmup_chart(curve: list[dict[str, Any]], output_path: Path) -> Path:
     import matplotlib.pyplot as plt
 
     xs = [p["num_ratings"] for p in curve]
-    match = [p["mean_ingredient_match"] for p in curve]
+    ndcg = [p["ndcg"] for p in curve]
     waste = [p["waste_coverage"] for p in curve]
 
     fig, ax1 = plt.subplots(figsize=(7, 4.5))
-    ax1.plot(xs, match, "o-", color="#2980b9", label="Ingredient match")
+    ax1.plot(xs, ndcg, "o-", color="#2980b9", label="NDCG@K")
     ax1.set_xlabel("Simulated ratings in history")
-    ax1.set_ylabel("Mean ingredient match @10", color="#2980b9")
+    ax1.set_ylabel("NDCG@K", color="#2980b9")
     ax1.tick_params(axis="y", labelcolor="#2980b9")
 
     ax2 = ax1.twinx()
@@ -219,7 +287,7 @@ def save_warmup_chart(curve: list[dict[str, Any]], output_path: Path) -> Path:
     ax2.set_ylabel("Waste coverage", color="#27ae60")
     ax2.tick_params(axis="y", labelcolor="#27ae60")
 
-    ax1.set_title("Cold-start warm-up curve (hybrid)")
+    ax1.set_title("Cold-start warm-up curve (chronological holdout)")
     ax1.set_xticks(xs)
     fig.tight_layout()
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -228,18 +296,27 @@ def save_warmup_chart(curve: list[dict[str, Any]], output_path: Path) -> Path:
     return output_path
 
 
-def run_cold_start_evaluation(root: Path | None = None) -> dict[str, Any]:
+def run_cold_start_evaluation(
+    root: Path | None = None,
+    *,
+    config: CAOneExperimentConfig = CA_ONE_CONFIG,
+) -> dict[str, Any]:
     root = root or Path(__file__).resolve().parents[2]
     data = load_fridgewise_data(root)
 
     pop = PopularityRecommender().fit(data)
     content = ContentBasedRecommender().fit(data)
-    cf = CollaborativeRecommender(n_factors=50, n_epochs=20).fit(data, test_size=0.0)
+    cf = CollaborativeRecommender(
+        n_factors=config.svd_factors, n_epochs=config.svd_epochs,
+    ).fit(data, test_size=0.0, random_state=config.random_state)
     hybrid = HybridRecommender().fit(data, cf, content)
 
     return {
-        "new_user_fallback": [asdict(x) for x in evaluate_new_user_fallback(data, hybrid, content, pop)],
-        "warmup_curve": evaluate_warmup_curve(hybrid, data),
+        "experiment_config": config.to_dict(),
+        "new_user_fallback": [
+            asdict(x) for x in evaluate_new_user_fallback(data, hybrid, content, pop, k=config.k)
+        ],
+        "warmup_curve": evaluate_warmup_curve(hybrid, data, k=config.k, config=config),
         "substitution_examples": evaluate_substitutions(data, root / "assets" / "ingredient_aliases.csv"),
         "new_barcode_example": evaluate_new_barcode_example(data),
     }

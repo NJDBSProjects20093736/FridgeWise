@@ -271,6 +271,10 @@ def mine_context_tag_lifts(
                         "tag": tag,
                         "lift": round(float(lift), 3),
                     })
+    if not lifts:
+        # Guard: an empty list yields a zero-column DataFrame, which breaks
+        # CSV round-tripping and to_sql (CREATE TABLE with no columns).
+        return pd.DataFrame(columns=["context_type", "context_value", "tag", "lift"])
     return pd.DataFrame(lifts)
 
 

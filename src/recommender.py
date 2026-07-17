@@ -14,6 +14,7 @@ from src.filters import recipe_passes_user_constraints
 from src.models.base import Recommendation
 from src.models.collaborative import CollaborativeRecommender
 from src.models.content_based import ContentBasedRecommender
+from src.models.popularity import PopularityRecommender
 from src.ranking import hybrid_score
 
 
@@ -24,12 +25,27 @@ class HybridRecommender:
         self,
         *,
         candidate_pool: int = 400,
-        context_max_boost: float = 0.15,
+        context_max_boost: float = 0.0,
+        popularity_weight: float = 0.6,
+        cold_popularity_weight: float = 0.2,
     ) -> None:
         self.candidate_pool = candidate_pool
+        # The context ablation is retained as an optional experiment. It is
+        # disabled by default until validation shows a positive held-out gain.
         self.context_max_boost = context_max_boost
+        # Weight of the popularity prior in the final relevance blend. On very
+        # sparse catalogues pure CF/content cannot beat a popularity baseline on
+        # top-N relevance, so the hybrid uses popularity as a relevance backbone
+        # for warm users (set to 0.0 to recover the pure fridge/CF hybrid).
+        self.popularity_weight = popularity_weight
+        # For cold-start users (no rating history) the fridge/expiry signal is
+        # the whole value proposition, so popularity stays a weak secondary
+        # prior — otherwise cold-start ingredient match collapses.
+        self.cold_popularity_weight = cold_popularity_weight
         self.cf: CollaborativeRecommender | None = None
         self.content: ContentBasedRecommender | None = None
+        self.popularity: PopularityRecommender | None = None
+        self.pop_norm: dict[int, float] = {}
         self.data: ThriftyChefData | None = None
         self.lift_lookup: dict = {}
         self.recipe_lookup: dict[int, pd.Series] = {}
@@ -46,6 +62,14 @@ class HybridRecommender:
         self.data = data
         self.cf = cf
         self.content = content
+        self.popularity = PopularityRecommender().fit(data)
+        scores = self.popularity.recipe_scores
+        if scores is not None and len(scores):
+            lo, hi = float(scores.min()), float(scores.max())
+            span = (hi - lo) or 1.0
+            self.pop_norm = {int(rid): (float(s) - lo) / span for rid, s in scores.items()}
+        else:
+            self.pop_norm = {}
         self.lift_lookup = build_lift_lookup(data.context_lifts)
         self.recipe_lookup = {int(r.recipe_id): r for _, r in data.recipes.iterrows()}
         self.profile_lookup = {int(r.user_id): r for _, r in data.profiles.iterrows()}
@@ -104,7 +128,12 @@ class HybridRecommender:
         cold = self._is_cold_start(user_id, hist)
         pred_norm = 0.0 if cold else self.cf.predict_rating_norm(user_id, recipe_id)
 
-        score = hybrid_score(match, pred_norm, expiry, nutrition, cold_start=cold)
+        base = hybrid_score(match, pred_norm, expiry, nutrition, cold_start=cold)
+        # Blend a popularity relevance prior with the fridge/CF utility score.
+        # Cold users lean on the fridge signal, warm users on popularity + CF.
+        pop = self.pop_norm.get(recipe_id, 0.0)
+        w = self.cold_popularity_weight if cold else self.popularity_weight
+        score = w * pop + (1.0 - w) * base
 
         tags = parse_json_list(recipe.get("tags", [])) + parse_json_list(recipe.get("cuisine_tags", []))
         score += context_boost(tags, self.lift_lookup, max_boost=self.context_max_boost)
@@ -130,10 +159,15 @@ class HybridRecommender:
         cf_recs = self.cf.recommend(
             user_id, k=min(200, self.candidate_pool), exclude_seen=exclude_seen
         ) if self.cf else []
+        # Popular recipes are strong relevance candidates on sparse data; include
+        # them so the popularity prior can actually surface them.
+        pop_recs = self.popularity.recommend(
+            user_id, k=self.candidate_pool, exclude_seen=exclude_seen
+        ) if self.popularity else []
 
         candidate_ids: list[int] = []
         seen_cand: set[int] = set()
-        for rec in list(content_recs) + list(cf_recs):
+        for rec in list(content_recs) + list(cf_recs) + list(pop_recs):
             if rec.recipe_id not in seen_cand:
                 seen_cand.add(rec.recipe_id)
                 candidate_ids.append(rec.recipe_id)

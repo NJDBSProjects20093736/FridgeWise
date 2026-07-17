@@ -172,7 +172,7 @@ def get_user_recommendations(
     k: int = 10,
     model: str = "hybrid",
     use_expiry: bool = True,
-    use_context: bool = True,
+    use_context: bool = False,
     mood: str = "comfort",
     candidate_barcode: str | None = None,
     candidate_days_to_expiry: int | None = None,

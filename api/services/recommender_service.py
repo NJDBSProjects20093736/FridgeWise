@@ -48,7 +48,7 @@ def recommend_for_user(
     mood: str = "comfort",
     profile_overrides: dict | None = None,
     use_expiry: bool = True,
-    use_context: bool = True,
+    use_context: bool = False,
     skip_fridge_sync: bool = False,
 ) -> dict:
     registry.load()
@@ -247,7 +247,7 @@ def recommend_for_rescue(
     use_current_fridge: bool = True,
     mood: str = "quick",
     use_expiry: bool = True,
-    use_context: bool = True,
+    use_context: bool = False,
     k: int = 10,
     model: str = "hybrid",
 ) -> dict:

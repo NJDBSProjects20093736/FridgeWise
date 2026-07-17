@@ -7,14 +7,20 @@ import os
 from contextlib import contextmanager
 from typing import Any, Generator
 
-import psycopg2
-from psycopg2.extras import RealDictCursor
+try:
+    import psycopg2
+    from psycopg2.extras import RealDictCursor
+except ImportError:  # Allows the file-backed API fallback to start without libpq.
+    psycopg2 = None
+    RealDictCursor = None
 
 from api.config import get_settings
 
 
 @contextmanager
 def get_conn() -> Generator[Any, None, None]:
+    if psycopg2 is None or RealDictCursor is None:
+        raise RuntimeError("PostgreSQL support is unavailable; install a working psycopg2/libpq runtime")
     settings = get_settings()
     if not settings.database_url:
         raise RuntimeError("DATABASE_URL not configured")
