@@ -7,6 +7,7 @@ import 'screens/onboarding_screen.dart';
 import 'services/thrifty_chef_repository.dart';
 import 'services/local_store.dart';
 import 'theme/app_theme.dart';
+import 'widgets/chef_assistant_overlay.dart';
 import 'widgets/empty_state.dart';
 import 'widgets/loading_state.dart';
 import 'widgets/responsive_container.dart';
@@ -43,6 +44,9 @@ class ThriftyChefApp extends StatelessWidget {
       theme: AppTheme.buildTheme(Brightness.light),
       darkTheme: AppTheme.buildTheme(Brightness.dark),
       themeMode: state.themeMode == 'dark' ? ThemeMode.dark : ThemeMode.light,
+      builder: (context, child) {
+        return ChefAssistantOverlay(child: child ?? const SizedBox.shrink());
+      },
       home: const BootstrapScreen(),
     );
   }
@@ -71,7 +75,7 @@ class _BootstrapScreenState extends State<BootstrapScreen> {
     if (!state.bootstrapped) {
       return Scaffold(
         backgroundColor: AppTheme.background,
-        body: LoadingState(message: state.error ?? 'Starting ThriftyChef…'),
+        body: LoadingState.bootstrap(message: state.error ?? 'Starting ThriftyChef…'),
       );
     }
 

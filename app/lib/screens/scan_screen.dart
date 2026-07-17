@@ -243,12 +243,28 @@ class _ScanScreenState extends State<ScanScreen> {
   }
 
   Widget _modeCards() {
-    return Row(
-      children: [
-        Expanded(child: _modeCard(ScanMode.fridgeScan, 'Add to my fridge', Icons.kitchen, 'Item already at home')),
-        const SizedBox(width: 12),
-        Expanded(child: _modeCard(ScanMode.rescueBasket, 'Scan before buying', Icons.shopping_cart_outlined, 'Supermarket rescue')),
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final stacked = constraints.maxWidth < 520;
+        final fridge = _modeCard(ScanMode.fridgeScan, 'Add to my fridge', Icons.kitchen_outlined, 'Item already at home');
+        final rescue = _modeCard(ScanMode.rescueBasket, 'Scan before buying', Icons.shopping_bag_outlined, 'Supermarket rescue');
+        if (stacked) {
+          return Column(
+            children: [
+              fridge,
+              const SizedBox(height: 12),
+              rescue,
+            ],
+          );
+        }
+        return Row(
+          children: [
+            Expanded(child: fridge),
+            const SizedBox(width: 12),
+            Expanded(child: rescue),
+          ],
+        );
+      },
     );
   }
 
@@ -259,21 +275,47 @@ class _ScanScreenState extends State<ScanScreen> {
         setState(() => _mode = mode);
         context.read<AppState>().clearScanSession();
       },
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(20),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        padding: const EdgeInsets.all(16),
+        duration: const Duration(milliseconds: 160),
+        padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
-          color: selected ? AppTheme.lightGreen : AppTheme.cardSurface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: selected ? AppTheme.primaryGreen : AppTheme.cardBorder, width: selected ? 1.5 : 1),
+          color: selected ? AppTheme.iceLight : AppTheme.cardSurface,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: selected ? AppTheme.primaryGreen : AppTheme.cardBorder,
+            width: selected ? 1.6 : 1,
+          ),
+          boxShadow: selected
+              ? [
+                  BoxShadow(
+                    color: AppTheme.primaryGreen.withValues(alpha: 0.12),
+                    blurRadius: 16,
+                    offset: const Offset(0, 6),
+                  ),
+                ]
+              : AppTheme.softShadow(),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: selected ? AppTheme.primaryGreen : AppTheme.textMuted),
-            const SizedBox(height: 8),
-            Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: selected ? AppTheme.primaryGreen : AppTheme.textDark)),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: selected ? AppTheme.primaryGreen.withValues(alpha: 0.12) : AppTheme.iceLight,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Icon(icon, color: selected ? AppTheme.primaryGreen : AppTheme.textMuted),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 15,
+                color: selected ? AppTheme.glacierDeep : AppTheme.textDark,
+              ),
+            ),
             const SizedBox(height: 4),
             Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
           ],
@@ -438,13 +480,52 @@ class _ScanScreenState extends State<ScanScreen> {
           ),
           const SizedBox(height: 8),
           Text(rescue.verdictReason, style: Theme.of(context).textTheme.bodyMedium),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           Text(
             'Uses ${rescue.fridgeItemsUsed} fridge items · ${rescue.recipes.length} recipes found',
             style: Theme.of(context).textTheme.bodySmall,
           ),
+          const SizedBox(height: 12),
+          _rescueImpactRow(rescue),
         ],
       ),
+    );
+  }
+
+  Widget _rescueImpactRow(RescueResult rescue) {
+    final recipes = rescue.recipes.length;
+    final worthBuying = rescue.verdict == 'good_buy'
+        ? 'Yes'
+        : rescue.verdict == 'not_recommended'
+            ? 'No'
+            : 'Maybe';
+    final moneySaved = (recipes * 2.5 + rescue.fridgeItemsUsed * 1.5).round().clamp(1, 45);
+    final wasteKg = (0.15 + recipes * 0.08).clamp(0.1, 2.0);
+
+    Widget tile(String value, String label) => Expanded(
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+            decoration: AppTheme.cardDecoration(color: AppTheme.background),
+            child: Column(
+              children: [
+                Text(value, style: TextStyle(fontWeight: FontWeight.w800, color: AppTheme.primaryGreen)),
+                const SizedBox(height: 4),
+                Text(label, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodySmall),
+              ],
+            ),
+          ),
+        );
+
+    return Row(
+      children: [
+        tile(worthBuying, 'Worth buying?'),
+        const SizedBox(width: 8),
+        tile('$recipes', 'Recipes unlocked'),
+        const SizedBox(width: 8),
+        tile('€$moneySaved', 'Est. saved'),
+        const SizedBox(width: 8),
+        tile('~${wasteKg.toStringAsFixed(1)}kg', 'Waste avoided'),
+      ],
     );
   }
 

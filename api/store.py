@@ -25,6 +25,23 @@ def default_profile(user_id: int) -> dict:
         "preferred_cuisines": [],
         "openness_to_new_cuisines": 0.5,
         "mood": "comfort",
+        "food_waste_priority": 0.7,
+        "cooking_skill": "intermediate",
+        "max_cook_minutes": 45,
+        "meal_types": [],
+        "budget": "normal",
+        "kitchen_equipment": [],
+        "health_goals": [],
+        "liked_ingredients": [],
+        "disliked_ingredients": [],
+        "shopping_preference": "minimal",
+        "leftover_preference": "occasionally",
+        "spice_level": 0.35,
+        "servings": "2",
+        "cooking_methods": [],
+        "sustainability_prefs": [],
+        "favourite_categories": [],
+        "ai_surprise": 0.4,
     }
 
 
@@ -138,6 +155,13 @@ def sync_profile_to_hybrid(user_id: int, hybrid, profile: dict) -> None:
             "allergies": json.dumps(profile.get("allergies", [])),
             "preferred_cuisines": json.dumps(profile.get("preferred_cuisines", [])),
             "openness_to_new_cuisines": profile.get("openness_to_new_cuisines", 0.5),
+            "nutrition_prefs": json.dumps(profile.get("nutrition_prefs", [])),
+            "food_waste_priority": profile.get("food_waste_priority", 0.7),
+            "cooking_skill": profile.get("cooking_skill", "intermediate"),
+            "max_cook_minutes": profile.get("max_cook_minutes", 45),
+            "shopping_preference": profile.get("shopping_preference", "minimal"),
+            "liked_ingredients": json.dumps(profile.get("liked_ingredients", [])),
+            "disliked_ingredients": json.dumps(profile.get("disliked_ingredients", [])),
         }
     )
 

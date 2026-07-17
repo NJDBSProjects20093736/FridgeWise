@@ -7,6 +7,8 @@ import 'ingredient_similarity_screen.dart';
 import 'profile_screen.dart';
 import 'recommendations_screen.dart';
 import 'scan_screen.dart';
+import 'shopping_list_screen.dart';
+import 'more_hub_screen.dart';
 import '../widgets/app_scaffold.dart';
 import '../widgets/responsive_container.dart';
 import '../widgets/thrifty_chef_logo.dart';
@@ -26,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     (icon: Icons.kitchen, label: 'Fridge'),
     (icon: Icons.qr_code_scanner, label: 'Scan'),
     (icon: Icons.swap_horiz, label: 'Substitute'),
+    (icon: Icons.apps_outlined, label: 'More'),
   ];
 
   @override
@@ -37,13 +40,16 @@ class _HomeScreenState extends State<HomeScreen> {
       FridgeScreen(),
       ScanScreen(),
       IngredientSimilarityScreen(),
+      MoreHubScreen(),
     ];
 
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
+        toolbarHeight: 76,
         title: const ThriftyChefLogo.compact(),
-        titleSpacing: 12,
+        titleSpacing: 8,
+        centerTitle: false,
         actions: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 4),
@@ -55,6 +61,18 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               state.setThemeMode(state.themeMode == 'dark' ? 'light' : 'dark');
             },
+          ),
+          IconButton(
+            tooltip: 'Shopping list',
+            icon: Badge(
+              isLabelVisible: state.shoppingList.where((i) => !i.checked).isNotEmpty,
+              label: Text('${state.shoppingList.where((i) => !i.checked).length}'),
+              child: const Icon(Icons.shopping_basket_outlined),
+            ),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ShoppingListScreen()),
+            ),
           ),
           IconButton(
             tooltip: 'Profile',
@@ -75,11 +93,22 @@ class _HomeScreenState extends State<HomeScreen> {
               selectedIndex: _index,
               onDestinationSelected: (i) => setState(() => _index = i),
               labelType: NavigationRailLabelType.all,
+              groupAlignment: -0.85,
+              minWidth: 78,
+              minExtendedWidth: 160,
+              indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               destinations: _tabs
-                  .map((t) => NavigationRailDestination(icon: Icon(t.icon), label: Text(t.label)))
+                  .map(
+                    (t) => NavigationRailDestination(
+                      icon: Icon(t.icon),
+                      selectedIcon: Icon(t.icon),
+                      label: Text(t.label),
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                    ),
+                  )
                   .toList(),
             ),
-            VerticalDivider(width: 1, color: AppTheme.cardBorder),
+            VerticalDivider(width: 1, thickness: 1, color: AppTheme.cardBorder),
           ],
           Expanded(
             child: AnimatedSwitcher(

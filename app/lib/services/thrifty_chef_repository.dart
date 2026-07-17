@@ -80,17 +80,29 @@ class ThriftyChefRepository {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(body),
       );
-      if (res.statusCode == 200) {
+      if (res.statusCode >= 200 && res.statusCode < 300) {
         final data = jsonDecode(res.body) as Map<String, dynamic>;
-        return FridgeItem.fromJson(data['item'] as Map<String, dynamic>);
+        final item = data['item'];
+        if (item is Map<String, dynamic>) {
+          return FridgeItem.fromJson(item);
+        }
+        // Some deployments return the item at the root.
+        return FridgeItem.fromJson(data);
       }
     } catch (_) {}
     try {
-      await http.post(
+      final res = await http.post(
         Uri.parse('$baseUrl/inventory'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'user_id': userId, 'items': [body]}),
       );
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        final data = jsonDecode(res.body) as Map<String, dynamic>;
+        final items = data['items'];
+        if (items is List && items.isNotEmpty && items.first is Map<String, dynamic>) {
+          return FridgeItem.fromJson(items.first as Map<String, dynamic>);
+        }
+      }
     } catch (_) {}
     return null;
   }
@@ -184,6 +196,23 @@ class ThriftyChefRepository {
         'preferred_cuisines': profile.preferredCuisines,
         'openness_to_new_cuisines': profile.opennessToNewCuisines,
         'mood': profile.mood,
+        'food_waste_priority': profile.foodWastePriority,
+        'cooking_skill': profile.cookingSkill,
+        'max_cook_minutes': profile.maxCookMinutes,
+        'meal_types': profile.mealTypes,
+        'budget': profile.budget,
+        'kitchen_equipment': profile.kitchenEquipment,
+        'health_goals': profile.healthGoals,
+        'liked_ingredients': profile.likedIngredients,
+        'disliked_ingredients': profile.dislikedIngredients,
+        'shopping_preference': profile.shoppingPreference,
+        'leftover_preference': profile.leftoverPreference,
+        'spice_level': profile.spiceLevel,
+        'servings': profile.servings,
+        'cooking_methods': profile.cookingMethods,
+        'sustainability_prefs': profile.sustainabilityPrefs,
+        'favourite_categories': profile.favouriteCategories,
+        'ai_surprise': profile.aiSurprise,
         'use_expiry': useExpiry,
         'use_context': useContext,
       }),
@@ -277,6 +306,23 @@ class ThriftyChefRepository {
         'preferred_cuisines': profile.preferredCuisines,
         'openness_to_new_cuisines': profile.opennessToNewCuisines,
         'mood': body['mood'] ?? 'quick',
+        'food_waste_priority': profile.foodWastePriority,
+        'cooking_skill': profile.cookingSkill,
+        'max_cook_minutes': profile.maxCookMinutes,
+        'meal_types': profile.mealTypes,
+        'budget': profile.budget,
+        'kitchen_equipment': profile.kitchenEquipment,
+        'health_goals': profile.healthGoals,
+        'liked_ingredients': profile.likedIngredients,
+        'disliked_ingredients': profile.dislikedIngredients,
+        'shopping_preference': profile.shoppingPreference,
+        'leftover_preference': profile.leftoverPreference,
+        'spice_level': profile.spiceLevel,
+        'servings': profile.servings,
+        'cooking_methods': profile.cookingMethods,
+        'sustainability_prefs': profile.sustainabilityPrefs,
+        'favourite_categories': profile.favouriteCategories,
+        'ai_surprise': profile.aiSurprise,
         'use_expiry': body['use_expiry'] ?? true,
         'use_context': body['use_context'] ?? false,
       }),

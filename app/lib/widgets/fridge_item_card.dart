@@ -8,8 +8,15 @@ class FridgeItemCard extends StatelessWidget {
   final FridgeItem item;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
+  final ValueChanged<String>? onStorageChanged;
 
-  const FridgeItemCard({super.key, required this.item, this.onEdit, this.onDelete});
+  const FridgeItemCard({
+    super.key,
+    required this.item,
+    this.onEdit,
+    this.onDelete,
+    this.onStorageChanged,
+  });
 
   Color _urgencyColor() {
     switch (item.urgency) {
@@ -75,9 +82,25 @@ class FridgeItemCard extends StatelessWidget {
                     [
                       if (item.quantity != null) '${item.quantity}${item.unit != null ? ' ${item.unit}' : ''}',
                       _urgencyLabel(),
+                      'Use ~${item.predictedDaysUntilDepletion}d',
                     ].where((s) => s.isNotEmpty).join(' · '),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(color: color, fontWeight: FontWeight.w500),
                   ),
+                  if (onStorageChanged != null) ...[
+                    const SizedBox(height: 6),
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: item.storageLocation,
+                        isDense: true,
+                        items: FridgeItem.storageOptions
+                            .map((s) => DropdownMenuItem(value: s, child: Text(s[0].toUpperCase() + s.substring(1))))
+                            .toList(),
+                        onChanged: (v) {
+                          if (v != null) onStorageChanged!(v);
+                        },
+                      ),
+                    ),
+                  ],
                   const SizedBox(height: 8),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(4),

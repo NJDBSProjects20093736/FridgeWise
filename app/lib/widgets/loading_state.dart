@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
+import 'thrifty_chef_logo.dart';
 
 class LoadingState extends StatelessWidget {
   final String? message;
+  final bool showBrand;
 
-  const LoadingState({super.key, this.message});
+  const LoadingState({super.key, this.message, this.showBrand = false});
+
+  /// Full-screen bootstrap / cold start.
+  const LoadingState.bootstrap({super.key, this.message}) : showBrand = true;
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +19,28 @@ class LoadingState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircularProgressIndicator(color: AppTheme.primaryGreen),
+            if (showBrand) ...[
+              const ThriftyChefLogo.header(),
+              const SizedBox(height: 28),
+            ] else ...[
+              const ChefHatIcon(size: 40),
+              const SizedBox(height: 20),
+            ],
+            SizedBox(
+              width: 28,
+              height: 28,
+              child: CircularProgressIndicator(
+                strokeWidth: 2.8,
+                color: AppTheme.primaryGreen,
+              ),
+            ),
             if (message != null) ...[
               const SizedBox(height: 16),
-              Text(message!, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted)),
+              Text(
+                message!,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted),
+              ),
             ],
           ],
         ),

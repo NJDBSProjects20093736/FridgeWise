@@ -98,10 +98,11 @@ class HeroCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(12),
+        color: Colors.white.withValues(alpha: 0.75),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.white),
       ),
-      child: const Icon(Icons.auto_awesome, color: Colors.white),
+      child: Icon(Icons.auto_awesome, color: AppTheme.glacier),
     );
   }
 
@@ -111,13 +112,16 @@ class HeroCard extends StatelessWidget {
       children: [
         Text(
           title,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: AppTheme.textDark,
+                fontWeight: FontWeight.w700,
+              ),
         ),
         const SizedBox(height: 4),
         Text(
           subtitle,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Colors.white.withValues(alpha: 0.88),
+                color: AppTheme.textMuted,
               ),
         ),
       ],
@@ -180,14 +184,15 @@ class SummaryStatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final card = Container(
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.all(16),
       decoration: AppTheme.cardDecoration(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(icon, color: accent, size: 20),
-          const SizedBox(height: 8),
-          Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: AppTheme.textDark)),
+          const SizedBox(height: 10),
+          Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: AppTheme.textDark)),
+          const SizedBox(height: 4),
           Text(label, style: Theme.of(context).textTheme.bodySmall),
         ],
       ),

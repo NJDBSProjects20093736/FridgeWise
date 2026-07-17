@@ -8,13 +8,18 @@ import pandas as pd
 
 from api.services.context_mood import cuisine_boost, current_context_label, mood_boost
 from api.services.explanations import build_explanation
+from api.services.lecture_extensions import lecture_extensions
 from api.services.model_registry import registry
 from api.services.recipe_catalog import apply_user_profile_override
 from api import store as mem_store
 from src.context import context_boost, build_lift_lookup
 from src.data_loader import parse_json_list
 from src.filters import recipe_passes_user_constraints
-from src.preference_filters import passes_nutrition_preferences
+from src.preference_filters import (
+    passes_nutrition_preferences,
+    passes_practical_constraints,
+    preference_score_delta,
+)
 from src.models.base import Recommendation
 from src.substitutions import load_alias_table, suggest_substitutes
 
@@ -41,6 +46,7 @@ def recommend_for_user(
     preferred_cuisines: list[str] | None = None,
     openness_to_new_cuisines: float = 0.5,
     mood: str = "comfort",
+    profile_overrides: dict | None = None,
     use_expiry: bool = True,
     use_context: bool = False,
     skip_fridge_sync: bool = False,
@@ -64,6 +70,14 @@ def recommend_for_user(
             "mood": mood,
         }
     )
+    if profile_overrides:
+        profile.update({k: v for k, v in profile_overrides.items() if v is not None})
+    dietary_type = profile.get("dietary_type", dietary_type)
+    allergies = profile.get("allergies", allergies) or []
+    nutrition_prefs = profile.get("nutrition_prefs", nutrition_prefs) or []
+    preferred_cuisines = profile.get("preferred_cuisines", preferred_cuisines) or []
+    openness_to_new_cuisines = float(profile.get("openness_to_new_cuisines", openness_to_new_cuisines))
+    mood = profile.get("mood", mood)
     _apply_profile(user_id, profile)
     if not skip_fridge_sync:
         mem_store.sync_fridge_to_hybrid(user_id, registry.hybrid)
@@ -116,6 +130,8 @@ def recommend_for_user(
             continue
         if profile_row is not None and not recipe_passes_user_constraints(row, profile_row):
             continue
+        if not passes_practical_constraints(row, profile):
+            continue
 
         nutrition = float(data.nutrition_by_recipe.get(rec.recipe_id, 0.5))
         if not passes_nutrition_preferences(row, nutrition_prefs, nutrition):
@@ -124,6 +140,8 @@ def recommend_for_user(
         recipe_ings = set(parse_json_list(row["cleaned_ingredients"]))
         matched = sorted(fridge_ings & recipe_ings)
         missing = sorted(recipe_ings - fridge_ings)
+        if str(profile.get("shopping_preference", "minimal")) == "fridge_only" and missing:
+            continue
 
         expiring = []
         if use_expiry and fridge_df is not None and matched:
@@ -142,13 +160,25 @@ def recommend_for_user(
                 pred = None
 
         tags = parse_json_list(row.get("tags", [])) + parse_json_list(row.get("cuisine_tags", []))
+        prep_minutes = int(row.get("minutes", 0) or 0)
         final_score = float(rec.score)
         if use_context:
             final_score += context_boost(tags, lift_lookup)
             final_score += mood_boost(tags, mood)
             final_score += cuisine_boost(tags, preferred_cuisines, openness_to_new_cuisines)
         if use_expiry and expiring:
+            # Baseline expiry boost; food_waste_priority scales further in preference_score_delta
             final_score += 0.05 * min(len(expiring), 3)
+        final_score += preference_score_delta(
+            recipe_row=row,
+            recipe_ings=recipe_ings,
+            profile=profile,
+            match_pct=match_score,
+            missing_count=len(missing),
+            expiring_count=len(expiring),
+            nutrition_score=nutrition,
+            prep_minutes=prep_minutes,
+        )
 
         scored.append(
             {
@@ -160,25 +190,37 @@ def recommend_for_user(
                 "missing": missing[:8],
                 "missing_count": len(missing),
                 "nutrition_score": round(nutrition, 4),
-                "prep_time_minutes": int(row.get("minutes", 0) or 0),
+                "prep_time_minutes": prep_minutes,
                 "difficulty_level": str(row.get("difficulty_level", "")),
                 "safety_passed": True,
                 "context_label": ctx_label,
                 "model_used": model,
-                "why_recommended": build_explanation(
-                    match_score=match_score,
-                    matched_ingredients=matched,
+                "why_recommended": lecture_extensions.enrich_explanations(
+                    user_id=user_id,
+                    recipe_id=rec.recipe_id,
+                    profile=profile,
+                    fridge_ingredients=matched,
                     missing_ingredients=missing,
-                    expiring_used=expiring,
+                    match_score=match_score,
+                    expiry_priority=0.9 if expiring else 0.3,
                     nutrition_score=nutrition,
-                    cold_start=cold,
                     predicted_rating=pred,
-                    dietary_type=dietary_type,
-                    allergies=allergies,
-                    mood=mood,
-                    context_label=ctx_label,
-                    use_expiry=use_expiry,
-                    use_context=use_context,
+                    cold_start=cold,
+                    base_why=build_explanation(
+                        match_score=match_score,
+                        matched_ingredients=matched,
+                        missing_ingredients=missing,
+                        expiring_used=expiring,
+                        nutrition_score=nutrition,
+                        cold_start=cold,
+                        predicted_rating=pred,
+                        dietary_type=dietary_type,
+                        allergies=allergies,
+                        mood=mood,
+                        context_label=ctx_label,
+                        use_expiry=use_expiry,
+                        use_context=use_context,
+                    ),
                 ),
             }
         )
@@ -389,6 +431,21 @@ def build_recipe_explanation(user_id: int, recipe_id: int) -> dict:
         allergies=profile.get("allergies", []),
         mood=profile.get("mood"),
         context_label=current_context_label(),
+    )
+
+    why = lecture_extensions.enrich_explanations(
+        user_id=user_id,
+        recipe_id=recipe_id,
+        profile=profile,
+        fridge_ingredients=matched,
+        missing_ingredients=missing,
+        match_score=match_score,
+        expiry_priority=0.9 if expiring else 0.3,
+        nutrition_score=nutrition,
+        predicted_rating=pred,
+        cold_start=cold,
+        base_why=why,
+        use_shap=True,
     )
 
     safety = [
