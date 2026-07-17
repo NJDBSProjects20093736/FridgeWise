@@ -21,6 +21,9 @@ data/**/*.zip
 data/**/*.db
 data/**/*.json
 !data/**/.gitkeep
+# Presentation snapshot for Colab (small zip of clean CSVs)
+!data/presentation/
+!data/presentation/data_clean.zip
 
 # Internal / local-only (not for public repo)
 report/
