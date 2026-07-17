@@ -20,6 +20,7 @@
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="ThriftyChef — smart savings, delicious meals.">
   <meta name="apple-mobile-web-app-title" content="ThriftyChef">
+  <meta name="theme-color" content="#EAF8F8">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
@@ -28,34 +29,59 @@
   <title>ThriftyChef</title>
   <link rel="manifest" href="manifest.json">
   <style>
-    html, body { height: 100%; margin: 0; background: #F8FAFC; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #F8FAFC;
+    }
     #boot-splash {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      height: 100%; font-family: system-ui, -apple-system, sans-serif; color: #1E293B;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 24px;
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #1E293B;
+      background: linear-gradient(180deg, #EAF8F8 0%, #F8FAFC 55%);
     }
-    #boot-splash .brand {
-      font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px;
+    #boot-splash .mark {
+      width: min(280px, 72vw);
+      height: auto;
+      display: block;
+      margin-bottom: 10px;
     }
-    #boot-splash .brand .thrifty { color: #268387; }
-    #boot-splash .brand .chef { color: #E5A99E; font-weight: 900; }
     #boot-splash .tag {
-      font-size: 11px; font-weight: 700; letter-spacing: 1.8px; color: #268387;
-      margin-bottom: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      color: #268387;
+      margin: 0 0 28px;
+      text-align: center;
     }
     #boot-splash .spinner {
-      width: 36px; height: 36px; border: 3px solid #E5E7EB;
-      border-top-color: #34A0A4; border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      border: 3px solid #D9F2F3;
+      border-top-color: #34A0A4;
+      border-radius: 50%;
       animation: spin 0.8s linear infinite;
+    }
+    #boot-splash .hint {
+      color: #64748B;
+      margin-top: 16px;
+      font-size: 14px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
   <div id="boot-splash">
-    <div class="brand"><span class="thrifty">Thrifty</span><span class="chef">Chef</span></div>
-    <div class="tag">SMART SAVINGS. DELICIOUS MEALS.</div>
-    <div class="spinner"></div>
-    <p style="color:#64748B;margin-top:16px">Loading app…</p>
+    <img class="mark" src="branding/thriftychef_wordmark.png" alt="ThriftyChef" width="280" height="204">
+    <p class="tag">SMART SAVINGS. DELICIOUS MEALS.</p>
+    <div class="spinner" aria-hidden="true"></div>
+    <p class="hint">Loading app…</p>
   </div>
   <!--
     You can customize the "flutter_bootstrap.js" script.

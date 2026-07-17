@@ -22,3 +22,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/branding/thriftychef_wordmark.png
+    - assets/branding/thriftychef_hat_icon.png
+    - assets/branding/thriftychef_app_icon_1024.png

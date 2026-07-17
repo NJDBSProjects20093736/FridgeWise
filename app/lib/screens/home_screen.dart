@@ -93,11 +93,22 @@ class _HomeScreenState extends State<HomeScreen> {
               selectedIndex: _index,
               onDestinationSelected: (i) => setState(() => _index = i),
               labelType: NavigationRailLabelType.all,
+              groupAlignment: -0.85,
+              minWidth: 78,
+              minExtendedWidth: 160,
+              indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               destinations: _tabs
-                  .map((t) => NavigationRailDestination(icon: Icon(t.icon), label: Text(t.label)))
+                  .map(
+                    (t) => NavigationRailDestination(
+                      icon: Icon(t.icon),
+                      selectedIcon: Icon(t.icon),
+                      label: Text(t.label),
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                    ),
+                  )
                   .toList(),
             ),
-            VerticalDivider(width: 1, color: AppTheme.cardBorder),
+            VerticalDivider(width: 1, thickness: 1, color: AppTheme.cardBorder),
           ],
           Expanded(
             child: AnimatedSwitcher(

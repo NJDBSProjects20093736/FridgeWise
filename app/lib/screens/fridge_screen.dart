@@ -9,10 +9,8 @@ import '../widgets/empty_state.dart';
 import '../widgets/fridge_item_card.dart';
 import '../widgets/loading_state.dart';
 import '../widgets/product_nutrition_panel.dart';
-import '../widgets/responsive_container.dart';
 import '../widgets/section_card.dart';
 import '../utils/fridge_health.dart';
-import 'shopping_list_screen.dart';
 
 class FridgeScreen extends StatefulWidget {
   const FridgeScreen({super.key});
@@ -27,6 +25,7 @@ class _FridgeScreenState extends State<FridgeScreen> {
   final _unitCtrl = TextEditingController(text: 'pcs');
   final _barcodeCtrl = TextEditingController();
   int _days = 7;
+  String _storage = 'fridge';
   ProductInfo? _productPreview;
   bool _lookupLoading = false;
   bool _addLoading = false;
@@ -34,6 +33,11 @@ class _FridgeScreenState extends State<FridgeScreen> {
   String _storageFilter = 'All storage';
 
   static const _units = ['pcs', 'g', 'kg', 'ml', 'L', 'cup', 'tbsp'];
+  static const _storageOptions = [
+    ('fridge', 'Fridge'),
+    ('freezer', 'Freezer'),
+    ('pantry', 'Pantry'),
+  ];
 
   @override
   void initState() {
@@ -77,49 +81,145 @@ class _FridgeScreenState extends State<FridgeScreen> {
     }
   }
 
-  Future<void> _lookupBarcode() async {
+  void _resetForm() {
+    _nameCtrl.clear();
+    _qtyCtrl.clear();
+    _barcodeCtrl.clear();
+    _unitCtrl.text = 'pcs';
+    _days = 7;
+    _storage = 'fridge';
+    _productPreview = null;
+  }
+
+  Future<void> _lookupBarcode(StateSetter setModalState) async {
     final code = _barcodeCtrl.text.trim();
     if (code.isEmpty) return;
-    setState(() => _lookupLoading = true);
+    setModalState(() => _lookupLoading = true);
     final product = await context.read<AppState>().lookupBarcode(code);
     if (!mounted) return;
-    setState(() => _lookupLoading = false);
-    if (product == null) {
+    setModalState(() {
+      _lookupLoading = false;
+      if (product != null) {
+        _productPreview = product;
+        _nameCtrl.text = product.genericIngredient ?? product.productName ?? '';
+      }
+    });
+    if (product == null && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Product not found — you can still add manually')),
       );
-      return;
     }
-    setState(() {
-      _productPreview = product;
-      _nameCtrl.text = product.genericIngredient ?? product.productName ?? '';
-    });
   }
 
-  Future<void> _addItem() async {
+  Future<void> _addItem(StateSetter setModalState, {VoidCallback? onSuccess}) async {
     final name = _nameCtrl.text.trim();
-    if (name.isEmpty) return;
-    setState(() => _addLoading = true);
-    await context.read<AppState>().addFridgeItem(
+    if (name.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Enter an ingredient name first')),
+      );
+      return;
+    }
+    setModalState(() => _addLoading = true);
+    final ok = await context.read<AppState>().addFridgeItem(
       name: name,
       quantity: _qtyCtrl.text.trim().isEmpty ? null : _qtyCtrl.text.trim(),
-      unit: _unitCtrl.text.trim(),
+      unit: _unitCtrl.text.trim().isEmpty ? 'pcs' : _unitCtrl.text.trim(),
       daysToExpiry: _days,
       barcode: _barcodeCtrl.text.trim().isEmpty ? null : _barcodeCtrl.text.trim(),
+      storageLocation: _storage,
     );
-    if (mounted) {
-      setState(() => _addLoading = false);
-      _nameCtrl.clear();
-      _qtyCtrl.clear();
-      _barcodeCtrl.clear();
-      setState(() {
-        _productPreview = null;
-        _days = 7;
-      });
+    if (!mounted) return;
+    setModalState(() => _addLoading = false);
+    if (!ok) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Added $name to fridge')),
+        const SnackBar(content: Text('Could not add item — check API connection and try again')),
       );
+      return;
     }
+    final place = _storageOptions.firstWhere((e) => e.$1 == _storage).$2;
+    setModalState(_resetForm);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Added $name to $place')),
+    );
+    onSuccess?.call();
+  }
+
+  Future<void> _openAddSheet() async {
+    _resetForm();
+    final wide = MediaQuery.sizeOf(context).width >= 700;
+
+    if (wide) {
+      await showDialog<void>(
+        context: context,
+        builder: (ctx) {
+          return StatefulBuilder(
+            builder: (ctx, setModalState) {
+              return Dialog(
+                insetPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 480, maxHeight: 720),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: IconButton(
+                            tooltip: 'Close',
+                            onPressed: () => Navigator.pop(ctx),
+                            icon: const Icon(Icons.close),
+                          ),
+                        ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.fromLTRB(12, 0, 12, 16),
+                            child: _addForm(
+                              setModalState: setModalState,
+                              onAdded: () {
+                                if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      );
+      return;
+    }
+
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder: (ctx) {
+        return StatefulBuilder(
+          builder: (ctx, setModalState) {
+            return Padding(
+              padding: EdgeInsets.only(
+                left: 16,
+                right: 16,
+                top: 8,
+                bottom: MediaQuery.viewInsetsOf(ctx).bottom + 16,
+              ),
+              child: SingleChildScrollView(
+                child: _addForm(
+                  setModalState: setModalState,
+                  onAdded: () {
+                    if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
+                  },
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   Future<void> _confirmDelete(FridgeItem item) async {
@@ -154,80 +254,104 @@ class _FridgeScreenState extends State<FridgeScreen> {
     final items = _filtered(state.fridge);
     final expiringSoon = state.fridge.where((i) => i.daysToExpiry <= 5).length;
     final barcodeCount = state.fridge.where((i) => i.barcode != null && i.barcode!.isNotEmpty).length;
-    final wide = isWideLayout(context);
+    final bottomInset = MediaQuery.paddingOf(context).bottom;
 
-    return Padding(
-      padding: AppTheme.pagePadding(context),
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: AppTheme.maxContentWidth),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _header(context),
-              const SizedBox(height: 16),
-              _fridgeHealthCard(FridgeHealthScore.from(state.fridge)),
-              const SizedBox(height: 16),
-              _statsRow(state.fridge.length, expiringSoon, barcodeCount),
-              const SizedBox(height: 16),
-              FilterChipRow(
-                options: const ['All', 'Expiring soon', 'Depleting soon', 'Barcode items'],
-                selected: _filter,
-                onSelected: (v) => setState(() => _filter = v),
+    return RefreshIndicator(
+      color: AppTheme.primaryGreen,
+      onRefresh: state.loadFridge,
+      child: ListView(
+        padding: AppTheme.pagePadding(context).copyWith(bottom: 120 + bottomInset),
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: AppTheme.maxContentWidth),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _header(context),
+                  const SizedBox(height: 16),
+                  _fridgeHealthCard(FridgeHealthScore.from(state.fridge)),
+                  const SizedBox(height: 16),
+                  _statsRow(state.fridge.length, expiringSoon, barcodeCount),
+                  const SizedBox(height: 16),
+                  FilterChipRow(
+                    options: const ['All', 'Expiring soon', 'Depleting soon', 'Barcode items'],
+                    selected: _filter,
+                    onSelected: (v) => setState(() => _filter = v),
+                  ),
+                  const SizedBox(height: 8),
+                  FilterChipRow(
+                    options: const ['All storage', 'Fridge', 'Freezer', 'Pantry'],
+                    selected: _storageFilter,
+                    onSelected: (v) => setState(() => _storageFilter = v),
+                  ),
+                  const SizedBox(height: 16),
+                  if (state.loading && state.fridge.isEmpty)
+                    const LoadingState(message: 'Loading fridge…')
+                  else if (items.isEmpty)
+                    const EmptyState(
+                      icon: Icons.kitchen_outlined,
+                      title: 'Your fridge is empty',
+                      message: 'Tap Add item to put food in fridge, freezer, or pantry.',
+                    )
+                  else
+                    ...items.map(
+                      (item) => FridgeItemCard(
+                        item: item,
+                        onDelete: () => _confirmDelete(item),
+                        onEdit: () => _editItem(context, item),
+                        onStorageChanged: (loc) => context.read<AppState>().setStorageLocation(item.itemId, loc),
+                      ),
+                    ),
+                ],
               ),
-              const SizedBox(height: 8),
-              FilterChipRow(
-                options: const ['All storage', 'Fridge', 'Freezer', 'Pantry'],
-                selected: _storageFilter,
-                onSelected: (v) => setState(() => _storageFilter = v),
-              ),
-              const SizedBox(height: 16),
-              Expanded(
-                child: wide ? _wideBody(context, state, items) : _narrowBody(context, state, items),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
   Widget _header(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final compact = constraints.maxWidth < 420;
+        final title = Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('My Fridge', style: Theme.of(context).textTheme.headlineMedium),
+            const SizedBox(height: 6),
+            Text(
+              'Track ingredients and expiry to power personalised recipes.',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted),
+            ),
+          ],
+        );
+        final button = FilledButton.icon(
+          onPressed: _openAddSheet,
+          icon: const Icon(Icons.add),
+          label: Text(compact ? 'Add' : 'Add item'),
+        );
+        if (compact) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('My Fridge', style: Theme.of(context).textTheme.headlineMedium),
-              const SizedBox(height: 6),
-              Text(
-                'Track ingredients and expiry to power personalised recipes.',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted),
-              ),
+              title,
+              const SizedBox(height: 12),
+              Align(alignment: Alignment.centerLeft, child: button),
             ],
-          ),
-        ),
-        Builder(
-          builder: (context) {
-            final pending = context.watch<AppState>().shoppingList.where((i) => !i.checked).length;
-            return IconButton(
-              tooltip: 'Shopping list',
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const ShoppingListScreen()),
-              ),
-              icon: Badge(
-                isLabelVisible: pending > 0,
-                label: Text('$pending'),
-                child: const Icon(Icons.shopping_basket_outlined),
-              ),
-            );
-          },
-        ),
-      ],
+          );
+        }
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(child: title),
+            const SizedBox(width: 12),
+            button,
+          ],
+        );
+      },
     );
   }
 
@@ -316,110 +440,67 @@ class _FridgeScreenState extends State<FridgeScreen> {
     );
   }
 
-  Widget _wideBody(BuildContext context, AppState state, List<FridgeItem> items) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 3,
-          child: _itemList(context, state, items),
-        ),
-        const SizedBox(width: 20),
-        SizedBox(
-          width: 360,
-          child: SingleChildScrollView(
-            child: _addForm(),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _narrowBody(BuildContext context, AppState state, List<FridgeItem> items) {
-    return RefreshIndicator(
-      color: AppTheme.primaryGreen,
-      onRefresh: state.loadFridge,
-      child: ListView(
-        padding: const EdgeInsets.only(bottom: 24),
-        children: [
-          if (state.loading && state.fridge.isEmpty)
-            const LoadingState(message: 'Loading fridge…')
-          else if (items.isEmpty)
-            const EmptyState(
-              icon: Icons.kitchen_outlined,
-              title: 'Your fridge is empty',
-              message: 'Add ingredients below to get personalised recipes.',
-            )
-          else
-            ...items.map(
-              (item) => FridgeItemCard(
-                item: item,
-                onDelete: () => _confirmDelete(item),
-                onEdit: () => _editItem(context, item),
-                onStorageChanged: (loc) => context.read<AppState>().setStorageLocation(item.itemId, loc),
-              ),
-            ),
-          const SizedBox(height: 16),
-          _addForm(),
-        ],
-      ),
-    );
-  }
-
-  Widget _itemList(BuildContext context, AppState state, List<FridgeItem> items) {
-    if (state.loading && state.fridge.isEmpty) {
-      return const LoadingState(message: 'Loading fridge…');
-    }
-    if (items.isEmpty) {
-      return const EmptyState(
-        icon: Icons.kitchen_outlined,
-        title: 'Your fridge is empty',
-        message: 'Add ingredients using the form on the right.',
-      );
-    }
-    return RefreshIndicator(
-      color: AppTheme.primaryGreen,
-      onRefresh: state.loadFridge,
-      child: ListView.builder(
-        padding: const EdgeInsets.only(bottom: 16),
-        itemCount: items.length,
-        itemBuilder: (_, i) {
-          final item = items[i];
-          return FridgeItemCard(
-            item: item,
-            onDelete: () => _confirmDelete(item),
-            onEdit: () => _editItem(context, item),
-            onStorageChanged: (loc) => context.read<AppState>().setStorageLocation(item.itemId, loc),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _addForm() {
+  Widget _addForm({
+    required StateSetter setModalState,
+    VoidCallback? onAdded,
+  }) {
+    final unit = _units.contains(_unitCtrl.text) ? _unitCtrl.text : 'pcs';
     return SectionCard(
       title: 'Add ingredient',
       helper: 'Barcode demo: 6111246721261',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          TextField(controller: _nameCtrl, decoration: const InputDecoration(labelText: 'Ingredient name')),
+          TextField(
+            controller: _nameCtrl,
+            textInputAction: TextInputAction.next,
+            decoration: const InputDecoration(labelText: 'Ingredient name'),
+          ),
           const SizedBox(height: 10),
-          Row(
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final stacked = constraints.maxWidth < 340;
+              final qty = TextField(
+                controller: _qtyCtrl,
+                decoration: const InputDecoration(labelText: 'Quantity'),
+              );
+              final unitField = DropdownButtonFormField<String>(
+                initialValue: unit,
+                decoration: const InputDecoration(labelText: 'Unit'),
+                items: _units.map((u) => DropdownMenuItem(value: u, child: Text(u))).toList(),
+                onChanged: (v) => setModalState(() => _unitCtrl.text = v ?? 'pcs'),
+              );
+              if (stacked) {
+                return Column(
+                  children: [
+                    qty,
+                    const SizedBox(height: 10),
+                    unitField,
+                  ],
+                );
+              }
+              return Row(
+                children: [
+                  Expanded(flex: 2, child: qty),
+                  const SizedBox(width: 10),
+                  Expanded(child: unitField),
+                ],
+              );
+            },
+          ),
+          const SizedBox(height: 12),
+          Text('Storage location', style: Theme.of(context).textTheme.bodySmall),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
             children: [
-              Expanded(
-                flex: 2,
-                child: TextField(controller: _qtyCtrl, decoration: const InputDecoration(labelText: 'Quantity')),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: DropdownButtonFormField<String>(
-                  value: _units.contains(_unitCtrl.text) ? _unitCtrl.text : 'pcs',
-                  decoration: const InputDecoration(labelText: 'Unit'),
-                  items: _units.map((u) => DropdownMenuItem(value: u, child: Text(u))).toList(),
-                  onChanged: (v) => _unitCtrl.text = v ?? 'pcs',
+              for (final opt in _storageOptions)
+                ChoiceChip(
+                  label: Text(opt.$2),
+                  selected: _storage == opt.$1,
+                  onSelected: (_) => setModalState(() => _storage = opt.$1),
                 ),
-              ),
             ],
           ),
           const SizedBox(height: 10),
@@ -454,7 +535,7 @@ class _FridgeScreenState extends State<FridgeScreen> {
               max: 30,
               divisions: 29,
               label: '$_days days',
-              onChanged: (v) => setState(() => _days = v.round()),
+              onChanged: (v) => setModalState(() => _days = v.round()),
             ),
           ),
           if (_productPreview != null) ...[
@@ -462,33 +543,28 @@ class _FridgeScreenState extends State<FridgeScreen> {
             ProductNutritionPanel(
               product: _productPreview!,
               loading: _addLoading,
-              onAdd: _addItem,
+              onAdd: () => _addItem(setModalState, onSuccess: onAdded),
             ),
           ] else ...[
             const SizedBox(height: 12),
-            Row(
-              children: [
-                Expanded(
-                  child: FilledButton.icon(
-                    onPressed: _addLoading ? null : _addItem,
-                    icon: _addLoading
-                        ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                        : const Icon(Icons.add),
-                    label: const Text('Add item'),
-                  ),
-                ),
-              ],
+            FilledButton.icon(
+              onPressed: _addLoading ? null : () => _addItem(setModalState, onSuccess: onAdded),
+              icon: _addLoading
+                  ? const SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                    )
+                  : const Icon(Icons.add),
+              label: const Text('Add item'),
             ),
             const SizedBox(height: 8),
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: _lookupLoading ? null : _lookupBarcode,
-                icon: _lookupLoading
-                    ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2))
-                    : const Icon(Icons.search),
-                label: const Text('Lookup barcode'),
-              ),
+            OutlinedButton.icon(
+              onPressed: _lookupLoading ? null : () => _lookupBarcode(setModalState),
+              icon: _lookupLoading
+                  ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2))
+                  : const Icon(Icons.search),
+              label: const Text('Lookup barcode'),
             ),
           ],
         ],

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/app_state.dart';
 import '../theme/app_theme.dart';
-import 'assistant_screen.dart';
 import 'leftovers_screen.dart';
 import 'meal_planner_screen.dart';
 import 'privacy_policy_screen.dart';
@@ -18,13 +17,6 @@ class MoreHubScreen extends StatelessWidget {
     final urgent = state.urgentExpiryItems;
 
     final tiles = [
-      _HubTile(
-        icon: Icons.chat_bubble_outline,
-        title: 'Cooking assistant',
-        subtitle: 'Ask for recipes, plans, and expiry help',
-        color: AppTheme.primaryGreen,
-        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AssistantScreen())),
-      ),
       _HubTile(
         icon: Icons.calendar_month_outlined,
         title: 'Weekly meal planner',
@@ -68,7 +60,7 @@ class MoreHubScreen extends StatelessWidget {
         Text('More', style: Theme.of(context).textTheme.headlineMedium),
         const SizedBox(height: 6),
         Text(
-          'Meal planning, leftovers, impact tracking, and the cooking assistant.',
+          'Meal planning, leftovers, impact tracking, and shopping.',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted),
         ),
         if (urgent.isNotEmpty) ...[
@@ -111,21 +103,24 @@ class MoreHubScreen extends StatelessWidget {
           (t) => Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Material(
-              color: AppTheme.cardSurface,
-              borderRadius: BorderRadius.circular(16),
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(20),
               child: InkWell(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(20),
                 onTap: t.onTap,
                 child: Container(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: AppTheme.cardBorder),
+                    boxShadow: AppTheme.softShadow(),
+                    color: AppTheme.cardSurface,
                   ),
                   child: Row(
                     children: [
                       CircleAvatar(
-                        backgroundColor: t.color.withValues(alpha: 0.15),
+                        radius: 24,
+                        backgroundColor: t.color.withValues(alpha: 0.14),
                         child: Icon(t.icon, color: t.color),
                       ),
                       const SizedBox(width: 14),
@@ -133,13 +128,13 @@ class MoreHubScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(t.title, style: const TextStyle(fontWeight: FontWeight.w700)),
+                            Text(t.title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
                             const SizedBox(height: 4),
                             Text(t.subtitle, style: Theme.of(context).textTheme.bodySmall),
                           ],
                         ),
                       ),
-                      const Icon(Icons.chevron_right),
+                      Icon(Icons.chevron_right_rounded, color: AppTheme.textMuted),
                     ],
                   ),
                 ),

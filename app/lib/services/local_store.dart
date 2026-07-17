@@ -4,9 +4,9 @@ import '../models/user_profile.dart';
 
 /// Local persistence fallback when backend profile sync fails.
 class LocalStore {
-  static const _profileKey = 'fridgewise_profile_v2';
-  static const _onboardedKey = 'fridgewise_onboarded';
-  static const _themeModeKey = 'fridgewise_theme_mode';
+  static const _profileKey = 'thriftychef_profile_v2';
+  static const _onboardedKey = 'thriftychef_onboarded';
+  static const _themeModeKey = 'thriftychef_theme_mode';
 
   Future<String> loadThemeMode() async {
     final prefs = await SharedPreferences.getInstance();

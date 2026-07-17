@@ -3,7 +3,6 @@ import '../models/fridge_item.dart';
 import '../models/recipe_recommendation.dart';
 import '../providers/app_state.dart';
 import '../theme/app_theme.dart';
-import '../screens/assistant_screen.dart';
 import '../screens/recipe_detail_screen.dart';
 import 'food_image.dart';
 import 'section_card.dart';
@@ -116,11 +115,11 @@ class HomeGreetingHeader extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.72),
+                      color: Colors.white.withValues(alpha: 0.85),
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(color: Colors.white),
                     ),
-                    child: const Text('👋', style: TextStyle(fontSize: 22)),
+                    child: Icon(Icons.kitchen_outlined, color: AppTheme.glacier, size: 26),
                   ),
                   const SizedBox(width: 14),
                   Expanded(
@@ -159,13 +158,14 @@ class HomeGreetingHeader extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 18),
-              // Glassmorphism mini stats strip
+              // Clean metric strip
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.55),
-                  borderRadius: BorderRadius.circular(18),
-                  border: Border.all(color: Colors.white.withValues(alpha: 0.8)),
+                  color: Colors.white.withValues(alpha: 0.72),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.white.withValues(alpha: 0.9)),
+                  boxShadow: AppTheme.softShadow(),
                 ),
                 child: Row(
                   children: [
@@ -184,7 +184,7 @@ class HomeGreetingHeader extends StatelessWidget {
                 Material(
                   color: Colors.transparent,
                   child: InkWell(
-                    borderRadius: BorderRadius.circular(18),
+                    borderRadius: BorderRadius.circular(20),
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -192,66 +192,62 @@ class HomeGreetingHeader extends StatelessWidget {
                       ),
                     ),
                     child: Container(
-                      padding: const EdgeInsets.all(12),
+                      clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.72),
-                        borderRadius: BorderRadius.circular(18),
+                        color: Colors.white.withValues(alpha: 0.85),
+                        borderRadius: BorderRadius.circular(20),
                         border: Border.all(color: Colors.white),
                         boxShadow: AppTheme.softShadow(),
                       ),
                       child: Row(
                         children: [
                           ClipRRect(
-                            borderRadius: BorderRadius.circular(14),
-                            child: FoodImage(label: featured.name, width: 72, height: 72),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              bottomLeft: Radius.circular(20),
+                            ),
+                            child: FoodImage(label: featured.name, width: wide ? 120 : 88, height: wide ? 120 : 88),
                           ),
-                          const SizedBox(width: 12),
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Featured AI pick',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: AppTheme.glacier,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(14, 12, 12, 12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Featured AI pick',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                      color: AppTheme.glacier,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  featured.name,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  '${(featured.matchPct * 100).round()}% fridge match · ${featured.prepTimeMinutes} min',
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                              ],
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    featured.name,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    '${(featured.matchPct * 100).round()}% fridge match · ${featured.prepTimeMinutes} min',
+                                    style: Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          Icon(Icons.arrow_forward_ios, size: 16, color: AppTheme.glacier),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: Icon(Icons.arrow_forward_ios, size: 16, color: AppTheme.glacier),
+                          ),
                         ],
                       ),
                     ),
                   ),
                 ),
               ],
-              const SizedBox(height: 14),
-              Align(
-                alignment: Alignment.centerRight,
-                child: FilledButton.icon(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const AssistantScreen()),
-                  ),
-                  icon: const Icon(Icons.auto_awesome, size: 18),
-                  label: const Text('Ask Chef AI'),
-                ),
-              ),
             ],
           ),
         ),

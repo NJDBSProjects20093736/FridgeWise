@@ -243,12 +243,28 @@ class _ScanScreenState extends State<ScanScreen> {
   }
 
   Widget _modeCards() {
-    return Row(
-      children: [
-        Expanded(child: _modeCard(ScanMode.fridgeScan, 'Add to my fridge', Icons.kitchen, 'Item already at home')),
-        const SizedBox(width: 12),
-        Expanded(child: _modeCard(ScanMode.rescueBasket, 'Scan before buying', Icons.shopping_cart_outlined, 'Supermarket rescue')),
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final stacked = constraints.maxWidth < 520;
+        final fridge = _modeCard(ScanMode.fridgeScan, 'Add to my fridge', Icons.kitchen_outlined, 'Item already at home');
+        final rescue = _modeCard(ScanMode.rescueBasket, 'Scan before buying', Icons.shopping_bag_outlined, 'Supermarket rescue');
+        if (stacked) {
+          return Column(
+            children: [
+              fridge,
+              const SizedBox(height: 12),
+              rescue,
+            ],
+          );
+        }
+        return Row(
+          children: [
+            Expanded(child: fridge),
+            const SizedBox(width: 12),
+            Expanded(child: rescue),
+          ],
+        );
+      },
     );
   }
 
@@ -259,21 +275,47 @@ class _ScanScreenState extends State<ScanScreen> {
         setState(() => _mode = mode);
         context.read<AppState>().clearScanSession();
       },
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(20),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        padding: const EdgeInsets.all(16),
+        duration: const Duration(milliseconds: 160),
+        padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
-          color: selected ? AppTheme.lightGreen : AppTheme.cardSurface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: selected ? AppTheme.primaryGreen : AppTheme.cardBorder, width: selected ? 1.5 : 1),
+          color: selected ? AppTheme.iceLight : AppTheme.cardSurface,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: selected ? AppTheme.primaryGreen : AppTheme.cardBorder,
+            width: selected ? 1.6 : 1,
+          ),
+          boxShadow: selected
+              ? [
+                  BoxShadow(
+                    color: AppTheme.primaryGreen.withValues(alpha: 0.12),
+                    blurRadius: 16,
+                    offset: const Offset(0, 6),
+                  ),
+                ]
+              : AppTheme.softShadow(),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: selected ? AppTheme.primaryGreen : AppTheme.textMuted),
-            const SizedBox(height: 8),
-            Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: selected ? AppTheme.primaryGreen : AppTheme.textDark)),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: selected ? AppTheme.primaryGreen.withValues(alpha: 0.12) : AppTheme.iceLight,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Icon(icon, color: selected ? AppTheme.primaryGreen : AppTheme.textMuted),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 15,
+                color: selected ? AppTheme.glacierDeep : AppTheme.textDark,
+              ),
+            ),
             const SizedBox(height: 4),
             Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
           ],

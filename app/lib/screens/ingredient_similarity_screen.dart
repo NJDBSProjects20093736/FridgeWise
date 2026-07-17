@@ -99,10 +99,29 @@ class _IngredientSimilarityScreenState extends State<IngredientSimilarityScreen>
           if (_loading)
             const LoadingState(message: 'Finding similar ingredients…')
           else if (_results.isEmpty)
-            const EmptyState(
-              icon: Icons.swap_horiz,
-              title: 'Search an ingredient',
-              message: 'Try miso, tempeh, or kimchi for the cold-start demo.',
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 36),
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(22),
+                    decoration: BoxDecoration(
+                      color: AppTheme.iceLight,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: AppTheme.iceAccent),
+                    ),
+                    child: Icon(Icons.swap_horiz_rounded, size: 42, color: AppTheme.glacier),
+                  ),
+                  const SizedBox(height: 16),
+                  Text('Search an ingredient', style: Theme.of(context).textTheme.titleLarge),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Try miso, tempeh, or kimchi for familiar alternatives.',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted),
+                  ),
+                ],
+              ),
             )
           else
             ..._results.map((r) {

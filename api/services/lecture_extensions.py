@@ -18,17 +18,19 @@ class LectureExtensionService:
         self.explainer: RecommendationExplainer | None = None
         self._loaded = False
 
-    def load(self) -> None:
-        if self._loaded:
-            return
-        registry.load()
-        assert registry.data is not None
+    def load(self, *, with_shap: bool = False) -> None:
+        if not self._loaded:
+            registry.load()
+            assert registry.data is not None
 
-        self.cluster = ColdStartClusterRecommender(n_clusters=5).fit(registry.data.profiles)
-        cases = build_fridge_cases(registry.data)
-        self.case_based = CaseBasedRecommender(cases)
-        self.explainer = RecommendationExplainer().fit(registry.data)
-        self._loaded = True
+            self.cluster = ColdStartClusterRecommender(n_clusters=5).fit(registry.data.profiles)
+            cases = build_fridge_cases(registry.data)
+            self.case_based = CaseBasedRecommender(cases)
+            self._loaded = True
+
+        if with_shap and self.explainer is None:
+            assert registry.data is not None
+            self.explainer = RecommendationExplainer().fit(registry.data)
 
     def enrich_explanations(
         self,
@@ -44,8 +46,9 @@ class LectureExtensionService:
         predicted_rating: float | None,
         cold_start: bool,
         base_why: list[str],
+        use_shap: bool = False,
     ) -> list[str]:
-        self.load()
+        self.load(with_shap=use_shap)
         assert self.cluster is not None and self.case_based is not None
 
         why = list(base_why)
@@ -74,7 +77,8 @@ class LectureExtensionService:
                 )
             )
 
-        if self.explainer is not None and registry.data is not None:
+        # SHAP is expensive — only for single-recipe detail explanations, not list ranking.
+        if use_shap and self.explainer is not None and registry.data is not None:
             recipe = registry.data.recipes[registry.data.recipes["recipe_id"] == recipe_id]
             if not recipe.empty:
                 recipe_row = recipe.iloc[0]

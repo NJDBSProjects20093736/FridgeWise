@@ -12,7 +12,6 @@ import '../widgets/recipe_card.dart';
 import '../widgets/responsive_container.dart';
 import '../widgets/section_card.dart';
 import 'recipe_detail_screen.dart';
-import 'assistant_screen.dart';
 
 class RecommendationsScreen extends StatefulWidget {
   const RecommendationsScreen({super.key});
@@ -87,9 +86,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
         q.contains('minutes');
     final list = useNl ? state.searchNaturalLanguage(q) : state.filteredRecommendations;
 
-    return Stack(
-      children: [
-        RefreshIndicator(
+    return RefreshIndicator(
       color: AppTheme.glacier,
       onRefresh: () async {
         await state.loadFridge();
@@ -97,7 +94,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
       },
       child: ResponsiveContainer(
         child: ListView(
-          padding: const EdgeInsets.only(bottom: 96),
+          padding: AppTheme.pagePadding(context).copyWith(bottom: 100),
           children: [
             HomeGreetingHeader(state: state),
             const SizedBox(height: 20),
@@ -239,21 +236,6 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
           ],
         ),
       ),
-        ),
-        Positioned(
-          right: 16,
-          bottom: 16,
-          child: FloatingActionButton.extended(
-            heroTag: 'ask_chef_ai_fab',
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const AssistantScreen()),
-            ),
-            icon: const Icon(Icons.auto_awesome),
-            label: const Text('Ask Chef AI'),
-          ),
-        ),
-      ],
     );
   }
 

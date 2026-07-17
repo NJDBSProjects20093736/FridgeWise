@@ -142,22 +142,31 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addFridgeItem({
+  Future<bool> addFridgeItem({
     required String name,
     String? quantity,
     String? unit,
     int daysToExpiry = 7,
     String? barcode,
+    String storageLocation = 'fridge',
   }) async {
-    await repo.addFridgeItem(demoUserId, {
-      'ingredient_name': name,
-      'quantity': quantity,
-      'unit': unit,
-      'days_to_expiry': daysToExpiry,
-      if (barcode != null) 'barcode': barcode,
-    });
-    await loadFridge();
-    await loadRecommendations();
+    try {
+      final created = await repo.addFridgeItem(demoUserId, {
+        'ingredient_name': name,
+        'quantity': quantity,
+        'unit': unit,
+        'days_to_expiry': daysToExpiry,
+        if (barcode != null) 'barcode': barcode,
+      });
+      if (created == null) return false;
+      await loadFridge();
+      final loc = FridgeItem.storageOptions.contains(storageLocation) ? storageLocation : 'fridge';
+      await setStorageLocation(created.itemId, loc);
+      await loadRecommendations();
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 
   Future<void> deleteFridgeItem(int itemId) async {

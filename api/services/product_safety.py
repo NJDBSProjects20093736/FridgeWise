@@ -49,9 +49,29 @@ def check_product_safety(
             k in blob for k in MEAT_INGREDIENTS + DAIRY_EGG_INGREDIENTS
         ):
             warnings.append("Not compatible with your vegan diet.")
+    elif diet == "pescatarian":
+        from src.filters import LAND_MEAT_INGREDIENTS
+
+        if _ingredient_hits(generic_set, LAND_MEAT_INGREDIENTS) or any(m in blob for m in LAND_MEAT_INGREDIENTS):
+            warnings.append("Not compatible with your pescatarian diet.")
     elif diet == "halal":
         if _ingredient_hits(generic_set, PORK_INGREDIENTS) or any(p in blob for p in PORK_INGREDIENTS):
             warnings.append("Not compatible with your halal diet.")
+    elif diet in {"dairy_free", "dairy-free"}:
+        from src.filters import DAIRY_INGREDIENTS
+
+        if _ingredient_hits(generic_set, DAIRY_INGREDIENTS) or any(d in blob for d in DAIRY_INGREDIENTS):
+            warnings.append("Not compatible with your dairy-free diet.")
+    elif diet in {"gluten_free", "gluten-free"}:
+        gluten = ALLERGEN_INGREDIENT_HINTS.get("gluten", ("wheat", "flour", "gluten"))
+        if any(g in blob for g in gluten):
+            warnings.append("Not compatible with your gluten-free diet.")
+    elif diet == "jain":
+        from src.filters import ROOT_VEG_ONION
+
+        banned = MEAT_INGREDIENTS + ROOT_VEG_ONION + ("egg",)
+        if _ingredient_hits(generic_set, banned) or any(b in blob for b in banned):
+            warnings.append("Not compatible with your Jain diet.")
 
     safe = len(warnings) == 0
     return {
