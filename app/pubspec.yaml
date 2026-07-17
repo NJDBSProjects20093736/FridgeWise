@@ -1,7 +1,7 @@
 name: thrifty_chef
 description: ThriftyChef — hybrid recipe recommender for food waste reduction
 publish_to: "none"
-version: 0.1.0+1
+version: 1.0.0+4
 
 environment:
   sdk: ">=3.2.0 <4.0.0"

@@ -15,7 +15,7 @@ class ApiConfig {
     if (kIsWeb) {
       return '${Uri.base.origin}/api';
     }
-    return 'http://127.0.0.1:8000';
+    return 'https://api.thriftychef.sudocod.com';
   }
 
   static const int demoUserId = 5060;
