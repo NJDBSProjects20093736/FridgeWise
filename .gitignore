@@ -28,6 +28,7 @@ docs/
 TEAM.md
 
 # IDE / OS
+.claude/
 .idea/
 .vscode/
 .DS_Store

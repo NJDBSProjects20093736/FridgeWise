@@ -25,6 +25,8 @@ def simulate_waste_reduction(
     *,
     k: int = 10,
     expiry_days_threshold: int = 5,
+    user_ids: list[int] | None = None,
+    exclude_seen: bool = False,
 ) -> WasteSimResult:
     """
     Measure how many soon-to-expire fridge items appear in top-K recommendations.
@@ -32,6 +34,9 @@ def simulate_waste_reduction(
     waste_coverage = expiring_items_used / expiring_items_total (across demo users)
     """
     demo_users = data.profiles["user_id"].astype(int).tolist()
+    if user_ids is not None:
+        allowed = {int(uid) for uid in user_ids}
+        demo_users = [uid for uid in demo_users if uid in allowed]
     expiring_total = 0
     expiring_used = 0
     priority_captured: list[float] = []
@@ -54,7 +59,7 @@ def simulate_waste_reduction(
         expiring_ings = set(expiring["cleaned_ingredient_name"].astype(str))
         expiring_total += len(expiring_ings)
 
-        recs = model.recommend(uid, k=k, exclude_seen=False)
+        recs = model.recommend(uid, k=k, exclude_seen=exclude_seen)
         used: set[str] = set()
         for rec in recs:
             used |= recipe_ings.get(rec.recipe_id, set()) & expiring_ings

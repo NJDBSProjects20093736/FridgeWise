@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/app_state.dart';
@@ -16,15 +18,42 @@ class IngredientSimilarityScreen extends StatefulWidget {
 
 class _IngredientSimilarityScreenState extends State<IngredientSimilarityScreen> {
   final _ctrl = TextEditingController();
+  final _focus = FocusNode();
   List<Map<String, dynamic>> _results = [];
   bool _loading = false;
 
+  // Debounced type-ahead against the backend vocabulary.
+  late final _Debounceable<List<String>?, String> _debouncedLookup;
+  List<String> _lastOptions = const [];
+
   static const suggestions = ['miso', 'tempeh', 'kimchi', 'cassava', 'jackfruit', 'pandan', 'plantain'];
+
+  @override
+  void initState() {
+    super.initState();
+    _debouncedLookup = _debounce(_lookup);
+  }
+
+  Future<List<String>?> _lookup(String query) {
+    return context.read<AppState>().repo.searchIngredientNames(query);
+  }
+
+  Future<Iterable<String>> _optionsBuilder(String query) async {
+    final trimmed = query.trim();
+    if (trimmed.isEmpty) return const Iterable<String>.empty();
+    final result = await _debouncedLookup(trimmed);
+    // A null result means this call was superseded by a newer keystroke;
+    // keep showing the previous options instead of flickering to empty.
+    if (result == null) return _lastOptions;
+    _lastOptions = result;
+    return result;
+  }
 
   Future<void> _search([String? preset]) async {
     final q = (preset ?? _ctrl.text).trim();
     if (q.isEmpty) return;
     _ctrl.text = q;
+    _focus.unfocus();
     setState(() => _loading = true);
     final hits = await context.read<AppState>().repo.similarIngredients(q, AppState.demoUserId);
     if (mounted) setState(() { _results = hits; _loading = false; });
@@ -33,6 +62,7 @@ class _IngredientSimilarityScreenState extends State<IngredientSimilarityScreen>
   @override
   void dispose() {
     _ctrl.dispose();
+    _focus.dispose();
     super.dispose();
   }
 
@@ -71,13 +101,52 @@ class _IngredientSimilarityScreenState extends State<IngredientSimilarityScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                TextField(
-                  controller: _ctrl,
-                  decoration: const InputDecoration(
-                    hintText: 'Try miso, tempeh, kimchi, cassava…',
-                    prefixIcon: Icon(Icons.search),
-                  ),
-                  onSubmitted: (_) => _search(),
+                RawAutocomplete<String>(
+                  textEditingController: _ctrl,
+                  focusNode: _focus,
+                  optionsBuilder: (value) => _optionsBuilder(value.text),
+                  onSelected: (selection) => _search(selection),
+                  fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
+                    return TextField(
+                      controller: controller,
+                      focusNode: focusNode,
+                      decoration: const InputDecoration(
+                        hintText: 'Try miso, tempeh, kimchi, cassava…',
+                        prefixIcon: Icon(Icons.search),
+                      ),
+                      onSubmitted: (_) {
+                        onFieldSubmitted();
+                        _search();
+                      },
+                    );
+                  },
+                  optionsViewBuilder: (context, onSelected, options) {
+                    return Align(
+                      alignment: Alignment.topLeft,
+                      child: Material(
+                        elevation: 4,
+                        borderRadius: BorderRadius.circular(12),
+                        color: AppTheme.cardSurface,
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(maxHeight: 260),
+                          child: ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            itemCount: options.length,
+                            itemBuilder: (context, index) {
+                              final option = options.elementAt(index);
+                              return ListTile(
+                                dense: true,
+                                leading: Icon(Icons.restaurant_menu, size: 18, color: AppTheme.glacier),
+                                title: Text(option, style: Theme.of(context).textTheme.bodyMedium),
+                                onTap: () => onSelected(option),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 12),
                 Wrap(
@@ -163,4 +232,52 @@ class _IngredientSimilarityScreenState extends State<IngredientSimilarityScreen>
       ),
     );
   }
+}
+
+// --- Debounce helper for the type-ahead search ---
+// Collapses rapid keystrokes into a single backend call. A superseded call
+// resolves to null so the caller can keep the previous options.
+
+const Duration _kDebounceDuration = Duration(milliseconds: 250);
+
+typedef _Debounceable<S, T> = Future<S?> Function(T parameter);
+
+_Debounceable<S, T> _debounce<S, T>(_Debounceable<S?, T> function) {
+  _DebounceTimer? timer;
+  return (T parameter) async {
+    if (timer != null && !timer!.isCompleted) {
+      timer!.cancel();
+    }
+    timer = _DebounceTimer();
+    try {
+      await timer!.future;
+    } on _CancelException {
+      return null;
+    }
+    return function(parameter);
+  };
+}
+
+class _DebounceTimer {
+  _DebounceTimer() {
+    _timer = Timer(_kDebounceDuration, _onComplete);
+  }
+
+  late final Timer _timer;
+  final Completer<void> _completer = Completer<void>();
+
+  void _onComplete() => _completer.complete();
+
+  Future<void> get future => _completer.future;
+
+  bool get isCompleted => _completer.isCompleted;
+
+  void cancel() {
+    _timer.cancel();
+    _completer.completeError(const _CancelException());
+  }
+}
+
+class _CancelException implements Exception {
+  const _CancelException();
 }

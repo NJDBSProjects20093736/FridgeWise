@@ -41,6 +41,49 @@ EXOTIC_SIMILAR: dict[str, list[dict[str, str]]] = {
 }
 
 
+def _alias_path(project_root: Path | None = None) -> Path:
+    root = project_root or Path(__file__).resolve().parents[1]
+    return root / "assets" / "ingredient_aliases.csv"
+
+
+def search_ingredient_names(
+    query: str,
+    *,
+    project_root: Path | None = None,
+    limit: int = 10,
+) -> list[str]:
+    """Type-ahead search over the known ingredient vocabulary.
+
+    Returns distinct ingredient names matching ``query``, prefix matches first
+    then substring matches, so the UI can offer real names instead of asking the
+    user to guess spelling. Both raw and canonical names are searched.
+    """
+    norm = normalize_ingredient(query)
+    if not norm:
+        return []
+
+    alias_df = load_alias_table(_alias_path(project_root))
+    if alias_df.empty:
+        return []
+
+    names: set[str] = set()
+    for col in ("raw_name", "canonical_name"):
+        if col in alias_df.columns:
+            names.update(alias_df[col].dropna().astype(str))
+
+    prefix: list[str] = []
+    substring: list[str] = []
+    for name in names:
+        low = name.lower()
+        if low.startswith(norm):
+            prefix.append(name)
+        elif norm in low:
+            substring.append(name)
+
+    ordered = sorted(prefix, key=lambda s: (len(s), s)) + sorted(substring, key=lambda s: (len(s), s))
+    return ordered[:limit]
+
+
 def find_similar_ingredients(
     name: str,
     *,

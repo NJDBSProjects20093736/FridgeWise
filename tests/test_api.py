@@ -43,3 +43,19 @@ def test_inventory():
     r = client.get("/inventory/5060")
     assert r.status_code == 200
     assert "items" in r.json()
+
+
+def test_ingredient_search():
+    r = client.get("/ingredients/search", params={"q": "app", "limit": 5})
+    assert r.status_code == 200
+    data = r.json()
+    matches = data["matches"]
+    assert len(matches) <= 5
+    assert "apple" in matches  # prefix match ranked in
+    assert all("app" in m.lower() for m in matches)
+
+
+def test_ingredient_search_empty_query():
+    r = client.get("/ingredients/search", params={"q": ""})
+    assert r.status_code == 200
+    assert r.json()["matches"] == []

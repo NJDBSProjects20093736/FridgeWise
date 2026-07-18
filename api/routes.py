@@ -24,7 +24,7 @@ from api.schemas import (
     UserProfile,
     UserProfileUpdate,
 )
-from api.services.ingredient_service import find_similar_ingredients
+from api.services.ingredient_service import find_similar_ingredients, search_ingredient_names
 from api.services.recipe_catalog import recipe_to_dict, search_recipes
 from api.services.recommender_service import build_recipe_explanation, recommend_for_rescue, recommend_for_user
 from api.services.model_registry import registry
@@ -172,7 +172,7 @@ def get_user_recommendations(
     k: int = 10,
     model: str = "hybrid",
     use_expiry: bool = True,
-    use_context: bool = True,
+    use_context: bool = False,
     mood: str = "comfort",
     candidate_barcode: str | None = None,
     candidate_days_to_expiry: int | None = None,
@@ -344,6 +344,13 @@ def get_product_v2(barcode: str) -> ProductResponse:
 
 
 # --- Ingredients ---
+
+
+@router.get("/ingredients/search")
+def search_ingredients(q: str = "", limit: int = 10) -> dict:
+    """Type-ahead suggestions from the known ingredient vocabulary."""
+    matches = search_ingredient_names(q, limit=max(1, min(limit, 25)))
+    return {"query": q, "matches": matches}
 
 
 @router.get("/ingredients/{name}/similar")
