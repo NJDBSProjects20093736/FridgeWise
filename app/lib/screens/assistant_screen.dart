@@ -247,10 +247,8 @@ class _AssistantScreenState extends State<AssistantScreen> with TickerProviderSt
           );
         });
       } else if (q.contains('step') || q.contains('walk me') || q.contains('how do i cook') || q.contains('instructions')) {
-        final recipe = _activeRecipe ??
-            (state.recommendations.isEmpty ? null : state.recommendations.first);
-        if (recipe == null) {
-          if (state.recommendations.isEmpty) await state.loadRecommendations();
+        if (_activeRecipe == null && state.recommendations.isEmpty) {
+          await state.loadRecommendations();
         }
         final r = _activeRecipe ??
             (state.recommendations.isNotEmpty ? state.recommendations.first : null);
@@ -263,20 +261,15 @@ class _AssistantScreenState extends State<AssistantScreen> with TickerProviderSt
           });
         } else {
           _activeRecipe = r;
-          final steps = _syntheticSteps(r);
+          final steps = await _stepsForRecipe(state, r);
+          if (!mounted) return;
           setState(() {
             _msgs.add(_ChatMsg(
-              'Cooking guide for ${r.name}. Check steps off as you go.',
+              'Cooking guide for ${r.name}. Tap the timer on any step that needs one, and check steps off as you go.',
               fromUser: false,
               kind: _MsgKind.steps,
               steps: steps,
               recipes: [r],
-            ));
-            _msgs.add(_ChatMsg(
-              'Need a timer while something simmers?',
-              fromUser: false,
-              kind: _MsgKind.timerOffer,
-              timerMinutes: r.prepTimeMinutes > 0 && r.prepTimeMinutes <= 45 ? (r.prepTimeMinutes ~/ 2).clamp(5, 20) : 10,
             ));
           });
         }
@@ -348,18 +341,59 @@ class _AssistantScreenState extends State<AssistantScreen> with TickerProviderSt
     }
   }
 
+  /// Fetches the recipe's real cooking instructions from the API and tidies
+  /// them for display. Falls back to a generic guide only if the recipe has no
+  /// steps available.
+  Future<List<String>> _stepsForRecipe(AppState state, RecipeRecommendation r) async {
+    try {
+      final detail = await state.repo.getRecipe(r.recipeId);
+      final raw = (detail['steps'] as List?)
+              ?.map((e) => e.toString().trim())
+              .where((s) => s.isNotEmpty)
+              .toList() ??
+          const <String>[];
+      if (raw.isNotEmpty) return raw.map(_tidyStep).toList();
+    } catch (_) {
+      // Network/parse failure — fall through to the generic guide below.
+    }
+    return _syntheticSteps(r);
+  }
+
+  /// Capitalises the first letter so lowercase dataset steps read cleanly.
+  String _tidyStep(String s) {
+    final t = s.trim();
+    if (t.isEmpty) return t;
+    return t[0].toUpperCase() + t.substring(1);
+  }
+
   List<String> _syntheticSteps(RecipeRecommendation r) {
-    final missingHint = r.missing.isEmpty
+    final missing = _cleanIngredients(r.missing);
+    final expiring = _cleanIngredients(r.expiringUsed);
+    final missingHint = missing.isEmpty
         ? 'Confirm you have everything from the fridge.'
-        : 'Gather missing items if needed: ${r.missing.take(3).join(', ')}.';
+        : 'Gather missing items if needed: ${missing.take(3).join(', ')}.';
     return [
       'Wash hands and clear a clean workspace.',
       missingHint,
-      if (r.expiringUsed.isNotEmpty) 'Prioritise: ${r.expiringUsed.take(3).join(', ')} (expiring soon).',
+      if (expiring.isNotEmpty) 'Prioritise: ${expiring.take(3).join(', ')} (expiring soon).',
       'Prep vegetables and proteins — keep scraps for stock if useful.',
       'Cook the main components (about ${r.prepTimeMinutes > 0 ? r.prepTimeMinutes : 25} minutes total).',
       'Taste, season, and plate. Save leftovers for tomorrow if you like batch cooking.',
     ];
+  }
+
+  /// Tidies an ingredient-token list for display: trims, collapses internal
+  /// whitespace, and removes case-insensitive duplicates while keeping order
+  /// (so "garlic powder, garlic powder" collapses to one entry).
+  List<String> _cleanIngredients(List<String> items) {
+    final seen = <String>{};
+    final out = <String>[];
+    for (final raw in items) {
+      final t = raw.trim().replaceAll(RegExp(r'\s+'), ' ');
+      if (t.isEmpty) continue;
+      if (seen.add(t.toLowerCase())) out.add(t);
+    }
+    return out;
   }
 
   void _startTimer(int minutes) {
@@ -914,6 +948,7 @@ class _MessageBlock extends StatelessWidget {
                     steps: msg.steps,
                     checked: msg.checkedSteps,
                     onToggle: (i) => onToggleStep(msgIndex, i),
+                    onStartTimer: onStartTimer,
                   ),
                 ],
                 if (msg.kind == _MsgKind.timerOffer) ...[
@@ -1285,15 +1320,42 @@ class _ExpiryCard extends StatelessWidget {
   }
 }
 
+/// Returns a timer length in minutes if a cooking step implies a duration
+/// (e.g. "simmer for 10 minutes", "bake 5 to 7 mins", "rest 1 hour"), or null
+/// when the step has no time worth timing (e.g. "toss to coat").
+int? stepTimerMinutes(String step) {
+  final s = step.toLowerCase();
+  // Range first ("5 to 7 minutes", "5-7 min") — use the upper bound.
+  final range = RegExp(r'(\d+)\s*(?:to|-|–|—)\s*(\d+)\s*(?:minute|minutes|min|mins)\b')
+      .firstMatch(s);
+  if (range != null) {
+    final hi = int.tryParse(range.group(2)!) ?? int.tryParse(range.group(1)!);
+    if (hi != null) return hi.clamp(1, 180);
+  }
+  final mins = RegExp(r'(\d+)\s*(?:minute|minutes|min|mins)\b').firstMatch(s);
+  if (mins != null) {
+    final m = int.tryParse(mins.group(1)!);
+    if (m != null) return m.clamp(1, 180);
+  }
+  final hours = RegExp(r'(\d+)\s*(?:hour|hours|hr|hrs)\b').firstMatch(s);
+  if (hours != null) {
+    final h = int.tryParse(hours.group(1)!);
+    if (h != null) return (h * 60).clamp(1, 600);
+  }
+  return null;
+}
+
 class _StepsChecklist extends StatelessWidget {
   final List<String> steps;
   final Set<int> checked;
   final ValueChanged<int> onToggle;
+  final ValueChanged<int> onStartTimer;
 
   const _StepsChecklist({
     required this.steps,
     required this.checked,
     required this.onToggle,
+    required this.onStartTimer,
   });
 
   @override
@@ -1330,13 +1392,26 @@ class _StepsChecklist extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          for (var i = 0; i < steps.length; i++)
-            CheckboxListTile(
+          ...List.generate(steps.length, (i) {
+            final mins = stepTimerMinutes(steps[i]);
+            return CheckboxListTile(
               dense: true,
               contentPadding: EdgeInsets.zero,
               value: checked.contains(i),
               onChanged: (_) => onToggle(i),
               controlAffinity: ListTileControlAffinity.leading,
+              secondary: mins == null
+                  ? null
+                  : TextButton.icon(
+                      onPressed: () => onStartTimer(mins),
+                      icon: const Icon(Icons.timer_outlined, size: 16),
+                      label: Text('$mins min'),
+                      style: TextButton.styleFrom(
+                        visualDensity: VisualDensity.compact,
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        foregroundColor: AppTheme.primaryGreen,
+                      ),
+                    ),
               title: Text(
                 steps[i],
                 style: TextStyle(
@@ -1346,7 +1421,8 @@ class _StepsChecklist extends StatelessWidget {
                   fontSize: 13.5,
                 ),
               ),
-            ),
+            );
+          }),
         ],
       ),
     );
