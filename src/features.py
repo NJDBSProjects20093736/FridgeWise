@@ -1,7 +1,7 @@
 """
 Feature scoring: ingredient match, expiry priority, nutrition.
 
-Phase 1+: implement match_score, expiry_priority_score, nutrition_score.
+Feature helpers: match score, expiry priority, nutrition score.
 """
 
 from __future__ import annotations

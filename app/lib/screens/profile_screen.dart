@@ -54,7 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Update your diet, allergies, and preferences anytime.',
+                  'Set diet, allergies, waste priority, likes/dislikes, and cooking constraints — recommendations update from this.',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted),
                 ),
                 const SizedBox(height: 20),

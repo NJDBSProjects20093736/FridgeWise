@@ -1,4 +1,4 @@
-"""Load Phase 1 clean data for recommender training and inference."""
+"""Load cleaned tables for recommender training and inference."""
 
 from __future__ import annotations
 

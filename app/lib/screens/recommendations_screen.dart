@@ -6,6 +6,7 @@ import '../providers/app_state.dart';
 import '../theme/app_theme.dart';
 import '../widgets/chip_selectors.dart';
 import '../widgets/empty_state.dart';
+import '../widgets/home_greeting_header.dart';
 import '../widgets/loading_state.dart';
 import '../widgets/recipe_card.dart';
 import '../widgets/responsive_container.dart';
@@ -27,8 +28,10 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AppState>().loadRecommendations();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final state = context.read<AppState>();
+      if (state.fridge.isEmpty) await state.loadFridge();
+      await state.loadRecommendations();
     });
   }
 
@@ -43,7 +46,10 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
     if (q.length < 2) return setState(() => _searchHits = []);
     setState(() => _searching = true);
     final state = context.read<AppState>();
-    final hits = await state.repo.searchRecipes(q, state.profile);
+    final hits = await state.repo.searchRecipes(q, state.profile.copyWith(
+      maxCookMinutes: state.sessionMaxCookMinutes,
+      mealTypes: state.sessionMealTypes,
+    ));
     if (mounted) setState(() { _searchHits = hits; _searching = false; });
   }
 
@@ -75,21 +81,25 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<AppState>();
-    final list = state.filteredRecommendations;
+    final q = state.searchQuery.trim();
+    final useNl = q.contains(' ') ||
+        q.contains('under') ||
+        q.contains('healthy') ||
+        q.contains('quick') ||
+        q.contains('minutes');
+    final list = useNl ? state.searchNaturalLanguage(q) : state.filteredRecommendations;
 
     return RefreshIndicator(
       color: AppTheme.glacier,
-      onRefresh: state.loadRecommendations,
+      onRefresh: () async {
+        await state.loadFridge();
+        await state.loadRecommendations();
+      },
       child: ResponsiveContainer(
         child: ListView(
-          padding: const EdgeInsets.only(bottom: 32),
+          padding: AppTheme.pagePadding(context).copyWith(bottom: 100),
           children: [
-            Text('Recipes for you', style: Theme.of(context).textTheme.headlineMedium),
-            const SizedBox(height: 6),
-            Text(
-              'Smart matches based on what\'s in your fridge — use expiring items first.',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.textMuted),
-            ),
+            HomeGreetingHeader(state: state),
             const SizedBox(height: 20),
             HeroCard(
               title: 'AI recommendations',
@@ -103,7 +113,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
                 initialValue: state.model,
                 onSelected: state.setModel,
                 tooltip: 'Tune model',
-                icon: const Icon(Icons.tune, color: Colors.white),
+                icon: Icon(Icons.tune, color: AppTheme.glacier),
                 itemBuilder: (_) => const [
                   PopupMenuItem(value: 'hybrid', child: Text('Hybrid (AI)')),
                   PopupMenuItem(value: 'content', child: Text('Content-based')),
@@ -119,6 +129,47 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text('This meal', style: Theme.of(context).textTheme.titleSmall),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Filters for this recommendation only — not saved to your profile.',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    const SizedBox(height: 10),
+                    Text('Meal type', style: Theme.of(context).textTheme.labelLarge),
+                    const SizedBox(height: 6),
+                    ProfileChipSelector(
+                      options: UserProfile.mealTypeOptions,
+                      selected: state.sessionMealTypes.toSet(),
+                      onToggle: state.toggleSessionMealType,
+                    ),
+                    const SizedBox(height: 12),
+                    Text('Max cooking time', style: Theme.of(context).textTheme.labelLarge),
+                    const SizedBox(height: 6),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: UserProfile.cookTimeOptions.entries.map((e) {
+                        final selected = state.sessionMaxCookMinutes == e.key;
+                        return ChoiceChip(
+                          label: Text(e.value),
+                          selected: selected,
+                          onSelected: (_) => state.setSessionMaxCookMinutes(e.key),
+                        );
+                      }).toList(),
+                    ),
+                    if (state.sessionMealTypes.isNotEmpty || state.sessionMaxCookMinutes > 0) ...[
+                      const SizedBox(height: 8),
+                      TextButton(
+                        onPressed: state.clearSessionMealFilters,
+                        child: const Text('Clear meal filters'),
+                      ),
+                    ],
+                    const SizedBox(height: 12),
+                    const Divider(height: 1),
+                    const SizedBox(height: 12),
+                    Text('Mood', style: Theme.of(context).textTheme.labelLarge),
+                    const SizedBox(height: 6),
                     MoodChipRow(
                       options: UserProfile.moodOptions,
                       selected: state.profile.mood,
@@ -133,7 +184,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
                     ),
                     _toggleRow(
                       'Use context boost',
-                      'Season & weekday re-ranking',
+                      'Season and weekday re-ranking (optional)',
                       state.useContext,
                       state.toggleContext,
                     ),
@@ -148,7 +199,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
                 child: TextField(
                   controller: _searchCtrl,
                   decoration: InputDecoration(
-                    hintText: 'Search recipes or ingredients…',
+                    hintText: 'Try “healthy dinner under 20 minutes”…',
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.search, color: AppTheme.textMuted),
                     suffixIcon: _searching

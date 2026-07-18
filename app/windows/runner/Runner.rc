@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.fridgewise" "\0"
-            VALUE "FileDescription", "thrifty_chef" "\0"
+            VALUE "CompanyName", "com.sudocod" "\0"
+            VALUE "FileDescription", "ThriftyChef" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "thrifty_chef" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 com.fridgewise. All rights reserved." "\0"
+            VALUE "InternalName", "ThriftyChef" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 com.sudocod. All rights reserved." "\0"
             VALUE "OriginalFilename", "thrifty_chef.exe" "\0"
-            VALUE "ProductName", "thrifty_chef" "\0"
+            VALUE "ProductName", "ThriftyChef" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -366,17 +366,32 @@ def similar_ingredients(name: str, user_id: int = 5060) -> dict:
 
 @router.post("/recommend", response_model=RecommendResponse)
 def recommend(body: RecommendRequest) -> RecommendResponse:
-    mem_store.put_profile(
-        body.user_id,
-        {
-            "dietary_type": body.dietary_type,
-            "allergies": body.allergens,
-            "nutrition_prefs": body.nutrition_prefs,
-            "preferred_cuisines": body.preferred_cuisines,
-            "openness_to_new_cuisines": body.openness_to_new_cuisines,
-            "mood": body.mood,
-        },
-    )
+    profile_data = {
+        "dietary_type": body.dietary_type,
+        "allergies": body.allergens,
+        "nutrition_prefs": body.nutrition_prefs,
+        "preferred_cuisines": body.preferred_cuisines,
+        "openness_to_new_cuisines": body.openness_to_new_cuisines,
+        "mood": body.mood,
+        "food_waste_priority": body.food_waste_priority,
+        "cooking_skill": body.cooking_skill,
+        "max_cook_minutes": body.max_cook_minutes,
+        "meal_types": body.meal_types,
+        "budget": body.budget,
+        "kitchen_equipment": body.kitchen_equipment,
+        "health_goals": body.health_goals,
+        "liked_ingredients": body.liked_ingredients,
+        "disliked_ingredients": body.disliked_ingredients,
+        "shopping_preference": body.shopping_preference,
+        "leftover_preference": body.leftover_preference,
+        "spice_level": body.spice_level,
+        "servings": body.servings,
+        "cooking_methods": body.cooking_methods,
+        "sustainability_prefs": body.sustainability_prefs,
+        "favourite_categories": body.favourite_categories,
+        "ai_surprise": body.ai_surprise,
+    }
+    mem_store.put_profile(body.user_id, {k: v for k, v in profile_data.items() if v is not None})
     payload = recommend_for_user(
         body.user_id,
         k=body.k,
@@ -388,6 +403,7 @@ def recommend(body: RecommendRequest) -> RecommendResponse:
         preferred_cuisines=body.preferred_cuisines,
         openness_to_new_cuisines=body.openness_to_new_cuisines,
         mood=body.mood,
+        profile_overrides=profile_data,
         use_expiry=body.use_expiry,
         use_context=body.use_context,
     )

@@ -370,6 +370,39 @@ Visual overview: `deploy/ThriftyChef_Screen_Set.png`
 
 ---
 
+## 19. Clustering, case-based retrieval, and SHAP
+
+The ThriftyChef API enriches **Why recommended** bullets with lecture topics — no UI changes required. Open any recipe detail card to see the extra lines.
+
+| Technique | Where it appears | What you see |
+|-----------|------------------|--------------|
+| **K-Means clustering** | Cold-start users | `K-Means cluster N: grouped with similar taste profiles` |
+| **Case-based reasoning** | All users with fridge items | `Case-based: similar fridge (...) matched Case X` |
+| **Counterfactual** | When recipe has missing ingredients | `Counterfactual: adding X could raise case-match` |
+| **SHAP (bonus)** | Recipe explanation endpoint | `SHAP explainability — top drivers` with top-3 features |
+
+### How to demo in the app
+
+1. Start API + web app (Section 1).
+2. Complete onboarding with cuisine + dietary preferences (cold-start profile).
+3. Add fridge items on the **Fridge** tab.
+4. Open a recipe from **Recipes** → scroll to **Why recommended**.
+5. For API-only check: `GET /recipes/{recipe_id}/explanation?user_id=5060` at http://127.0.0.1:8000/docs
+
+### Run offline evaluation
+
+```powershell
+cd "D:\DBS - Sem 2\RC\Fridge-Wise"
+.\.venv\Scripts\pip.exe install shap
+.\.venv\Scripts\python.exe scripts\run_lecture_extensions_eval.py
+```
+
+Notebook: `notebooks/09_lecture_extensions_clustering_casebased_shap.ipynb`
+
+Source modules: `src/models/cold_start_clustering.py`, `case_based.py`, `explainability.py`
+
+---
+
 ## 18. UI reference
 
 Full UI changelog: `app/UI_CHANGELOG.md`

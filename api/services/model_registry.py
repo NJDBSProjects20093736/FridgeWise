@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from pathlib import Path
 
 from api.config import get_settings
@@ -10,6 +11,8 @@ from src.models.collaborative import CollaborativeRecommender
 from src.models.content_based import ContentBasedRecommender
 from src.models.popularity import PopularityRecommender
 from src.recommender import HybridRecommender
+
+logger = logging.getLogger(__name__)
 
 
 class ModelRegistry:
@@ -41,11 +44,23 @@ class ModelRegistry:
                 self.data, test_size=0.0
             )
             self.hybrid = HybridRecommender().fit(self.data, self.cf, self.content)
-            artifacts.mkdir(parents=True, exist_ok=True)
-            self.popularity.save(artifacts / "popularity.pkl")
-            self.content.save(artifacts / "content_based.pkl")
-            self.cf.save(artifacts / "svd.pkl")
-            self.hybrid.save(artifacts / "hybrid.pkl")
+            try:
+                artifacts.mkdir(parents=True, exist_ok=True)
+                self.popularity.save(artifacts / "popularity.pkl")
+                self.content.save(artifacts / "content_based.pkl")
+                self.cf.save(artifacts / "svd.pkl")
+                self.hybrid.save(artifacts / "hybrid.pkl")
+            except OSError as exc:
+                logger.warning(
+                    "Model artifacts directory is not writable; continuing with in-memory models: %s",
+                    exc,
+                )
+
+        # Context was not beneficial in the recorded offline ablation.  Keep it
+        # as an explicit serving-time option instead of allowing stale pickled
+        # model settings to apply it by default.
+        assert self.hybrid is not None
+        self.hybrid.context_max_boost = 0.0
 
         # Context was not beneficial in the recorded offline ablation.  Keep it
         # as an explicit serving-time option instead of allowing stale pickled

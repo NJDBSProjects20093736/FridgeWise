@@ -23,9 +23,10 @@ RUN pip install --upgrade pip \
 COPY api ./api
 COPY src ./src
 COPY assets ./assets
+COPY data/clean ./data/clean
 COPY scripts/run_api.py ./scripts/run_api.py
 
-RUN mkdir -p data/clean src/models/artifacts
+RUN mkdir -p src/models/artifacts
 
 EXPOSE 8000
 

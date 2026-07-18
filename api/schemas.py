@@ -13,6 +13,23 @@ class UserProfile(BaseModel):
     preferred_cuisines: list[str] = Field(default_factory=list)
     openness_to_new_cuisines: float = 0.5
     mood: str = "comfort"
+    food_waste_priority: float = 0.7
+    cooking_skill: str = "intermediate"
+    max_cook_minutes: int = 0
+    meal_types: list[str] = Field(default_factory=list)
+    budget: str = "normal"
+    kitchen_equipment: list[str] = Field(default_factory=list)
+    health_goals: list[str] = Field(default_factory=list)
+    liked_ingredients: list[str] = Field(default_factory=list)
+    disliked_ingredients: list[str] = Field(default_factory=list)
+    shopping_preference: str = "minimal"
+    leftover_preference: str = "occasionally"
+    spice_level: float = 0.35
+    servings: str = "2"
+    cooking_methods: list[str] = Field(default_factory=list)
+    sustainability_prefs: list[str] = Field(default_factory=list)
+    favourite_categories: list[str] = Field(default_factory=list)
+    ai_surprise: float = 0.4
 
 
 class UserProfileUpdate(BaseModel):
@@ -22,20 +39,57 @@ class UserProfileUpdate(BaseModel):
     preferred_cuisines: list[str] | None = None
     openness_to_new_cuisines: float | None = None
     mood: str | None = None
+    food_waste_priority: float | None = None
+    cooking_skill: str | None = None
+    max_cook_minutes: int | None = None
+    meal_types: list[str] | None = None
+    budget: str | None = None
+    kitchen_equipment: list[str] | None = None
+    health_goals: list[str] | None = None
+    liked_ingredients: list[str] | None = None
+    disliked_ingredients: list[str] | None = None
+    shopping_preference: str | None = None
+    leftover_preference: str | None = None
+    spice_level: float | None = None
+    servings: str | None = None
+    cooking_methods: list[str] | None = None
+    sustainability_prefs: list[str] | None = None
+    favourite_categories: list[str] | None = None
+    ai_surprise: float | None = None
 
 
 class RecommendRequest(BaseModel):
     user_id: int = Field(default=5060, description="Legacy Food.com / demo user id")
     fridge_ingredients: list[str] = Field(default_factory=list)
-    dietary_type: str = Field(default="none", description="none, vegetarian, vegan, halal")
+    dietary_type: str = Field(
+        default="none",
+        description="none, vegetarian, vegan, halal, pescatarian, keto, ...",
+    )
     allergens: list[str] = Field(default_factory=list)
     nutrition_prefs: list[str] = Field(
         default_factory=list,
-        description="Optional: low_sugar, low_fat, gluten_free, high_protein",
+        description="Optional nutrition preference keys",
     )
     preferred_cuisines: list[str] = Field(default_factory=list)
     openness_to_new_cuisines: float = 0.5
     mood: str = "comfort"
+    food_waste_priority: float | None = None
+    cooking_skill: str | None = None
+    max_cook_minutes: int | None = None
+    meal_types: list[str] | None = None
+    budget: str | None = None
+    kitchen_equipment: list[str] | None = None
+    health_goals: list[str] | None = None
+    liked_ingredients: list[str] | None = None
+    disliked_ingredients: list[str] | None = None
+    shopping_preference: str | None = None
+    leftover_preference: str | None = None
+    spice_level: float | None = None
+    servings: str | None = None
+    cooking_methods: list[str] | None = None
+    sustainability_prefs: list[str] | None = None
+    favourite_categories: list[str] | None = None
+    ai_surprise: float | None = None
     use_expiry: bool = True
     use_context: bool = False
     k: int = Field(default=10, ge=1, le=50)

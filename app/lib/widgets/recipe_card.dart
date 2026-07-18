@@ -30,7 +30,7 @@ class _FullRecipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final ingredients = FoodImagery.ingredientHints(recipe.name, recipe.expiringUsed);
     final width = MediaQuery.sizeOf(context).width;
-    final imageHeight = width >= 900 ? 190.0 : (width >= 480 ? 170.0 : 150.0);
+    final imageHeight = width >= 900 ? 210.0 : (width >= 480 ? 180.0 : 160.0);
     final narrow = width < 420;
 
     return Padding(

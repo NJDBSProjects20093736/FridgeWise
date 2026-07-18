@@ -38,3 +38,6 @@ openpyxl>=3.1
 
 # Testing
 pytest>=8.0
+
+# Explainability (lecture extension — SHAP bonus)
+shap>=0.44
