@@ -261,6 +261,24 @@ class ThriftyChefRepository {
     return (data['recipes'] as List<dynamic>).cast<Map<String, dynamic>>();
   }
 
+  /// Type-ahead suggestions from the backend ingredient vocabulary.
+  /// Returns an empty list on any failure so the field degrades to free text.
+  Future<List<String>> searchIngredientNames(String query, {int limit = 10}) async {
+    final q = query.trim();
+    if (q.isEmpty) return [];
+    try {
+      final uri = Uri.parse('$baseUrl/ingredients/search').replace(
+        queryParameters: {'q': q, 'limit': '$limit'},
+      );
+      final res = await http.get(uri).timeout(const Duration(seconds: 5));
+      if (res.statusCode == 200) {
+        final data = jsonDecode(res.body) as Map<String, dynamic>;
+        return (data['matches'] as List<dynamic>).map((e) => e.toString()).toList();
+      }
+    } catch (_) {}
+    return [];
+  }
+
   Future<List<Map<String, dynamic>>> similarIngredients(String name, int userId) async {
     try {
       final res = await http.get(Uri.parse('$baseUrl/ingredients/$name/similar?user_id=$userId'));
