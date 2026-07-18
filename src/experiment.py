@@ -1,4 +1,4 @@
-"""Single source of truth for the CA One offline experiments."""
+"""Shared offline experiment settings for reproducible evaluation."""
 
 from __future__ import annotations
 
@@ -6,10 +6,10 @@ from dataclasses import asdict, dataclass
 
 
 @dataclass(frozen=True)
-class CAOneExperimentConfig:
-    """Fixed, reportable settings for the submitted evaluation run."""
+class ExperimentConfig:
+    """Fixed settings for a reportable evaluation run."""
 
-    name: str = "ca_one_v1"
+    name: str = "thriftychef_v1"
     random_state: int = 1103
     k: int = 10
     max_eval_users: int = 500
@@ -23,5 +23,8 @@ class CAOneExperimentConfig:
         return asdict(self)
 
 
-CA_ONE_CONFIG = CAOneExperimentConfig()
+EXPERIMENT_CONFIG = ExperimentConfig()
 
+# Back-compat aliases used by older scripts/notebooks
+CAOneExperimentConfig = ExperimentConfig
+CA_ONE_CONFIG = EXPERIMENT_CONFIG

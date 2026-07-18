@@ -28,6 +28,10 @@ class HybridRecommender:
         context_max_boost: float = 0.0,
         popularity_weight: float = 0.6,
         cold_popularity_weight: float = 0.2,
+        use_expiry: bool = True,
+        use_nutrition: bool = True,
+        use_cf: bool = True,
+        use_content_match: bool = True,
     ) -> None:
         self.candidate_pool = candidate_pool
         # The context ablation is retained as an optional experiment. It is
@@ -42,6 +46,10 @@ class HybridRecommender:
         # the whole value proposition, so popularity stays a weak secondary
         # prior — otherwise cold-start ingredient match collapses.
         self.cold_popularity_weight = cold_popularity_weight
+        self.use_expiry = use_expiry
+        self.use_nutrition = use_nutrition
+        self.use_cf = use_cf
+        self.use_content_match = use_content_match
         self.cf: CollaborativeRecommender | None = None
         self.content: ContentBasedRecommender | None = None
         self.popularity: PopularityRecommender | None = None
@@ -120,17 +128,40 @@ class HybridRecommender:
             expiry_rows = fridge_df[fridge_df["cleaned_ingredient_name"].isin(matched)]
             expiry = float(expiry_rows["expiry_priority_score"].max()) if len(expiry_rows) else 0.2
         else:
-            match = 0.0
+            # Fall back to content preference ingredients when no fridge row exists
+            # (typical Food.com eval user).
+            pref = set()
+            if self.content is not None:
+                pref = getattr(self.content, "user_pref_ings", {}).get(user_id, set())
+            match = (
+                ingredient_match_score(len(pref & recipe_ings), len(recipe_ings))
+                if pref
+                else 0.0
+            )
             expiry = 0.2
 
+        if not self.use_content_match:
+            match = 0.0
+        if not self.use_expiry:
+            expiry = 0.0
+
         nutrition = float(self.data.nutrition_by_recipe.get(recipe_id, 0.5))
+        if not self.use_nutrition:
+            nutrition = 0.0
+
         hist = self._user_history_for(user_id, history)
         cold = self._is_cold_start(user_id, hist)
-        pred_norm = 0.0 if cold else self.cf.predict_rating_norm(user_id, recipe_id)
+        if cold or not self.use_cf:
+            pred_norm = 0.0
+        else:
+            pred_norm = self.cf.predict_rating_norm(user_id, recipe_id)
 
-        base = hybrid_score(match, pred_norm, expiry, nutrition, cold_start=cold)
-        # Blend a popularity relevance prior with the fridge/CF utility score.
-        # Cold users lean on the fridge signal, warm users on popularity + CF.
+        # Ablating CF for warm users keeps warm mixture weights but zeros the CF term.
+        if not self.use_cf and not cold:
+            base = 0.35 * match + 0.20 * expiry + 0.15 * nutrition
+        else:
+            base = hybrid_score(match, pred_norm, expiry, nutrition, cold_start=cold)
+
         pop = self.pop_norm.get(recipe_id, 0.0)
         w = self.cold_popularity_weight if cold else self.popularity_weight
         score = w * pop + (1.0 - w) * base
@@ -153,12 +184,16 @@ class HybridRecommender:
         seen = self._user_history_for(user_id, history_override)
         if not exclude_seen:
             seen = set()
-        content_recs = self.content.recommend(
-            user_id, k=self.candidate_pool, exclude_seen=exclude_seen
+        content_recs = (
+            self.content.recommend(user_id, k=self.candidate_pool, exclude_seen=exclude_seen)
+            if self.use_content_match and self.content is not None
+            else []
         )
-        cf_recs = self.cf.recommend(
-            user_id, k=min(200, self.candidate_pool), exclude_seen=exclude_seen
-        ) if self.cf else []
+        cf_recs = (
+            self.cf.recommend(user_id, k=min(200, self.candidate_pool), exclude_seen=exclude_seen)
+            if self.use_cf and self.cf is not None
+            else []
+        )
         # Popular recipes are strong relevance candidates on sparse data; include
         # them so the popularity prior can actually surface them.
         pop_recs = self.popularity.recommend(

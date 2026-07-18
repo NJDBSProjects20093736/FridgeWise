@@ -1,8 +1,8 @@
 """
-Generative AI comparative analysis for ThriftyChef (CA Part 3).
+Generative AI comparative analysis for ThriftyChef.
 
-Compares traditional recommenders vs generative approaches (VAE, GAN, LLM)
-in the context of food-waste recipe recommendation.
+Compares traditional recommenders with generative approaches (VAE, GAN, LLM)
+for food-waste recipe recommendation.
 """
 
 from __future__ import annotations
@@ -14,19 +14,24 @@ from dataclasses import dataclass
 class GenAIApproach:
     name: str
     type: str
-    fit_for_fridgewise: str
+    role: str
     pros: list[str]
     cons: list[str]
     implemented: bool
 
+    # Back-compat for older notebooks
+    @property
+    def fit_for_fridgewise(self) -> str:
+        return self.role
+
 
 def genai_comparison_table() -> list[GenAIApproach]:
-    """Structured comparison for report §12."""
+    """Structured comparison of generative vs traditional approaches."""
     return [
         GenAIApproach(
             name="SVD (traditional CF)",
             type="Matrix factorisation",
-            fit_for_fridgewise="Core System 2 — rating prediction",
+            role="Core collaborative rating prediction",
             pros=["Interpretable latent factors", "Fast inference", "Proven on Food.com"],
             cons=["Cold-start for new users", "No ingredient awareness alone"],
             implemented=True,
@@ -34,31 +39,31 @@ def genai_comparison_table() -> list[GenAIApproach]:
         GenAIApproach(
             name="Mult-VAE",
             type="Variational autoencoder",
-            fit_for_fridgewise="Extension — generative user preference model",
-            pros=["Handles sparse data", "Can generate diverse lists", "Research-grade CF"],
-            cons=["Heavy training cost", "Black-box", "Needs GPU for scale"],
+            role="Optional generative collaborative model (future)",
+            pros=["Handles sparse data", "Can generate diverse lists", "Strong CF research baseline"],
+            cons=["Heavy training cost", "Less interpretable", "Needs GPU for scale"],
             implemented=False,
         ),
         GenAIApproach(
             name="Recipe GAN",
             type="Generative adversarial network",
-            fit_for_fridgewise="Creative leftover combinations (research only)",
+            role="Creative leftover combinations (discussion only)",
             pros=["Novel recipe text/ingredient combos", "Creative waste reduction ideas"],
             cons=["Hallucinated ingredients", "Allergen risk", "Hard to evaluate offline"],
             implemented=False,
         ),
         GenAIApproach(
-            name="LLM explanations (Ollama/GPT)",
+            name="LLM explanations",
             type="Large language model",
-            fit_for_fridgewise="Natural-language 'why recommended' + substitutions",
+            role="Natural-language explanations and substitutions (optional UX)",
             pros=["User-friendly explanations", "Substitution suggestions", "Adapts to context"],
-            cons=["Nutrition misinformation risk", "Latency", "Needs validation against DB"],
+            cons=["Nutrition misinformation risk", "Latency", "Needs validation against structured fields"],
             implemented=False,
         ),
         GenAIApproach(
             name="Template explanations (ThriftyChef)",
             type="Rule-based / structured",
-            fit_for_fridgewise="Production default in API",
+            role="Default production explanations in the API",
             pros=["Reliable", "No hallucination", "Fast"],
             cons=["Less conversational", "Fixed phrasing"],
             implemented=True,
@@ -67,18 +72,18 @@ def genai_comparison_table() -> list[GenAIApproach]:
 
 
 def recommend_genai_strategy() -> dict[str, str]:
-    """Project recommendation for CA and beyond."""
+    """Recommended GenAI posture for ThriftyChef."""
     return {
-        "core_ca": "Traditional hybrid (content + SVD + rules) meets all rubric requirements.",
-        "extension": "Mult-VAE as optional notebook 05b — compare NDCG vs SVD on same split.",
-        "llm_layer": "Optional Ollama wrapper rewrites template explanations; always validate against structured fields.",
-        "gan": "Discuss only — not recommended for allergen-sensitive food domain without human review.",
-        "responsible_ai": "Hard filters (allergens, diet) must remain non-generative; GenAI augments UX only.",
+        "core": "Keep the traditional hybrid (content + SVD + rules) as the ranking engine.",
+        "future_model": "Mult-VAE is a possible future comparison on the same evaluation split.",
+        "llm_layer": "Optional LLM text may rewrite template explanations; always validate against structured fields.",
+        "gan": "Discussion only — not recommended for allergen-sensitive food domains without human review.",
+        "safety": "Hard filters (allergens, diet) must remain deterministic; generative layers augment UX only.",
     }
 
 
 def sample_llm_prompt(recipe_name: str, match_pct: float, expiring: list[str]) -> str:
-    """Example prompt for optional local LLM (Ollama) — not called by default."""
+    """Example constrained prompt for an optional local LLM — not called by default."""
     exp = ", ".join(expiring[:3]) if expiring else "none"
     return (
         f"Explain in 2 sentences why '{recipe_name}' is recommended. "

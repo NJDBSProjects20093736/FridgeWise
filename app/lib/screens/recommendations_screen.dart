@@ -46,7 +46,10 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
     if (q.length < 2) return setState(() => _searchHits = []);
     setState(() => _searching = true);
     final state = context.read<AppState>();
-    final hits = await state.repo.searchRecipes(q, state.profile);
+    final hits = await state.repo.searchRecipes(q, state.profile.copyWith(
+      maxCookMinutes: state.sessionMaxCookMinutes,
+      mealTypes: state.sessionMealTypes,
+    ));
     if (mounted) setState(() { _searchHits = hits; _searching = false; });
   }
 
@@ -126,6 +129,47 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text('This meal', style: Theme.of(context).textTheme.titleSmall),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Filters for this recommendation only — not saved to your profile.',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    const SizedBox(height: 10),
+                    Text('Meal type', style: Theme.of(context).textTheme.labelLarge),
+                    const SizedBox(height: 6),
+                    ProfileChipSelector(
+                      options: UserProfile.mealTypeOptions,
+                      selected: state.sessionMealTypes.toSet(),
+                      onToggle: state.toggleSessionMealType,
+                    ),
+                    const SizedBox(height: 12),
+                    Text('Max cooking time', style: Theme.of(context).textTheme.labelLarge),
+                    const SizedBox(height: 6),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: UserProfile.cookTimeOptions.entries.map((e) {
+                        final selected = state.sessionMaxCookMinutes == e.key;
+                        return ChoiceChip(
+                          label: Text(e.value),
+                          selected: selected,
+                          onSelected: (_) => state.setSessionMaxCookMinutes(e.key),
+                        );
+                      }).toList(),
+                    ),
+                    if (state.sessionMealTypes.isNotEmpty || state.sessionMaxCookMinutes > 0) ...[
+                      const SizedBox(height: 8),
+                      TextButton(
+                        onPressed: state.clearSessionMealFilters,
+                        child: const Text('Clear meal filters'),
+                      ),
+                    ],
+                    const SizedBox(height: 12),
+                    const Divider(height: 1),
+                    const SizedBox(height: 12),
+                    Text('Mood', style: Theme.of(context).textTheme.labelLarge),
+                    const SizedBox(height: 6),
                     MoodChipRow(
                       options: UserProfile.moodOptions,
                       selected: state.profile.mood,
@@ -140,7 +184,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen> {
                     ),
                     _toggleRow(
                       'Use context boost',
-                      'Season & weekday re-ranking',
+                      'Season and weekday re-ranking (optional)',
                       state.useContext,
                       state.toggleContext,
                     ),

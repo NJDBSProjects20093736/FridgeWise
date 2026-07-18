@@ -15,7 +15,7 @@ class UserProfile(BaseModel):
     mood: str = "comfort"
     food_waste_priority: float = 0.7
     cooking_skill: str = "intermediate"
-    max_cook_minutes: int = 45
+    max_cook_minutes: int = 0
     meal_types: list[str] = Field(default_factory=list)
     budget: str = "normal"
     kitchen_equipment: list[str] = Field(default_factory=list)

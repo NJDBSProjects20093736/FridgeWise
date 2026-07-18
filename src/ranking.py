@@ -1,8 +1,4 @@
-"""
-Hybrid ranking: hard filters → hybrid score → context re-rank.
-
-Phase 2.4: main improved recommender.
-"""
+"""Hybrid ranking: hard filters → hybrid score → optional context re-rank."""
 
 from __future__ import annotations
 

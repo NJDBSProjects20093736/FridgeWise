@@ -36,7 +36,7 @@ class UserProfile {
     this.mood = 'comfort',
     this.foodWastePriority = 0.7,
     this.cookingSkill = 'intermediate',
-    this.maxCookMinutes = 45,
+    this.maxCookMinutes = 0, // session filter; 0 = no limit
     this.mealTypes = const [],
     this.budget = 'normal',
     this.kitchenEquipment = const [],
@@ -332,7 +332,7 @@ class UserProfile {
       mood: json['mood'] as String? ?? 'comfort',
       foodWastePriority: (json['food_waste_priority'] as num?)?.toDouble() ?? 0.7,
       cookingSkill: json['cooking_skill'] as String? ?? 'intermediate',
-      maxCookMinutes: (json['max_cook_minutes'] as num?)?.toInt() ?? 45,
+      maxCookMinutes: (json['max_cook_minutes'] as num?)?.toInt() ?? 0,
       mealTypes: _stringList(json['meal_types']),
       budget: json['budget'] as String? ?? 'normal',
       kitchenEquipment: _stringList(json['kitchen_equipment']),

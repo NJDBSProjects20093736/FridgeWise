@@ -35,8 +35,12 @@ class AppState extends ChangeNotifier {
   String contextLabel = '';
   String model = 'hybrid';
   bool useExpiry = true;
-  bool useContext = true;
+  bool useContext = false;
   String searchQuery = '';
+
+  /// Session filters for this recommendation pass (not permanent profile prefs).
+  int sessionMaxCookMinutes = 0; // 0 = no limit
+  List<String> sessionMealTypes = const [];
 
   ScannedProduct? lastScanned;
   RescueResult? lastRescueResult;
@@ -183,6 +187,11 @@ class AppState extends ChangeNotifier {
 
   Future<ProductInfo?> lookupBarcode(String barcode) => repo.lookupProduct(barcode);
 
+  UserProfile get _recommendationProfile => profile.copyWith(
+        maxCookMinutes: sessionMaxCookMinutes,
+        mealTypes: sessionMealTypes,
+      );
+
   Future<void> loadRecommendations() async {
     loading = true;
     error = null;
@@ -190,7 +199,7 @@ class AppState extends ChangeNotifier {
     try {
       final result = await repo.getRecommendations(
         userId: demoUserId,
-        profile: profile,
+        profile: _recommendationProfile,
         model: model,
         useExpiry: useExpiry,
         useContext: useContext,
@@ -230,6 +239,24 @@ class AppState extends ChangeNotifier {
 
   void toggleContext(bool value) {
     useContext = value;
+    loadRecommendations();
+  }
+
+  void setSessionMaxCookMinutes(int minutes) {
+    sessionMaxCookMinutes = minutes;
+    loadRecommendations();
+  }
+
+  void toggleSessionMealType(String mealType) {
+    final next = List<String>.from(sessionMealTypes);
+    next.contains(mealType) ? next.remove(mealType) : next.add(mealType);
+    sessionMealTypes = next;
+    loadRecommendations();
+  }
+
+  void clearSessionMealFilters() {
+    sessionMaxCookMinutes = 0;
+    sessionMealTypes = const [];
     loadRecommendations();
   }
 

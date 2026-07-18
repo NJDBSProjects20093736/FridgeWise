@@ -1,4 +1,4 @@
-"""Phase 4 cold-start evaluation."""
+"""Cold-start evaluation helpers."""
 
 from __future__ import annotations
 
