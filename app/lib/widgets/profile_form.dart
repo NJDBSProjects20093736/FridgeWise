@@ -95,27 +95,7 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'G. Max cooking time',
-          child: _SingleChoiceWrap(
-            options: {
-              for (final e in UserProfile.cookTimeOptions.entries) '${e.key}': e.value,
-            },
-            selected: '${draft.maxCookMinutes}',
-            onChanged: (v) => onChanged(draft.copyWith(maxCookMinutes: int.tryParse(v) ?? 0)),
-          ),
-        ),
-        const SizedBox(height: 14),
-        SectionCard(
-          title: 'H. Meal type',
-          child: ProfileChipSelector(
-            options: UserProfile.mealTypeOptions,
-            selected: draft.mealTypes.toSet(),
-            onToggle: (v) => _toggleList(draft.mealTypes, v, (list) => onChanged(draft.copyWith(mealTypes: list))),
-          ),
-        ),
-        const SizedBox(height: 14),
-        SectionCard(
-          title: 'I. Budget',
+          title: 'G. Budget',
           child: _SingleChoiceWrap(
             options: UserProfile.budgetOptions,
             selected: draft.budget,
@@ -124,7 +104,7 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'J. Servings',
+          title: 'H. Servings',
           child: _SingleChoiceWrap(
             options: {for (final s in UserProfile.servingsOptions) s: s == 'family' ? 'Family size' : s},
             selected: draft.servings,
@@ -133,7 +113,7 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'K. Health goals',
+          title: 'I. Health goals',
           child: ProfileChipSelector(
             options: UserProfile.healthGoalOptions,
             selected: draft.healthGoals.toSet(),
@@ -142,7 +122,7 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'L. Ingredients you love',
+          title: 'J. Ingredients you love',
           helper: 'Recipes with these ingredients rank higher.',
           child: ProfileChipSelector(
             options: UserProfile.loveIngredientOptions,
@@ -156,7 +136,7 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'M. Ingredients to avoid',
+          title: 'K. Ingredients to avoid',
           helper: 'Recipes with these are filtered or ranked lower.',
           child: ProfileChipSelector(
             options: UserProfile.avoidIngredientOptions,
@@ -170,7 +150,7 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'N. Shopping preference',
+          title: 'L. Shopping preference',
           child: _SingleChoiceWrap(
             options: UserProfile.shoppingPreferenceOptions,
             selected: draft.shoppingPreference,
@@ -179,7 +159,7 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'O. Leftover preference',
+          title: 'M. Leftover preference',
           helper: 'Helps leftover generator and batch-cooking suggestions.',
           child: _SingleChoiceWrap(
             options: UserProfile.leftoverPreferenceOptions,
@@ -189,7 +169,7 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'P. Kitchen equipment',
+          title: 'N. Kitchen equipment',
           child: ProfileChipSelector(
             options: UserProfile.equipmentOptions,
             selected: draft.kitchenEquipment.toSet(),
@@ -202,7 +182,7 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'Q. Preferred cooking methods',
+          title: 'O. Preferred cooking methods',
           child: ProfileChipSelector(
             options: UserProfile.cookingMethodOptions,
             selected: draft.cookingMethods.toSet(),
@@ -219,7 +199,7 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'R. Favourite meal categories',
+          title: 'P. Favourite meal categories',
           child: ProfileChipSelector(
             options: UserProfile.favouriteCategoryOptions,
             selected: draft.favouriteCategories.toSet(),
@@ -232,7 +212,7 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'S. Sustainability',
+          title: 'Q. Sustainability',
           child: ProfileChipSelector(
             options: UserProfile.sustainabilityOptions,
             selected: draft.sustainabilityPrefs.toSet(),
@@ -245,7 +225,7 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'T. Spice level',
+          title: 'R. Spice level',
           child: _LabeledSlider(
             value: draft.spiceLevel,
             left: 'Mild',
@@ -255,7 +235,7 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'U. Openness to new cuisines',
+          title: 'S. Openness to new cuisines',
           child: _LabeledSlider(
             value: draft.opennessToNewCuisines,
             left: 'Familiar only',
@@ -265,8 +245,8 @@ class ProfileFormContent extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         SectionCard(
-          title: 'V. Openness to AI suggestions',
-          helper: 'Safe recipes vs surprise me.',
+          title: 'T. Openness to AI suggestions',
+          helper: 'Safer familiar picks vs more surprising suggestions.',
           child: _LabeledSlider(
             value: draft.aiSurprise,
             left: 'Safe recipes',

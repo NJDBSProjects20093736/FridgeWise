@@ -370,7 +370,7 @@ Visual overview: `deploy/ThriftyChef_Screen_Set.png`
 
 ---
 
-## 19. Lecture extensions (CA01 bonus)
+## 19. Clustering, case-based retrieval, and SHAP
 
 The ThriftyChef API enriches **Why recommended** bullets with lecture topics — no UI changes required. Open any recipe detail card to see the extra lines.
 

@@ -27,7 +27,7 @@ def default_profile(user_id: int) -> dict:
         "mood": "comfort",
         "food_waste_priority": 0.7,
         "cooking_skill": "intermediate",
-        "max_cook_minutes": 45,
+        "max_cook_minutes": 0,
         "meal_types": [],
         "budget": "normal",
         "kitchen_equipment": [],

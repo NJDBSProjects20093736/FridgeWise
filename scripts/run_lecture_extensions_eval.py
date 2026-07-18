@@ -1,4 +1,4 @@
-"""Evaluate lecture extensions: K-Means clustering, case-based, SHAP readiness."""
+"""Evaluate clustering, case-based retrieval, and SHAP explainability helpers."""
 
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ def main() -> None:
     from src.models.explainability import RecommendationExplainer
     from src.models.popularity import PopularityRecommender
 
-    print("=== ThriftyChef — Lecture extensions evaluation ===\n")
+    print("=== ThriftyChef — clustering, case-based, and SHAP ===\n")
     data = load_fridgewise_data(root)
 
     cluster_metrics = evaluate_cluster_model(data.profiles, n_clusters=5)
