@@ -372,14 +372,14 @@ Visual overview: `deploy/ThriftyChef_Screen_Set.png`
 
 ## 19. Clustering, case-based retrieval, and SHAP
 
-The ThriftyChef API enriches **Why recommended** bullets with lecture topics — no UI changes required. Open any recipe detail card to see the extra lines.
+The ThriftyChef API can enrich **Why recommended** bullets with clustering, case-based, and SHAP notes — no UI changes required. Open any recipe detail card to see the extra lines.
 
 | Technique | Where it appears | What you see |
 |-----------|------------------|--------------|
 | **K-Means clustering** | Cold-start users | `K-Means cluster N: grouped with similar taste profiles` |
 | **Case-based reasoning** | All users with fridge items | `Case-based: similar fridge (...) matched Case X` |
 | **Counterfactual** | When recipe has missing ingredients | `Counterfactual: adding X could raise case-match` |
-| **SHAP (bonus)** | Recipe explanation endpoint | `SHAP explainability — top drivers` with top-3 features |
+| **SHAP** | Recipe explanation endpoint | `SHAP explainability — top drivers` with top-3 features |
 
 ### How to demo in the app
 

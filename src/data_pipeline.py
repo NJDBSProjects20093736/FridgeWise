@@ -121,7 +121,7 @@ def apply_k_core_filter(
     """
     Iterative k-core filter on user-recipe interactions.
 
-    Returns filtered interactions and before/after stats for the report.
+    Returns filtered interactions and before/after stats.
     """
     df = interactions.copy()
     stats_before = {
