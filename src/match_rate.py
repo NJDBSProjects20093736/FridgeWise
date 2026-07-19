@@ -1,7 +1,7 @@
 """
 Fridge ↔ recipe ingredient match-rate analysis.
 
-Produces before/after normalisation metrics and a chart for the report appendix.
+Produces before/after normalisation metrics and a chart for documentation.
 """
 
 from __future__ import annotations

@@ -1,4 +1,4 @@
-"""Lecture extensions: clustering, case-based reasoning, SHAP."""
+"""Optional enrichment helpers: clustering, case-based retrieval, and SHAP."""
 
 from __future__ import annotations
 
@@ -12,6 +12,8 @@ from src.models.explainability import RecommendationExplainer
 
 
 class LectureExtensionService:
+    """Attaches cluster, case-based, and optional SHAP notes to explanations."""
+
     def __init__(self) -> None:
         self.cluster: ColdStartClusterRecommender | None = None
         self.case_based: CaseBasedRecommender | None = None
